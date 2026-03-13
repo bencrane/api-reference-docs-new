@@ -38,15 +38,15 @@ End users can do the following:
 
 WhatsApp chat showing payment template with items Apple, Orange totaling R$5,99 and order status processing.
 
-Expand image
+*Expand image*
 
 Charge details with items Apple and Orange, total R$ 5,99, pay with Pix option.
 
-Expand image
+*Expand image*
 
 pay content template 2- message preview.
 
-Expand image
+*Expand image*
 
 ## Data parameters
 
@@ -64,16 +64,18 @@ Expand image
 | total_amount | string | Yes | Yes | Total cost of items and all fees. Only digital goods are permitted and the subtotal must equal the total. |
 | pix | object | Yes | Yes | Order Status or Order Details. |
 
-## pix properties
+### pix properties
 
 | Property | Parameters |
 |---|---|
-| ORDER_DETAILS | `type`: ORDER_DETAILS<br>`code`: Pix code string.<br>`key_type`: One of the following enums: CPF, CNPJ, EMAIL, PHONE, EVP<br>`key`: String type. Pix key. |
-| ORDER_STATUS | `type`: ORDER_STATUS<br>`status`: One of the following statuses: pending, processing, partially-shipped, shipped, completed, canceled |
+| ORDER_DETAILS | `type`: ORDER_DETAILS; `code`: Pix code string; `key_type`: One of the following enums: CPF, CNPJ, EMAIL, PHONE, EVP; `key`: String type. Pix key. |
+| ORDER_STATUS | `type`: ORDER_STATUS; `status`: One of the following statuses: pending, processing, partially-shipped, shipped, completed, canceled |
 
 ## Code examples and responses
 
 ### Create an order details message
+
+**curl**
 
 ```bash
 curl -X POST 'https://content.twilio.com/v1/Content' \
@@ -105,7 +107,7 @@ curl -X POST 'https://content.twilio.com/v1/Content' \
 }'
 ```
 
-#### Output
+**Output**
 
 ```json
 {
@@ -150,6 +152,8 @@ curl -X POST 'https://content.twilio.com/v1/Content' \
 
 ### Create an order status message
 
+**curl**
+
 ```bash
 curl -X POST 'https://content.twilio.com/v1/Content' \
 -H 'Content-Type: application/json' \
@@ -176,7 +180,7 @@ curl -X POST 'https://content.twilio.com/v1/Content' \
 }'
 ```
 
-#### Output
+**Output**
 
 ```json
 {

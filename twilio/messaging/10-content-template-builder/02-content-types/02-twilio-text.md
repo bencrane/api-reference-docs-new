@@ -14,7 +14,7 @@ The `twilio/text` content type contains only plain text-based content. While you
 
 ## Message preview
 
-Expand image
+*Expand image*
 
 ## Data parameters
 
@@ -26,7 +26,7 @@ Expand image
 
 ### Create a text template
 
-**C# / Java / curl**
+**C#**
 
 ```csharp
 // Install the C# / .NET helper library from twilio.com/docs/csharp/install
@@ -57,7 +57,7 @@ var contentTemplate = await CreateAsync(contentCreateRequest.Build());
 Console.WriteLine($"Created Twilio Content Template SID: {contentTemplate.Sid}");
 ```
 
-### Output
+**Output**
 
 ```json
 {

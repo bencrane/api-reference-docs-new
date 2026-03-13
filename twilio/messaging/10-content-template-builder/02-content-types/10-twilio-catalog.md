@@ -22,7 +22,7 @@ End users can do the following:
 
 Strawberry priced at $4.00 with fresh fruit deals by the kilo.
 
-Expand image
+*Expand image*
 
 - Sends one product and information about that product to your customers.
 - Only available within a 24 hour customer service window.
@@ -33,7 +33,7 @@ Expand image
 
 Message preview with strawberry, titled 'The Menu: Tropical Fruits', 2 items.
 
-Expand image
+*Expand image*
 
 - Sends 1 to 30 products and information about those products to your customers.
 - Available in session and as an out of session approve content template.
@@ -44,7 +44,7 @@ Expand image
 
 WhatsApp message preview of Twilio's fruit menu catalog with a strawberry.
 
-Expand image
+*Expand image*
 
 - Sends all product and information about that product to your customers.
 - This functionality must be enabled for your sender
@@ -56,32 +56,32 @@ Expand image
 1. Navigate to your WhatsApp Business Account (WABA).
 
    WhatsApp senders page showing business verification and sender details with status online.
-
-   Expand image
+   
+   *Expand image*
 
 2. In your WhatsApp Business Account, click the three horizontal lines in the left navigation bar and go to your Commerce Manager.
 
    Meta Business Suite showing Commerce Manager shortcut and WhatsApp account limits.
-
-   Expand image
+   
+   *Expand image*
 
 3. In the Catalogs section, click Add catalog and select the relevant catalog type. You will then be asked to give the catalog a name. Select the catalog use case and once the catalog is created, click View Catalog. Do not edit the Catalog owner.
 
    Commerce Manager showing strawberries item with content ID fhoQqwubgd, in stock for $1.00.
-
-   Expand image
+   
+   *Expand image*
 
 ### Add items to your catalog
 
-Next we will add items to the catalog. Click into the catalog.
+1. Next we will add items to the catalog. Click into the catalog.
 
-content api - message preview.
+   content api - message preview.
+   
+   *Expand image*
 
-Expand image
+2. Meta offers multiple ways to upload items. The easiest way to get started is to manually add items in the UI. In addition, Meta allows you to add items in more advanced scalable ways. You can upload a sheet using data feeds where you can provide a template to fill out. Partner platforms connect your catalog directly to your Shopify/BigCommerce site. If you choose to do manual upload or data feed, you will be can add a SKU number item ID called content id in the UI. These must be unique values in each catalog. Additionally you will need to add a title, description, availability status, condition of item, price, link to item, link to image of item, and brand of item for each item in the catalog.
 
-Meta offers multiple ways to upload items. The easiest way to get started is to manually add items in the UI. In addition, Meta allows you to add items in more advanced scalable ways. You can upload a sheet using data feeds where you can provide a template to fill out. Partner platforms connect your catalog directly to your Shopify/BigCommerce site. If you choose to do manual upload or data feed, you will be can add a SKU number item ID called content id in the UI. These must be unique values in each catalog. Additionally you will need to add a title, description, availability status, condition of item, price, link to item, link to image of item, and brand of item for each item in the catalog.
-
-You will need to take note of the item's "Content ID".
+3. You will need to take note of the item's "Content ID".
 
 > ℹ️ **Info**
 > In Meta's UI, the item ID is called "Content ID".
@@ -92,7 +92,7 @@ You will need to take note of the item's "Content ID".
 
 content api - message preview.
 
-Expand image
+*Expand image*
 
 ### Connect your Catalog to your WhatsApp Business Manager
 
@@ -101,8 +101,8 @@ Expand image
 2. Under Account tools, go to Catalog to connect your Catalog. The same catalog can't be used by multiple WhatsApp Business Accounts.
 
    WhatsApp Manager interface with option to connect a catalog.
-
-   Expand image
+   
+   *Expand image*
 
 > ℹ️ **Info**
 > Before creating a catalog template, you must create a catalog in your Meta Commerce Manager which can be found in your Meta Business Manager.
@@ -119,7 +119,7 @@ First, find the Catalog ID in your Meta Commerce Manager in the Catalogs section
 
 content api - message preview.
 
-Expand image
+*Expand image*
 
 > ⚠️ **Warning**
 > If you are sending one item in an approved templated message, it will be sent and approved as a multi-product message.
@@ -136,11 +136,11 @@ You will also need to define the items you will send. You can either do this by 
 
 WhatsApp catalog preview with fruit menu and great deals subtitle.
 
-Expand image
+*Expand image*
 
 Menu displaying tropical fruits with prices, including strawberry for $4 and lychee for $8.
 
-Expand image
+*Expand image*
 
 | Parameter | Type | Required | Variable support | Description |
 |---|---|---|---|---|
@@ -151,7 +151,7 @@ Expand image
 | items | array | Yes, if dynamic_items isn't defined. | No | Array of static items to be sent. |
 | dynamic_items | array | Yes, if items isn't defined. | Yes | Rule: It should only have a placeholder. Required for dynamic catalog items. At the time of content creation, customers can mention a placeholder for example {{products}}. At the time of sending a message, customers can pass products as variables. |
 
-## items and dynamic_items properties
+### items and dynamic_items properties
 
 | Property | Type | Required | Variable support | Description |
 |---|---|---|---|---|
@@ -167,6 +167,8 @@ This request creates a content template that will send a fixed list. You can use
 If dynamic items is defined in creation, at least one additional dynamic item must be added to send. For this example, if more than one dynamic items are added, the item with id value of 48rme2i4po will always be sent first and all items defined in {{products}} at send will follow.
 
 #### Create static catalog template
+
+**curl**
 
 ```bash
 curl -X POST 'https://content.twilio.com/v1/Content' \
@@ -189,7 +191,7 @@ curl -X POST 'https://content.twilio.com/v1/Content' \
 }'
 ```
 
-#### Output
+**Output**
 
 ```json
 {
@@ -240,6 +242,8 @@ This request will send an end user your entire catalog. The title is prefixed by
 
 #### Create full catalog template
 
+**curl**
+
 ```bash
 curl -X POST 'https://content.twilio.com/v1/Content' \
 -H 'Content-Type: application/json' \
@@ -260,7 +264,7 @@ curl -X POST 'https://content.twilio.com/v1/Content' \
   }'
 ```
 
-#### Output
+**Output**
 
 ```json
 {
@@ -303,6 +307,8 @@ If you are sending within a 24 hour session, we recommend creating one content t
 
 #### Create catalog template with dynamic items
 
+**curl**
+
 ```bash
 curl -X POST 'https://content.twilio.com/v1/Content' \
 -H 'Content-Type: application/json' \
@@ -323,7 +329,7 @@ curl -X POST 'https://content.twilio.com/v1/Content' \
 }'
 ```
 
-#### Output
+**Output**
 
 ```json
 {
@@ -364,11 +370,13 @@ You can prefix items by specifying product IDs at the time of creation. If you c
 
 content api - message preview.
 
-Expand image
+*Expand image*
 
 ### Send message using dynamic catalog template
 
 The following code sample sends a Product Message with the dynamically set items defined above.
+
+**bash**
 
 ```bash
 CONTENTVARIABLES=$(cat << EOF

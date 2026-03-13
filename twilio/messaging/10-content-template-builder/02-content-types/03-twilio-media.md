@@ -31,7 +31,7 @@ The twilio/media content type allows you to send file attachments, or to send lo
 
 Twilio logo with message: Thank you for your order OrderNumber.
 
-Expand image
+*Expand image*
 
 ## Data parameters
 
@@ -43,6 +43,8 @@ Expand image
 ## Code examples and responses
 
 ### Create a media template
+
+**C#**
 
 ```csharp
 // Install the C# / .NET helper library from twilio.com/docs/csharp/install
@@ -78,7 +80,7 @@ var contentTemplate = await CreateAsync(contentCreateRequest.Build());
 Console.WriteLine($"Created Twilio Content Template SID: {contentTemplate.Sid}");
 ```
 
-### Output
+**Output**
 
 ```json
 {
