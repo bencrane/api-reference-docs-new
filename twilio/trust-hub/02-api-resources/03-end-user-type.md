@@ -1,37 +1,30 @@
-# EndUser Resource
+# EndUserType Resource
 
-## EndUser Properties
+## EndUserType Properties
 
 | Property name | Type | Required | PII | Description |
 |---------------|------|----------|-----|-------------|
-| sid | SID<IT> | Optional | Not PII | The unique string created by Twilio to identify the End User resource. Pattern: `^IT[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
-| account_sid | SID<AC> | Optional | Not PII | The SID of the Account that created the End User resource. Pattern: `^AC[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
-| friendly_name | string | Optional | Not PII | The string that you assigned to describe the resource. |
-| type | string | Optional | Not PII | The type of end user of the Bundle resource - can be individual or business. |
-| attributes | object | Optional | PII MTL: 30 days | The set of parameters that are the attributes of the End Users resource which are listed in the End User Types. |
-| date_created | string<date-time> | Optional | Not PII | The date and time in GMT when the resource was created specified in ISO 8601 format. |
-| date_updated | string<date-time> | Optional | Not PII | The date and time in GMT when the resource was last updated specified in ISO 8601 format. |
-| url | string<uri> | Optional | Not PII | The absolute URL of the End User resource. |
+| `sid` | SID\<OY\> | Optional | Not PII | The unique string that identifies the End-User Type resource. Pattern: `^OY[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
+| `friendly_name` | string | Optional | Not PII | A human-readable description that is assigned to describe the End-User Type resource. Examples can include first name, last name, email, business name, etc. |
+| `machine_name` | string | Optional | Not PII | A machine-readable description of the End-User Type resource. Examples can include first_name, last_name, email, business_name, etc. |
+| `fields` | array | Optional | Not PII | The required information for creating an End-User. The required fields will change as regulatory needs change and will differ for businesses and individuals. |
+| `url` | string\<uri\> | Optional | Not PII | The absolute URL of the End-User Type resource. |
 
 ---
 
-## Create an EndUser resource
+## Fetch a Specific End-User Type Instance
 
 ```
-POST https://trusthub.twilio.com/v1/EndUsers
+GET https://trusthub.twilio.com/v1/EndUserTypes/{Sid}
 ```
 
-### Request body parameters
-
-Encoding type: `application/x-www-form-urlencoded`
+### Path Parameters
 
 | Property name | Type | Required | PII | Description |
 |---------------|------|----------|-----|-------------|
-| friendly_name | string | required | Not PII | The string that you assigned to describe the resource. |
-| type | string | required | Not PII | The type of end user of the Bundle resource - can be individual or business. |
-| attributes | object | Optional | PII MTL: 30 days | The set of parameters that are the attributes of the End User resource which are derived End User Types. |
+| `sid` | string | required | Not PII | The unique string that identifies the End-User Type resource. |
 
-### Create an EndUser
+### Example: Fetch an EndUserType
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -44,50 +37,71 @@ account_sid = os.environ["TWILIO_ACCOUNT_SID"]
 auth_token = os.environ["TWILIO_AUTH_TOKEN"]
 client = Client(account_sid, auth_token)
 
-end_user = client.trusthub.v1.end_users.create(
-    friendly_name="FriendlyName", type="Type"
-)
+end_user_type = client.trusthub.v1.end_user_types("Sid").fetch()
 
-print(end_user.sid)
+print(end_user_type.sid)
 ```
 
 ### Response
 
 ```json
 {
-  "date_updated": "2021-02-16T20:40:57Z",
-  "sid": "ITaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "friendly_name": "FriendlyName",
-  "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "url": "https://trusthub.twilio.com/v1/EndUsers/ITaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "date_created": "2021-02-16T20:40:57Z",
-  "attributes": {
-    "phone_number": "+11234567890",
-    "job_position": "CEO",
-    "first_name": "rep1",
-    "last_name": "test",
-    "business_title": "ceo",
-    "email": "foobar@test.com"
-  },
-  "type": "Type"
+  "url": "https://trusthub.twilio.com/v1/EndUserTypes/OYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "fields": [
+    {
+      "machine_name": "last_name",
+      "friendly_name": "Last Name",
+      "constraint": "String"
+    },
+    {
+      "machine_name": "email",
+      "friendly_name": "Email",
+      "constraint": "String"
+    },
+    {
+      "machine_name": "first_name",
+      "friendly_name": "First Name",
+      "constraint": "String"
+    },
+    {
+      "machine_name": "business_title",
+      "friendly_name": "Business Title",
+      "constraint": "String"
+    },
+    {
+      "machine_name": "phone_number",
+      "friendly_name": "Phone Number",
+      "constraint": "String"
+    },
+    {
+      "machine_name": "job_position",
+      "friendly_name": "Job Position",
+      "constraint": "String"
+    }
+  ],
+  "machine_name": "authorized_representative_1",
+  "friendly_name": "Authorized Representative one",
+  "sid": "Sid"
 }
 ```
 
 ---
 
-## Fetch an EndUser resource
+## Retrieve a List of All End-User Types
 
 ```
-GET https://trusthub.twilio.com/v1/EndUsers/{Sid}
+GET https://trusthub.twilio.com/v1/EndUserTypes
 ```
 
-### Path parameters
+### Query Parameters
 
 | Property name | Type | Required | PII | Description |
 |---------------|------|----------|-----|-------------|
-| sid | SID<IT> | required | Not PII | The unique string created by Twilio to identify the End User resource. Pattern: `^IT[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
+| `page_size` | integer\<int64\> | Optional | Not PII | How many resources to return in each list page. The default is 50, and the maximum is 1000. Minimum: 1, Maximum: 1000 |
+| `page` | integer | Optional | Not PII | The page index. This value is simply for client state. Minimum: 0 |
+| `page_token` | string | Optional | Not PII | The page token. This is provided by the API. |
 
-### Fetch an EndUser
+### Example: List Multiple EndUserTypes
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -100,67 +114,9 @@ account_sid = os.environ["TWILIO_ACCOUNT_SID"]
 auth_token = os.environ["TWILIO_AUTH_TOKEN"]
 client = Client(account_sid, auth_token)
 
-end_user = client.trusthub.v1.end_users(
-    "ITaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-).fetch()
+end_user_types = client.trusthub.v1.end_user_types.list(limit=20)
 
-print(end_user.sid)
-```
-
-### Response
-
-```json
-{
-  "date_updated": "2021-02-16T20:40:57Z",
-  "sid": "ITaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "friendly_name": "auth_rep_1",
-  "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "url": "https://trusthub.twilio.com/v1/EndUsers/ITaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "date_created": "2021-02-16T20:40:57Z",
-  "attributes": {
-    "phone_number": "+11234567890",
-    "job_position": "CEO",
-    "first_name": "rep1",
-    "last_name": "test",
-    "business_title": "ceo",
-    "email": "foobar@test.com"
-  },
-  "type": "authorized_representative_1"
-}
-```
-
----
-
-## Read multiple EndUser resources
-
-```
-GET https://trusthub.twilio.com/v1/EndUsers
-```
-
-### Query parameters
-
-| Property name | Type | Required | PII | Description |
-|---------------|------|----------|-----|-------------|
-| page_size | integer<int64> | Optional | Not PII | How many resources to return in each list page. The default is 50, and the maximum is 1000. Minimum: 1, Maximum: 1000 |
-| page | integer | Optional | Not PII | The page index. This value is simply for client state. Minimum: 0 |
-| page_token | string | Optional | Not PII | The page token. This is provided by the API. |
-
-### List multiple EndUsers
-
-```python
-# Download the helper library from https://www.twilio.com/docs/python/install
-import os
-from twilio.rest import Client
-
-# Find your Account SID and Auth Token at twilio.com/console
-# and set the environment variables. See http://twil.io/secure
-account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-auth_token = os.environ["TWILIO_AUTH_TOKEN"]
-client = Client(account_sid, auth_token)
-
-end_users = client.trusthub.v1.end_users.list(limit=20)
-
-for record in end_users:
+for record in end_user_types:
     print(record.sid)
 ```
 
@@ -168,110 +124,15 @@ for record in end_users:
 
 ```json
 {
-  "results": [],
+  "end_user_types": [],
   "meta": {
     "page": 0,
     "page_size": 50,
-    "first_page_url": "https://trusthub.twilio.com/v1/EndUsers?PageSize=50&Page=0",
+    "first_page_url": "https://trusthub.twilio.com/v1/EndUserTypes?PageSize=50&Page=0",
     "previous_page_url": null,
-    "url": "https://trusthub.twilio.com/v1/EndUsers?PageSize=50&Page=0",
+    "url": "https://trusthub.twilio.com/v1/EndUserTypes?PageSize=50&Page=0",
     "next_page_url": null,
-    "key": "results"
+    "key": "end_user_types"
   }
 }
-```
-
----
-
-## Update an EndUser resource
-
-```
-POST https://trusthub.twilio.com/v1/EndUsers/{Sid}
-```
-
-### Path parameters
-
-| Property name | Type | Required | PII | Description |
-|---------------|------|----------|-----|-------------|
-| sid | SID<IT> | required | Not PII | The unique string created by Twilio to identify the End User resource. Pattern: `^IT[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
-
-### Request body parameters
-
-Encoding type: `application/x-www-form-urlencoded`
-
-| Property name | Type | Required | PII | Description |
-|---------------|------|----------|-----|-------------|
-| friendly_name | string | Optional | Not PII | The string that you assigned to describe the resource. |
-| attributes | object | Optional | PII MTL: 30 days | The set of parameters that are the attributes of the End User resource which are derived End User Types. |
-
-### Update an EndUser
-
-```python
-# Download the helper library from https://www.twilio.com/docs/python/install
-import os
-from twilio.rest import Client
-
-# Find your Account SID and Auth Token at twilio.com/console
-# and set the environment variables. See http://twil.io/secure
-account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-auth_token = os.environ["TWILIO_AUTH_TOKEN"]
-client = Client(account_sid, auth_token)
-
-end_user = client.trusthub.v1.end_users(
-    "ITaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-).update(friendly_name="FriendlyName")
-
-print(end_user.sid)
-```
-
-### Response
-
-```json
-{
-  "date_updated": "2021-02-16T20:40:57Z",
-  "sid": "ITaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "friendly_name": "FriendlyName",
-  "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "url": "https://trusthub.twilio.com/v1/EndUsers/ITaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-  "date_created": "2021-02-16T20:40:57Z",
-  "attributes": {
-    "phone_number": "+11234567890",
-    "job_position": "CEO",
-    "first_name": "rep1",
-    "last_name": "test",
-    "business_title": "ceo",
-    "email": "foobar@test.com"
-  },
-  "type": "authorized_representative_1"
-}
-```
-
----
-
-## Delete an EndUser resource
-
-```
-DELETE https://trusthub.twilio.com/v1/EndUsers/{Sid}
-```
-
-### Path parameters
-
-| Property name | Type | Required | PII | Description |
-|---------------|------|----------|-----|-------------|
-| sid | SID<IT> | required | Not PII | The unique string created by Twilio to identify the End User resource. Pattern: `^IT[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
-
-### Delete an EndUser
-
-```python
-# Download the helper library from https://www.twilio.com/docs/python/install
-import os
-from twilio.rest import Client
-
-# Find your Account SID and Auth Token at twilio.com/console
-# and set the environment variables. See http://twil.io/secure
-account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-auth_token = os.environ["TWILIO_AUTH_TOKEN"]
-client = Client(account_sid, auth_token)
-
-client.trusthub.v1.end_users("ITaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").delete()
 ```
