@@ -17,4 +17,4 @@ This section contains all the possible enum values for various filters used in B
 | Continents | Continental geographic filter | 7 | View all Continents |
 | Company Types | Organization classifications | 10 | View all Company Types |
 | Country Codes | ISO 3166-1 alpha-2 location codes | 249+ | View all Country Codes |
-| Industry | Company industry categories | ~700 | View all Industries |
+| Industry | Company industry categories (LinkedIn taxonomy) | 534 | View all Industries |
