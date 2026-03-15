@@ -28,7 +28,7 @@ The following industry values appear explicitly in BlitzAPI documentation and ex
 | Software Development |
 | Technology, Information and Internet |
 
-> **Note:** The OpenAPI specification references the industry value `"Technology; Information and Internet"` (with semicolon) in one example, while other documentation uses `"Technology, Information and Internet"` (with comma). Both formats may be accepted — verify against the API.
+> **Note:** The canonical format is `"Technology, Information and Internet"` (with comma). An OpenAPI example contained a semicolon variant — disregard that; use the comma version.
 
 ---
 
