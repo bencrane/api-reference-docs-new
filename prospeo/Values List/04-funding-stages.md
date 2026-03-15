@@ -27,3 +27,33 @@ This page contains all the possible values as funding stages.
 - Initial coin offering
 - Post IPO secondary
 - Other event
+
+## JSON Array
+
+```json
+[
+  "Pre seed",
+  "Seed",
+  "Series A",
+  "Series B",
+  "Series C",
+  "Series D",
+  "Series E-J",
+  "Grant",
+  "Angel",
+  "Private equity",
+  "Debt financing",
+  "Non equity assistance",
+  "Post IPO equity",
+  "Undisclosed",
+  "Post IPO debt",
+  "Product crowdfunding",
+  "Equity crowdfunding",
+  "Corporate round",
+  "Convertible note",
+  "Secondary market",
+  "Initial coin offering",
+  "Post IPO secondary",
+  "Other event"
+]
+```
