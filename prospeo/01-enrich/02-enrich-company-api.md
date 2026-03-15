@@ -1,47 +1,57 @@
 # Enrich Company API
 
+## Enrich a company
+
 This endpoint allows you to enrich a company with its complete accurate B2B data.
 
-> **Tip:** When possible, use the Bulk Enrich Company endpoint instead for faster response time. It allows you to enrich up to 50 companies at once.
+**Important note:** When possible, it is recommended to use our Bulk Enrich Company endpoint instead for faster response time. It allows you to enrich up to 50 companies at once, instead of performing 50 individual requests.
 
-## How Are Credits Spent?
+## How are credits spent?
 
-- Enriching a company record costs **1 credit** per match.
-- You won't be charged if no results are found.
-- You won't be charged if you enrich the same record twice in the lifetime of your account.
+Enriching a company record cost 1 credit per match.
+
+You won't be charged if no results are found.
+
+You won't be charged if you enrich the same record twice in the lifetime of your account.
 
 ## Endpoint
 
-| | |
-|---|---|
-| **URL** | `https://api.prospeo.io/enrich-company` |
-| **Method** | `POST` |
-| **Headers** | `X-KEY: your_api_key` / `Content-Type: application/json` |
+* **URL:** `https://api.prospeo.io/enrich-company`
+* **Method:** `POST`
+* **Headers:**
+  * `X-KEY: your_api_key`
+  * `Content-Type: application/json`
 
 ## Parameters
 
-| Parameter | Example | Description |
-|-----------|---------|-------------|
-| `data` *(required)* | See below | The company to enrich. |
+| Parameter | Example value | Description |
+|-----------|--------------|-------------|
+| `data` (required) | See below | The company to enrich. See below for complete details. |
 
-## Data Parameter
+## Data parameter
 
-| Datapoint | Example | Description |
-|-----------|---------|-------------|
-| `company_website` *(optional)* | `deloitte.com` | The company website. |
-| `company_linkedin_url` *(optional)* | `https://linkedin.com/company/deloitte` | The company's LinkedIn URL. |
-| `company_name` *(optional)* | `Deloitte` | The company name. Discouraged as sole identifier — many companies share names. |
-| `company_id` *(optional)* | `cccc7c7da6116a8830a07100` | The `company_id` from a previously enriched company object. |
+The `data` parameter contains the datapoints you have for us to identify the company. We offer the following matching datapoints:
 
-## Minimum Requirements for Matching
+| Datapoint | Example value | Description |
+|-----------|--------------|-------------|
+| `company_website` (optional) | deloitte.com | The company website. |
+| `company_linkedin_url` (optional) | https://linkedin.com/company/deloitte | The company's LinkedIn URL. |
+| `company_name` (optional) | Deloitte | The company name. We discourage using solely the company name for enrichment, as many company have the same name. Prioritize the `company_website` or `company_linkedin_url`. |
+| `company_id` (optional) | cccc7c7da6116a8830a07100 | The `company_id` from a previously enriched company object. You can use this to directly enrich a company by its ID. |
 
-At least one of the above datapoints is required.
+## Minimum requirements for matching
 
-> **Note #1:** Strongly avoid using only `company_name` — many companies share the same name. Use `company_website` whenever possible.
+We require at least one of the above datapoints to accurately match a company.
 
-> **Note #2:** The more datapoints you submit, the better the accuracy.
+**Important note #1:** We advise strongly against using only the `company_name` for matching. Many company have the same name, and this can result in mismatch/inaccurate results. Whenever possible, try to use at least the `company_website`.
 
-## Example Request
+**Important note #2:** the more datapoints you submit, the better, so whenever possible, submit everything you have for greater accuracy. For example, it is better to submit `company_website` and `company_linkedin_url` together rather than just one of them.
+
+## Example request
+
+Simple request that always returns a result if a company is matched.
+
+In this example, we used the `company_website`. This request will perform better than a request with only the `company_name`.
 
 ```
 POST "https://api.prospeo.io/enrich-company"
@@ -57,7 +67,7 @@ Content-Type: "application/json"
 
 ## Response
 
-Returns a `company` object with all available fields. When a field is unavailable, it will be `null`.
+This response contains all the possible fields and their example value. When a field is unavailable, it will be `null`.
 
 ```json
 {
@@ -69,12 +79,13 @@ Returns a `company` object with all available fields. When a field is unavailabl
         "website": "https://intercom.com",
         "domain": "intercom.io",
         "other_websites": [],
-        "description": "Intercom is the only complete AI-first customer service platform...",
-        "description_seo": "Intercom is the complete AI-first customer service solution...",
-        "description_ai": "Intercom is an AI-first customer service solution...",
+        "description": "Intercom is the only complete AI-first customer service platform, enhancing the customer experience, improving operational efficiency, and scaling with your business every step of the way.",
+        "description_seo": "Intercom is the complete AI-first customer service solution, giving exceptional experiences for support teams with AI agent, AI copilot, tickets, phone & more",
+        "description_ai": "Intercom is an AI-first customer service solution that provides exceptional experiences for support teams with AI agent, AI copilot, tickets, phone, and more.",
         "type": "Private",
         "industry": "Software Development",
         "employee_count": 1822,
+        "employee_count_on_prospeo": 437,
         "employee_range": "1001-2000",
         "location": {
             "country": "United States",
@@ -110,12 +121,22 @@ Returns a `company` object with all available fields. When a field is unavailabl
         },
         "revenue_range_printed": "100M",
         "keywords": [
-            "Customer Support", "Live Chat", "Marketing Automation",
-            "Customer Relationship Management", "Customer Experience",
-            "Customer Engagement", "Customer Service", "Mobile",
-            "Customer Feedback", "AI", "Helpdesk", "CX",
-            "Chat Bots", "Customer Communication",
-            "Support Automation", "Shared Inbox"
+            "Customer Support",
+            "Live Chat",
+            "Marketing Automation",
+            "Customer Relationship Management",
+            "Customer Experience",
+            "Customer Engagement",
+            "Customer Service",
+            "Mobile",
+            "Customer Feedback",
+            "AI",
+            "Helpdesk",
+            "CX",
+            "Chat Bots",
+            "Customer Communication",
+            "Support Automation",
+            "Shared Inbox"
         ],
         "logo_url": "https://prospeo-static-assets.s3.us-east-1.amazonaws.com/company_logo/9ded0364-c88a-4789-9d39-2a15ed239edb.jpg",
         "attributes": {
@@ -153,14 +174,30 @@ Returns a `company` object with all available fields. When a field is unavailabl
         "technology": {
             "count": 43,
             "technology_names": [
-                "6sense", "theTradeDesk", "Amazon SES",
-                "Contentful", "Node.js", "Tailwind CSS"
+                "6sense",
+                "theTradeDesk",
+                "Amazon SES",
+                "Contentful",
+                "Node.js",
+                "Tailwind CSS"
             ],
             "technology_list": [
-                { "name": "6sense", "category": "Marketing automation" },
-                { "name": "theTradeDesk", "category": "Advertising" },
-                { "name": "Amazon SES", "category": "Email" },
-                { "name": "Contentful", "category": "CMS" }
+                {
+                    "name": "6sense",
+                    "category": "Marketing automation"
+                },
+                {
+                    "name": "theTradeDesk",
+                    "category": "Advertising"
+                },
+                {
+                    "name": "Amazon SES",
+                    "category": "Email"
+                },
+                {
+                    "name": "Contentful",
+                    "category": "CMS"
+                }
             ]
         },
         "job_postings": {
@@ -175,21 +212,21 @@ Returns a `company` object with all available fields. When a field is unavailabl
 }
 ```
 
-## Response Details
+## Response details
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `error` | boolean | `false` if successful, `true` if error (with `error_code` property). |
-| `free_enrichment` | boolean | `true` if you enriched this record before (no charge). |
-| `company` | object | The matched company record. |
+| `error` | boolean | Indicates if an error has occurred. If `false`, the request was successful. If `true`, an error has occurred and a `error_code` property will be present. See below. |
+| `free_enrichment` | boolean | Indicates whether you were charged. This will be `true` if you enriched the record in the past. |
+| `company` | object | The matched company. |
 
-## Error Codes
+## Error codes
 
-| HTTP Code | `error_code` | Meaning |
-|-----------|-------------|---------|
-| `400` | `NO_MATCH` | Couldn't match data to a company record. |
-| `400` | `INSUFFICIENT_CREDITS` | Not enough credits. |
-| `401` | `INVALID_API_KEY` | Invalid API key — check `X-KEY` header. |
-| `429` | `RATE_LIMITED` | Rate limit hit for your plan. |
-| `400` | `INVALID_REQUEST` | The submitted request is invalid. |
-| `400` | `INTERNAL_ERROR` | Server-side error — contact support. |
+| HTTP code | `error_code` property | Meaning |
+|-----------|----------------------|---------|
+| 400 | `NO_MATCH` | We couldn't match the data you provided with a company record. |
+| 400 | `INSUFFICIENT_CREDITS` | You do not have enough credit to perform the request. |
+| 401 | `INVALID_API_KEY` | Invalid API key, check your `X-KEY` header. |
+| 429 | `RATE_LIMITED` | You hit the rate limit for your current plan. |
+| 400 | `INVALID_REQUEST` | The request your submitted is invalid. |
+| 400 | `INTERNAL_ERROR` | An error occurred on our side, please contact the support. |

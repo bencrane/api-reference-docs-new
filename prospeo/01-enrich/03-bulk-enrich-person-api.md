@@ -1,64 +1,82 @@
 # Bulk Enrich Person API
 
-Enrich up to 50 person records at once while staying blazing-fast.
+## Enrich up to 50 person records at once
 
-## How Are Credits Spent?
+This endpoint allows you to enrich multiple person's in one request while staying blazing-fast.
 
-Credit spending works the same as the single Enrich Person endpoint and can be controlled the same way (`only_verified_email`, `enrich_mobile`, `only_verified_mobile`). See the Enrich Person credit section for details.
+## How are credits spent?
+
+Credit spending using this endpoints depends on the enrichment parameters you submit and the matches that are returned.
+
+The credit system works in the same way as the unique Enrich Person endpoint, and it can be controlled in the same way (using `only_verified_email`, `enrich_mobile`, `only_verified_mobile`).
+
+Please refer to the Enrich Person endpoint to understand how credits are spent.
 
 ## Endpoint
 
-| | |
-|---|---|
-| **URL** | `https://api.prospeo.io/bulk-enrich-person` |
-| **Method** | `POST` |
-| **Headers** | `X-KEY: your_api_key` / `Content-Type: application/json` |
+* **URL:** `https://api.prospeo.io/bulk-enrich-person`
+* **Method:** `POST`
+* **Headers:**
+  * `X-KEY: your_api_key`
+  * `Content-Type: application/json`
 
 ## Parameters
 
-| Parameter | Example | Description |
-|-----------|---------|-------------|
-| `only_verified_email` *(optional)* | `true` | Only return records with a verified email. Default `false`. |
-| `enrich_mobile` *(optional)* | `true` | Enrich the mobile (if it exists). |
-| `only_verified_mobile` *(optional)* | `true` | Only return records with a mobile. Default `false`. If `true`, `enrich_mobile` is automatically `true`. |
-| `data` *(required)* | See below | The records to enrich (up to 50 at once). |
+The parameters are the same as the unique Enrich Person endpoint, except for the `data` parameter.
 
-## Data Parameter
+| Parameter | Example value | Description |
+|-----------|--------------|-------------|
+| `only_verified_email` (optional) | `true` | Chose if you only want records with a verified email to be returned. Default is `false`. |
+| `enrich_mobile` (optional) | `true` | Chose if you want to enrich the mobile (if it exists). |
+| `only_verified_mobile` (optional) | `true` | Chose if you only want records with a mobile to be returned. Default is `false`. If `true`, `enrich_mobile` will automatically be `true`. |
+| `data` (required) | See below | The records to enrich (up to 50 at once). See below for complete details. |
 
-The `data` parameter is a **list** of person objects to enrich. Each object accepts:
+## Data parameter
 
-| Datapoint | Example | Description |
-|-----------|---------|-------------|
-| `identifier` *(required)* | `1234abcd` | A random alphanumeric string you generate to reconcile matches in the response. |
-| `first_name` *(optional)* | `Roger` | The first name of the person |
-| `last_name` *(optional)* | `Sterling` | The last name of the person |
-| `full_name` *(optional)* | `Roger Sterling` | The full name of the person |
-| `linkedin_url` *(optional)* | `https://www.linkedin.com/in/roger-sterling` | The person's public LinkedIn URL |
-| `email` *(optional)* | `roger.sterling@deloitte.com` | The work email of the person |
-| `company_name` *(optional)* | `Deloitte` | The company name |
-| `company_website` *(optional)* | `deloitte.com` | The company website |
-| `company_linkedin_url` *(optional)* | `https://linkedin.com/company/deloitte` | The company's public LinkedIn URL |
-| `person_id` *(optional)* | `6f745841665155f554e5f` | ID from the `/search-person` endpoint |
+The `data` parameter for the `/bulk-enrich-person` endpoint is a list of all the persons you wish to enrich.
 
-## Minimum Requirements for Matching
+The `data` parameter contains the datapoints you have for us to identify the record. We offer the following matching datapoints:
 
-Same as the single Enrich Person endpoint:
+| Datapoint | Example value | Description |
+|-----------|--------------|-------------|
+| `identifier` (required) | 1234abcd | A random alpha-numeric string generated on your side to identify the specific matching object. This will be used when you parse the response, to attributes which data object represents which match in the response. |
+| `first_name` (optional) | Roger | The first name of the person |
+| `last_name` (optional) | Sterling | The last name of the person |
+| `full_name` (optional) | Roger Sterling | The full name of the person |
+| `linkedin_url` (optional) | https://www.linkedin.com/in/roger-sterling | The person's public LinkedIn URL |
+| `email` (optional) | roger.sterling@deloitte.com | The work email of the person |
+| `company_name` (optional) | Deloitte | The company name |
+| `company_website` (optional) | deloitte.com | The company website |
+| `company_linkedin_url` (optional) | https://linkedin.com/company/deloitte | The company's public LinkedIn URL |
+| `person_id` (optional) | 6f745841665155f554e5f | If enriching from search: the ID of the person from the `/search-person` endpoint |
 
-- `first_name` + `last_name` + any of (`company_name` / `company_website` / `company_linkedin_url`)
-- `full_name` + any of (`company_name` / `company_website` / `company_linkedin_url`)
-- `linkedin_url`
-- `email`
-- `person_id`
+## Minimum requirements for matching
 
-> **Note:** Parameters like `only_verified_email` apply to **all** objects in the request.
+We require at a minimum the below datapoints together in one data object (allowing us to accurately identify the person):
 
-## Enrich Records from Search API
+* `first_name` + `last_name` + any of (`company_name`/`company_website`/`company_linkedin_url`)
+* `full_name` + any of (`company_name`/`company_website`/`company_linkedin_url`)
+* `linkedin_url`
+* `email`
+* `person_id` (enrich from `/search-person`)
 
-Use the `person_id` from `/search-person` results to enrich records. This will identify the person and enrich per your options (`only_verified_email`, `only_verified_mobile`, `enrich_mobile`).
+**Important note #1:** We advise strongly against using only the `company_name` for matching. Many company have the same name, and this can result in mismatch/inaccurate results. Whenever possible, try to use at least the `company_website`.
 
-## Example Request
+**Important note #2:** the more datapoints you submit, the better, so whenever possible, submit everything you have for greater accuracy. For example, it is better to submit `company_website` and `company_linkedin_url` together rather than just one of them.
 
-In this example, identifier `4` does not meet minimum matching requirements and will appear in `invalid_datapoints`. Identifier `7` uses a `person_id` from `/search-person`.
+## Enrich records from our search API
+
+Another way to enrich records is to use the `person_id` you get from the search results (`/search-person`) to this endpoint. This will identify the person and enrich as per your option (`only_verified_email`, `only_verified_mobile`, `enrich_mobile`).
+
+## Example request
+
+Whenever a parameter such as `only_verified_email`, it will apply to all of the object in the request.
+
+We generated our own identifier (1,2,3,4,5,6,7) so that in case of a match, we can reconcile it with the response.
+
+In the below request, the identifier 4 does not match the minimum matching requirements of a data object. Hence, this record will be ignored and provided in the `invalid_datapoints` list of the response.
+
+We also enriched the identifier 7 by using its `person_id` we got from the `/search-person` endpoint.
 
 ```
 POST "https://api.prospeo.io/bulk-enrich-person"
@@ -103,12 +121,15 @@ Content-Type: "application/json"
        {
            "identifier": "7",
            "person_id": "6f564548455488874f48e"
-       }
+       },
+       ... up to 50 objects
    ]
 }
 ```
 
 ## Response
+
+The response structure is as follow:
 
 ```json
 {
@@ -119,47 +140,63 @@ Content-Type: "application/json"
     "matched": [
         {
             "identifier": "1",
-            "person": { ... },
-            "company": { ... }
+            "person": {
+                ...
+            },
+            "company": {
+                ...
+            }
         },
         {
             "identifier": "5",
-            "person": { ... },
-            "company": { ... }
+            "person": {
+                ...
+            },
+            "company": {
+                ...
+            }
         },
         {
             "identifier": "6",
-            "person": { ... },
-            "company": { ... }
+            "person": {
+                ...
+            },
+            "company": {
+                ...
+            }
         },
         {
             "identifier": "7",
-            "person": { ... },
-            "company": { ... }
+            "person": {
+                ...
+            },
+            "company": {
+                ...
+            }
         }
     ]
 }
 ```
 
-## Response Details
+## Response details
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `error` | boolean | `false` if successful, `true` if error (with `error_code`). |
-| `total_cost` | integer | Total credit cost of the request. Varies by matches and `enrich_mobile` option. |
-| `matched` | list | All matched records per your requirements. |
-| `matched.identifier` | string | Your generated identifier for reconciliation. |
-| `matched.person` | object | The matched person record. |
+| `error` | boolean | Indicates if an error has occurred. If `false`, the request was successful. If `true`, an error has occurred and a `error_code` property will be present. See below. |
+| `total_cost` | integer | Indicates the total cost of the request. It varies depending on the matches and the `enrich_mobile` option. |
+| `matched` | list | This list contains all the matched records as per your requirements (`only_verified_email`, `only_verified_mobile`). |
+| `matched.identifier` | string | This is the identifier you generated corresponding to the matched record. Use it to know which match is which. |
+| `matched.person` | object | The matched person. |
 | `matched.company` | object | The current company of the matched person. |
-| `not_matched` | list | Identifiers that couldn't be matched given your requirements. |
-| `invalid_datapoints` | list | Identifiers that didn't meet minimum matching requirements (matching not attempted). |
+| `not_matched` | list | This list contains all the identifiers that we couldn't match given your requirements (`only_verified_email`, `only_verified_mobile`). |
+| `invalid_datapoints` | list | This list contains all the identifiers that were not meeting our minimum requirements for matching, so matching wasn't attempted. |
 
-## Error Codes
+## Error codes
 
-| HTTP Code | `error_code` | Meaning |
-|-----------|-------------|---------|
-| `400` | `INSUFFICIENT_CREDITS` | Not enough credits. |
-| `401` | `INVALID_API_KEY` | Invalid API key — check `X-KEY` header. |
-| `429` | `RATE_LIMITED` | Rate limit hit for your plan. |
-| `400` | `INVALID_REQUEST` | The submitted request is invalid. |
-| `400` | `INTERNAL_ERROR` | Server-side error — contact support. |
+| HTTP code | `error_code` property | Meaning |
+|-----------|----------------------|---------|
+| 400 | `INSUFFICIENT_CREDITS` | You do not have enough credit to perform the request. |
+| 401 | `INVALID_API_KEY` | Invalid API key, check your `X-KEY` header. |
+| 429 | `RATE_LIMITED` | You hit the rate limit for your current plan. |
+| 400 | `INVALID_REQUEST` | The request your submitted is invalid. |
+| 400 | `INTERNAL_ERROR` | An error occurred on our side, please contact the support. |

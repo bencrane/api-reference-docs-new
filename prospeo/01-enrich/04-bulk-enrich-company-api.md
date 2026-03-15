@@ -1,50 +1,58 @@
 # Bulk Enrich Company API
 
-Enrich up to 50 company records at once while staying blazing-fast.
+## Enrich up to 50 company records at once
 
-## How Are Credits Spent?
+This endpoint allows you to enrich multiple company's in one request while staying blazing-fast.
 
-- **1 credit** per matched company.
-- You won't be charged if no results are found.
-- You won't be charged if you enrich the same record twice in the lifetime of your account.
+## How are credits spent?
+
+One credit is spent per matched company.
+
+You won't be charged if no results are found.
+
+You won't be charged if you enrich the same record twice in the lifetime of your account.
 
 ## Endpoint
 
-| | |
-|---|---|
-| **URL** | `https://api.prospeo.io/bulk-enrich-company` |
-| **Method** | `POST` |
-| **Headers** | `X-KEY: your_api_key` / `Content-Type: application/json` |
+* **URL:** `https://api.prospeo.io/bulk-enrich-company`
+* **Method:** `POST`
+* **Headers:**
+  * `X-KEY: your_api_key`
+  * `Content-Type: application/json`
 
 ## Parameters
 
-| Parameter | Example | Description |
-|-----------|---------|-------------|
-| `data` *(required)* | See below | The records to enrich (up to 50 at once). |
+| Parameter | Example value | Description |
+|-----------|--------------|-------------|
+| `data` (required) | See below | The records to enrich (up to 50 at once). See below for complete details. |
 
-## Data Parameter
+## Data parameter
 
-The `data` parameter is a **list** of company objects to enrich. Each object accepts:
+The `data` parameter for the `/bulk-enrich-company` endpoint is a list of all the companies you wish to enrich.
 
-| Datapoint | Example | Description |
-|-----------|---------|-------------|
-| `identifier` *(required)* | `1234abcd` | A random alphanumeric string you generate to reconcile matches in the response. |
-| `company_name` *(optional)* | `Deloitte` | The company name. |
-| `company_website` *(optional)* | `deloitte.com` | The company website. |
-| `company_linkedin_url` *(optional)* | `https://linkedin.com/company/deloitte` | The company's public LinkedIn URL. |
-| `company_id` *(optional)* | `cccc7c7da6116a8830a07100` | The `company_id` from a previously enriched company object. |
+The `data` parameter contains the datapoints you have for us to identify the record. We offer the following matching datapoints:
 
-## Minimum Requirements for Matching
+| Datapoint | Example value | Description |
+|-----------|--------------|-------------|
+| `identifier` (required) | 1234abcd | A random alpha-numeric string generated on your side to identify the specific matching object. This will be used when you parse the response, to attributes which data object represents which match in the response. |
+| `company_name` (optional) | Deloitte | The company name |
+| `company_website` (optional) | deloitte.com | The company website |
+| `company_linkedin_url` (optional) | https://linkedin.com/company/deloitte | The company's public LinkedIn URL |
+| `company_id` (optional) | cccc7c7da6116a8830a07100 | The `company_id` from a previously enriched company object. You can use this to directly enrich a company by its ID. |
 
-At least one of the above datapoints is required per object.
+## Minimum requirements for matching
 
-> **Note #1:** Strongly avoid using only `company_name` — many companies share the same name. Use `company_website` whenever possible.
+We require at least one of the above datapoints to accurately match a company.
 
-> **Note #2:** The more datapoints you submit, the better the accuracy.
+**Important note #1:** We advise strongly against using only the `company_name` for matching. Many company have the same name, and this can result in mismatch/inaccurate results. Whenever possible, try to use at least the `company_website`.
 
-## Example Request
+**Important note #2:** the more datapoints you submit, the better, so whenever possible, submit everything you have for greater accuracy. For example, it is better to submit `company_website` and `company_linkedin_url` together rather than just one of them.
 
-Identifier `4` contains an invalid property (`full_name`) and will appear in `invalid_datapoints`.
+## Example request
+
+We generated our own identifier (1,2,3,4,5) so that in case of a match, we can reconcile it with the response.
+
+In the below request, the identifier 4 contains an property (`full_name`). Hence, this record will be ignored and provided in the `invalid_datapoints` list of the response.
 
 ```
 POST "https://api.prospeo.io/bulk-enrich-company"
@@ -68,12 +76,15 @@ Content-Type: "application/json"
        {
            "identifier": "4",
            "full_name": "Pinterest"
-       }
+       },
+       ... up to 50 objects
    ]
 }
 ```
 
 ## Response
+
+The response structure is as follow:
 
 ```json
 {
@@ -84,34 +95,38 @@ Content-Type: "application/json"
     "matched": [
         {
             "identifier": "1",
-            "company": { ... }
+            "company": {
+                ...
+            }
         },
         {
             "identifier": "2",
-            "company": { ... }
+            "company": {
+                ...
+            }
         }
     ]
 }
 ```
 
-## Response Details
+## Response details
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `error` | boolean | `false` if successful, `true` if error (with `error_code`). |
-| `total_cost` | integer | Total credit cost of the request. |
-| `matched` | list | All matched company records. |
-| `matched.identifier` | string | Your generated identifier for reconciliation. |
-| `matched.company` | object | The matched company record. |
-| `not_matched` | list | Identifiers that couldn't be matched. |
-| `invalid_datapoints` | list | Identifiers that didn't meet minimum matching requirements. |
+| `error` | boolean | Indicates if an error has occurred. If `false`, the request was successful. If `true`, an error has occurred and a `error_code` property will be present. See below. |
+| `total_cost` | integer | Indicates the total cost of the request. It varies depending on the matches. |
+| `matched` | list | This list contains all the matched records. |
+| `matched.identifier` | string | This is the identifier you generated corresponding to the matched record. Use it to know which match is which. |
+| `matched.company` | object | The matched company. |
+| `not_matched` | list | This list contains all the identifiers that we couldn't match. |
+| `invalid_datapoints` | list | This list contains all the identifiers that were not meeting our minimum requirements for matching. |
 
-## Error Codes
+## Error codes
 
-| HTTP Code | `error_code` | Meaning |
-|-----------|-------------|---------|
-| `400` | `INSUFFICIENT_CREDITS` | Not enough credits. |
-| `401` | `INVALID_API_KEY` | Invalid API key — check `X-KEY` header. |
-| `429` | `RATE_LIMITED` | Rate limit hit for your plan. |
-| `400` | `INVALID_REQUEST` | The submitted request is invalid. |
-| `400` | `INTERNAL_ERROR` | Server-side error — contact support. |
+| HTTP code | `error_code` property | Meaning |
+|-----------|----------------------|---------|
+| 400 | `INSUFFICIENT_CREDITS` | You do not have enough credit to perform the request. |
+| 401 | `INVALID_API_KEY` | Invalid API key, check your `X-KEY` header. |
+| 429 | `RATE_LIMITED` | You hit the rate limit for your current plan. |
+| 400 | `INVALID_REQUEST` | The request your submitted is invalid. |
+| 400 | `INTERNAL_ERROR` | An error occurred on our side, please contact the support. |

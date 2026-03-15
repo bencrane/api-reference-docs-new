@@ -1,35 +1,37 @@
 # Search Suggestions API
 
-This endpoint retrieves suggestions for job titles or locations to use in search filters for the Search Person or Search Company APIs.
+## Job and Location Suggestions
 
-Use this to find valid values for `person_location`, `company_location`, or `person_job_title` filters.
+This endpoint allows you to retrieve suggestions for job titles or locations to use in your search filters.
 
-> **This endpoint is FREE and does not consume any credits.**
+Use this endpoint to find valid values for the `person_location`, `company_location`, or `person_job_title` filters when using our Search Person or Search Company APIs.
 
-## Rate Limit
+This endpoint is FREE and does not consume any credits.
 
-Special rate limit: **15 requests/second** per account (same across all plans).
+## Rate limit
+
+This endpoint has a special rate limit of 15 requests/second per account. This rate limit is the same across all plans (FREE, STARTER, GROWTH, PRO).
 
 ## Endpoint
 
-| | |
-|---|---|
-| **URL** | `https://api.prospeo.io/search-suggestions` |
-| **Method** | `POST` |
-| **Headers** | `X-KEY: your_api_key` / `Content-Type: application/json` |
+* **URL:** `https://api.prospeo.io/search-suggestions`
+* **Method:** `POST`
+* **Headers:**
+  * `X-KEY: your_api_key`
+  * `Content-Type: application/json`
 
 ## Parameters
 
-You must provide **exactly one** of the following. Providing both or neither will result in an error.
+You must provide exactly one of the following parameters. Providing both or neither will result in an error.
 
-| Parameter | Example | Description |
-|-----------|---------|-------------|
-| `location_search` *(optional)* | `united states` | Search query for location suggestions. Minimum 2 characters. |
-| `job_title_search` *(optional)* | `software engineer` | Search query for job title suggestions. Minimum 2 characters. |
+| Parameter | Example value | Description |
+|-----------|--------------|-------------|
+| `location_search` (optional) | `united states` | A search query to find location suggestions. Minimum 2 characters. |
+| `job_title_search` (optional) | `software engineer` | A search query to find job title suggestions. Minimum 2 characters. |
 
-## Example Requests
+## Request examples
 
-**Location search:**
+### Location search
 
 ```bash
 curl --location 'https://api.prospeo.io/search-suggestions' \
@@ -40,7 +42,7 @@ curl --location 'https://api.prospeo.io/search-suggestions' \
 }'
 ```
 
-**Job title search:**
+### Job title search
 
 ```bash
 curl --location 'https://api.prospeo.io/search-suggestions' \
@@ -51,7 +53,9 @@ curl --location 'https://api.prospeo.io/search-suggestions' \
 }'
 ```
 
-## Response: Location Search
+## Response: Location search
+
+When searching for locations, the response will contain an array of location suggestions with their type.
 
 ```json
 {
@@ -66,7 +70,7 @@ curl --location 'https://api.prospeo.io/search-suggestions' \
 }
 ```
 
-### Location Types
+### Location types
 
 | Type | Description | Examples |
 |------|-------------|----------|
@@ -75,7 +79,9 @@ curl --location 'https://api.prospeo.io/search-suggestions' \
 | `CITY` | Cities | "New York", "Paris", "Tokyo" |
 | `ZONE` | Metropolitan or greater areas | "Greater Toronto Area", "San Francisco Bay Area" |
 
-## Response: Job Title Search
+## Response: Job title search
+
+When searching for job titles, the response will contain an array of job title suggestions as plain strings.
 
 ```json
 {
@@ -91,21 +97,21 @@ curl --location 'https://api.prospeo.io/search-suggestions' \
 }
 ```
 
-Returns up to 25 results, ordered by popularity (most common titles first).
+Job title suggestions return up to 25 results, ordered by popularity (most common titles first).
 
-## Response Details
+## Response details
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `error` | boolean | `false` if successful, `true` if error (with `error_code`). |
-| `location_suggestions` | list \| null | Location suggestions when using `location_search`. Each item has `name` and `type`. `null` when searching job titles. |
-| `job_title_suggestions` | list \| null | Job title suggestions when using `job_title_search`. Plain strings. `null` when searching locations. |
+| `error` | boolean | Indicates if an error has occurred. If `false`, the request was successful. If `true`, an error has occurred and a `error_code` property will be present. See below. |
+| `location_suggestions` | list \| null | Contains location suggestions when using `location_search`. Each item has a `name` and `type` property. `null` when searching for job titles. |
+| `job_title_suggestions` | list \| null | Contains job title suggestions when using `job_title_search`. Returns plain strings. `null` when searching for locations. |
 
-## Error Codes
+## Error codes
 
-| HTTP Code | `error_code` | Meaning |
-|-----------|-------------|---------|
-| `400` | `INVALID_REQUEST` | Must provide exactly one of `location_search` or `job_title_search`, and query must be ≥ 2 characters. |
-| `401` | `INVALID_API_KEY` | Invalid API key — check `X-KEY` header. |
-| `429` | `RATE_LIMITED` | Rate limit hit (15 req/sec). |
-| `400` | `INTERNAL_ERROR` | Server-side error — contact support. |
+| HTTP code | `error_code` property | Meaning |
+|-----------|----------------------|---------|
+| 400 | `INVALID_REQUEST` | Invalid request. Either: you must provide exactly one of `location_search` or `job_title_search` (not both, not neither), or the search query must be at least 2 characters. |
+| 401 | `INVALID_API_KEY` | Invalid API key, check your `X-KEY` header. |
+| 429 | `RATE_LIMITED` | You hit the rate limit (15 requests/second). |
+| 400 | `INTERNAL_ERROR` | An error occurred on our side, please contact the support. |

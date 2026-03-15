@@ -1,101 +1,59 @@
-# Enrich Person API
+# Authentication Format
 
-## Enrich a person
+# Authentication Format
 
-This endpoint allows you to enrich a person with its complete accurate B2B profile data, email address and mobile.
+## Authentication
 
-**Important note:** When possible, it is recommended to use our Bulk Enrich Person endpoint instead for faster response time. It allows you to enrich up to 50 persons at once, instead of performing 50 individual requests.
+To authenticate with the Prospeo API, add the header `X-KEY` to your request.
 
-## How are credits spent?
+You can find your API key on your dashboard. You have the ability to create multiple API keys.
 
-Enriching a person record cost 1 credit per match (person data + company data + email).
+## Request
 
-Enriching a person record with a mobile cost 10 credits per match (person data + company data + email + mobile). The email is included for free.
+The host is `api.prospeo.io`
 
-You can control when you spend credits: only for verified email, only for record with a mobile, etc…
+All requests should be made with HTTPS
 
-You won't be charged if no results are found.
+All of our endpoints accept the POST method only
 
-You won't be charged if you enrich the same record twice in the lifetime of your account.
+You are required to add the header `Content-Type: application/json`
 
-## Endpoint
+Below are minimal example of our Enrich Person API.
 
-* **URL:** `https://api.prospeo.io/enrich-person`
-* **Method:** `POST`
-* **Headers:**
-  * `X-KEY: your_api_key`
-  * `Content-Type: application/json`
-
-## Parameters
-
-| Parameter | Example value | Description |
-|-----------|--------------|-------------|
-| `only_verified_email` (optional) | `true` | Chose if you only want records with a verified email to be returned. Default is `false`. |
-| `enrich_mobile` (optional) | `true` | Chose if you want to enrich the mobile (if it exists). |
-| `only_verified_mobile` (optional) | `true` | Chose if you only want records with a mobile to be returned. Default is `false`. If `true`, `enrich_mobile` will automatically be `true`. |
-| `data` (required) | See below | The person to enrich. See below for complete details. |
-
-## Data parameter
-
-The `data` parameter contains the datapoints you have for us to identify the person. We offer the following matching datapoints:
-
-| Datapoint | Example value | Description |
-|-----------|--------------|-------------|
-| `first_name` (optional) | Roger | The first name of the person |
-| `last_name` (optional) | Sterling | The last name of the person |
-| `full_name` (optional) | Roger Sterling | The full name of the person |
-| `linkedin_url` (optional) | https://www.linkedin.com/in/roger-sterling | The person's public LinkedIn URL |
-| `email` (optional) | roger.sterling@deloitte.com | The work email of the person |
-| `company_name` (optional) | Deloitte | The company name |
-| `company_website` (optional) | deloitte.com | The company website |
-| `company_linkedin_url` (optional) | https://linkedin.com/company/deloitte | The company's public LinkedIn URL |
-| `person_id` (optional) | 6f745841665155f554e5f | If enriching from search: the ID of the person from the Search Person API endpoint |
-
-## Minimum requirements for matching
-
-We require at a minimum the below datapoints together in one request (allowing us to accurately identify the person):
-
-* `first_name` + `last_name` + any of (`company_name`/`company_website`/`company_linkedin_url`)
-* `full_name` + any of (`company_name`/`company_website`/`company_linkedin_url`)
-* `linkedin_url`
-* `email`
-* `person_id` (enrich from Search Person API)
-
-**Important note #1:** We advise strongly against using only the `company_name` for matching. Many company have the same name, and this can result in mismatch/inaccurate results. Whenever possible, try to use at least the `company_website`.
-
-**Important note #2:** the more datapoints you submit, the better, so whenever possible, submit everything you have for greater accuracy. For example, it is better to submit `company_website` and `company_name` together rather than just one of them.
-
-## Enrich records from our search API
-
-Another way to enrich records is to use the `person_id` you get from the search results (Search Person API) to this endpoint. This will identify the person and enrich as per your option (`only_verified_email`, `only_verified_mobile`, `enrich_mobile`).
-
-## Example requests
-
-Simple request that always returns a result if a person is matched but does not reveal the mobile (use `enrich_mobile:true`).
-
-In this example, we used the `first_name` + `last_name` to identify the person, and submitted all the company datapoints possible for better accuracy. This request will perform better than a request with only the `company_name`.
-
-```
-POST "https://api.prospeo.io/enrich-person"
-X-KEY: "your_api_key"
-Content-Type: "application/json"
-
-{
-   "data": {
-       "first_name": "Eva",
-       "last_name": "Kiegler",
-       "company_name": "Intercom",
-       "company_website": "intercom.com",
-       "company_linkedin_url": "https://www.linkedin.com/company/intercom"
-   }
-}
+```bash
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "X-KEY: your_api_key" \
+  -d '{
+        "only_verified_email": true,
+        "enrich_mobile": false,
+        "data": {
+            "first_name": "John",
+            "last_name": "Doe",
+            "company_website": "intercom.com"
+        }
+    }' \
+  "https://api.prospeo.io/enrich-person"
 ```
 
 ## Response
 
-This response contains all the possible fields and their example value. When a field is unavailable, it will be `null`.
+Read the error handling section of the endpoint page you need to handle errors.
 
-Each response contains a `person` and `company` object. The `company` object contains the detail of the current company the lead work at. If the lead has no current job, this field can be `null`.
+All the response will be in JSON.
+
+Each response will always contain an `error` property: `false` if the request was successful, `true` otherwise
+
+Response codes:
+
+* `200` : Valid request
+* `400` : An error occurred
+* `401` : Invalid API key
+* `429` : Rate limit exceeded
+
+### Example of a successful response (Enrich Person API)
+
+This response contains a revealed mobile (`enrich_mobile:true`).
 
 ```json
 {
@@ -366,23 +324,11 @@ Each response contains a `person` and `company` object. The `company` object con
 }
 ```
 
-## Response details
+### Example of an error response
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `error` | boolean | Indicates if an error has occurred. If `false`, the request was successful. If `true`, an error has occurred and a `error_code` property will be present. See below. |
-| `free_enrichment` | boolean | Indicates whether you were charged. This will be `true` if you enriched the record in the past. If you enriched the record in the past, but chose to enrich the mobile this time (with `enrich_mobile`), it will be `false`. |
-| `person` | object | The person that was matched. |
-| `company` | object | The current company of the person that was matched. |
-
-## Error codes
-
-| HTTP code | `error_code` property | Meaning |
-|-----------|----------------------|---------|
-| 400 | `NO_MATCH` | We couldn't match the data you provided with a person record. This will also be returned if you used `only_verified_email`, but the lead didn't have a verified email, or if you used `only_verified_mobile`, but the lead didn't have a mobile. |
-| 400 | `INVALID_DATAPOINTS` | The datapoints you submitted to identify the person are meeting the minimum requirements for matching. |
-| 400 | `INSUFFICIENT_CREDITS` | You do not have enough credit to perform the request. |
-| 401 | `INVALID_API_KEY` | Invalid API key, check your `X-KEY` header. |
-| 429 | `RATE_LIMITED` | You hit the rate limit for your current plan. |
-| 400 | `INVALID_REQUEST` | The request your submitted is invalid. |
-| 400 | `INTERNAL_ERROR` | An error occurred on our side, please contact the support. |
+```json
+{
+    "error": true,
+    "error_code": "NO_MATCH"
+}
+```
