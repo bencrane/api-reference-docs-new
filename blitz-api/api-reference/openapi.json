@@ -1,0 +1,969 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Blitz OpenAPI Reference",
+    "version": "1.0.0",
+    "description": "Welcome to the Blitz API Reference.\n\nUse this interactive documentation to test endpoints directly in your browser. Authentication is required via the `x-api-key` header."
+  },
+  "servers": [
+    {
+      "url": "https://api.blitz-api.ai",
+      "description": "Production server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "APIKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "Your Blitz API Key."
+      }
+    },
+    "schemas": {
+      "LinkedInProfileURLRequest": {
+        "type": "object",
+        "properties": {
+          "linkedin_profile_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "The public LinkedIn profile URL (e.g., `https://www.linkedin.com/in/username`)."
+          }
+        },
+        "required": [
+          "linkedin_profile_url"
+        ]
+      },
+      "LinkedInCompanyURLRequest": {
+        "type": "object",
+        "properties": {
+          "linkedin_company_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "The LinkedIn Company Page URL."
+          }
+        },
+        "required": [
+          "linkedin_company_url"
+        ]
+      },
+      "CascadeStep": {
+        "type": "object",
+        "properties": {
+          "include_title": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of job titles to search for (e.g., `['CEO', 'Founder']`)."
+          },
+          "exclude_title": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Keywords to exclude from job titles (e.g., `['Assistant', 'Intern']`)."
+          },
+          "location": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "LinkedIn Country Codes (e.g., `['US', 'FR']` or `['WORLD']`)."
+          },
+          "include_headline_search": {
+            "type": "boolean",
+            "description": "If `true`, the search includes the user's bio/headline, not just the current job title."
+          }
+        },
+        "required": [
+          "include_title"
+        ]
+      },
+      "WaterfallICPRequest": {
+        "type": "object",
+        "properties": {
+          "company_linkedin_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "The target company's LinkedIn URL."
+          },
+          "cascade": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CascadeStep"
+            },
+            "description": "An ordered list of search criteria (steps). The API stops at the first successful step."
+          },
+          "max_results": {
+            "type": "integer",
+            "description": "Maximum number of profiles to retrieve."
+          }
+        },
+        "required": [
+          "company_linkedin_url",
+          "cascade",
+          "max_results"
+        ]
+      },
+      "PhoneEnrichmentResponse": {
+        "type": "object",
+        "properties": {
+          "found": {
+            "type": "boolean",
+            "description": "Indicates if a phone number was found."
+          },
+          "phone": {
+            "type": "string",
+            "description": "The direct business phone number in international format."
+          }
+        },
+        "required": [
+          "found"
+        ]
+      },
+      "EmailEnrichmentResponse": {
+        "type": "object",
+        "properties": {
+          "found": {
+            "type": "boolean",
+            "description": "Indicates if an email was found."
+          },
+          "email": {
+            "type": "string",
+            "description": "The verified business email."
+          }
+        },
+        "required": [
+          "found"
+        ]
+      },
+      "EmailDomainResponse": {
+        "type": "object",
+        "properties": {
+          "found": {
+            "type": "boolean",
+            "description": "Success status."
+          },
+          "email_domain": {
+            "type": "string",
+            "description": "The company domain (e.g., `apple.com`)."
+          }
+        },
+        "required": [
+          "found"
+        ]
+      },
+      "KeyInfoResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Partial API Key ID."
+          },
+          "credits_balance": {
+            "type": "integer",
+            "description": "Remaining credits."
+          },
+          "credits_reset_at": {
+            "type": "string",
+            "description": "Date of the next credit reset."
+          },
+          "active_plans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActivePlan"
+            },
+            "description": "List of active subscriptions."
+          }
+        },
+        "required": [
+          "id",
+          "credits_balance",
+          "credits_reset_at",
+          "active_plans"
+        ]
+      },
+      "ActivePlan": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Plan name (Pro, Ultra, Mega)."
+          },
+          "status": {
+            "type": "string",
+            "description": "Plan status."
+          }
+        },
+        "required": [
+          "name",
+          "status"
+        ]
+      },
+      "MatchDetail": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "The field that matched the search criteria."
+          },
+          "value": {
+            "type": "string",
+            "description": "The value found."
+          }
+        },
+        "required": [
+          "key",
+          "value"
+        ]
+      },
+      "WaterfallICPResult": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "job_title": {
+            "type": "string"
+          },
+          "linkedin_headline": {
+            "type": "string"
+          },
+          "company_domain": {
+            "type": "string"
+          },
+          "company_linkedin_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "person_linkedin_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "country": {
+            "type": "string"
+          },
+          "icp": {
+            "type": "integer",
+            "description": "The index of the cascade step that matched (1 = first step)."
+          },
+          "ranking": {
+            "type": "integer"
+          },
+          "what_matched": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MatchDetail"
+            },
+            "description": "Details on why this profile was selected."
+          }
+        }
+      },
+      "WaterfallICPResponse": {
+        "type": "object",
+        "properties": {
+          "company_linkedin_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "max_results": {
+            "type": "integer"
+          },
+          "results_length": {
+            "type": "integer"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WaterfallICPResult"
+            },
+            "description": "List of found profiles."
+          }
+        },
+        "required": [
+          "company_linkedin_url",
+          "max_results",
+          "results_length",
+          "results"
+        ]
+      },
+      "ErrorMessageResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error description."
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "ServerErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Always false for errors."
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "success",
+          "message"
+        ]
+      },
+      "ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "ValidationErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorDetail"
+          }
+        },
+        "required": [
+          "success",
+          "error"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/api/enrichment/phone": {
+      "post": {
+        "summary": "Find Business Phone v1",
+        "description": "### 💰 Cost: 5 Credits (on success)\n\nLocate a verified direct business phone number using LinkedIn context.\n\n> **Use case:** Ideal for multichannel cadences or cold calling strategies.",
+        "tags": [
+          "enrichment"
+        ],
+        "security": [
+          {
+            "APIKey": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkedInProfileURLRequest"
+              },
+              "example": {
+                "linkedin_profile_url": "https://www.linkedin.com/in/antoine-blitz-5581b7373"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK - Phone Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhoneEnrichmentResponse"
+                },
+                "example": {
+                  "found": true,
+                  "phone": "+1234567890"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessageResponse"
+                },
+                "example": {
+                  "message": "Missing API key"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessageResponse"
+                },
+                "example": {
+                  "message": "Insufficient credits balance"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/enrichment/email": {
+      "post": {
+        "summary": "Find Work Email v1",
+        "description": "### 💰 Cost: 1 Credit (on success)\n\nFrom a LinkedIn profile URL, instantly find a verified work email. Emails are validated in real time (catch-all included).",
+        "tags": [
+          "enrichment"
+        ],
+        "security": [
+          {
+            "APIKey": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkedInProfileURLRequest"
+              },
+              "example": {
+                "linkedin_profile_url": "https://www.linkedin.com/in/antoine-blitz-5581b7373"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK - Email Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailEnrichmentResponse"
+                },
+                "example": {
+                  "found": true,
+                  "email": "antoine@blitz-agency.com"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessageResponse"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessageResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/enrichment/email_domain": {
+      "post": {
+        "summary": "Find Company Domain v1",
+        "description": "### 💰 Cost: 0.5 Credits (on success)\n\nBridge the gap between LinkedIn and email domains. Given a company’s LinkedIn URL, find its verified email domain.",
+        "tags": [
+          "enrichment"
+        ],
+        "security": [
+          {
+            "APIKey": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkedInCompanyURLRequest"
+              },
+              "example": {
+                "linkedin_company_url": "https://www.linkedin.com/company/blitz-api"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK - Domain Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailDomainResponse"
+                },
+                "example": {
+                  "found": true,
+                  "email_domain": "example.com"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessageResponse"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessageResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/blitz/key-info": {
+      "get": {
+        "summary": "Get API Key info v1",
+        "description": "### 💰 Cost: 0 Credits\n\nCheck your current balance, plan status, and key validity.",
+        "tags": [
+          "blitz"
+        ],
+        "security": [
+          {
+            "APIKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KeyInfoResponse"
+                },
+                "example": {
+                  "id": "ID",
+                  "credits_balance": 278,
+                  "credits_reset_at": "25/11/2025, 00:00:00 AM",
+                  "active_plans": [
+                    {
+                      "name": "PRO",
+                      "status": "active"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessageResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessageResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/search/waterfall-icp": {
+      "post": {
+        "tags": [
+          "search"
+        ],
+        "summary": "Waterfall ICP Search v1",
+        "description": "### 💰 Cost: 1 Credit per result\n\nThis is the core engine for Account-Based Prospecting. Define an ICP hierarchy (e.g. CEO → VP Sales), and BlitzAPI will search progressively through each level until a decision-maker is found.\n\n[See Country Codes List](/guide/reference/appendix#common-country-codes-list)\n\n#### How to use `cascade`\nThis parameter is an array of objects. Each object represents a search step:\n1.  **Level 1**: Search for C-Levels.\n2.  **Level 2**: Search for VPs.\n3.  **Level 3**: Search for Directors.",
+        "security": [
+          {
+            "APIKey": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WaterfallICPRequest"
+              },
+              "example": {
+                "company_linkedin_url": "https://www.linkedin.com/company/wttj-fr",
+                "cascade": [
+                  {
+                    "include_title": [
+                      "Marketing Director",
+                      "Head Marketing",
+                      "Chief Marketing Officer"
+                    ],
+                    "exclude_title": [
+                      "assistant",
+                      "intern",
+                      "product",
+                      "junior"
+                    ],
+                    "location": [
+                      "WORLD"
+                    ],
+                    "include_headline_search": false
+                  },
+                  {
+                    "include_title": [
+                      "Marketing Manager",
+                      "Head Growth",
+                      "Growth manager"
+                    ],
+                    "exclude_title": [
+                      "junior",
+                      "assistant",
+                      "intern",
+                      "hacker"
+                    ],
+                    "location": [
+                      "WORLD"
+                    ],
+                    "include_headline_search": false
+                  },
+                  {
+                    "include_title": [
+                      "Communication Director",
+                      "Brand Director",
+                      "Content Director"
+                    ],
+                    "exclude_title": [
+                      "junior",
+                      "assistant",
+                      "intern",
+                      "UX",
+                      "UI",
+                      "Design"
+                    ],
+                    "location": [
+                      "WORLD"
+                    ],
+                    "include_headline_search": false
+                  },
+                  {
+                    "include_title": [
+                      "Communication Manager",
+                      "Brand Manager",
+                      "Content Manager"
+                    ],
+                    "exclude_title": [
+                      "junior",
+                      "assistant",
+                      "intern"
+                    ],
+                    "location": [
+                      "WORLD"
+                    ],
+                    "include_headline_search": false
+                  },
+                  {
+                    "include_title": [
+                      "Communication",
+                      "marketing",
+                      "growth",
+                      "brand"
+                    ],
+                    "exclude_title": [
+                      "junior",
+                      "assistant",
+                      "intern",
+                      "product"
+                    ],
+                    "location": [
+                      "US",
+                      "CA"
+                    ],
+                    "include_headline_search": true
+                  },
+                  {
+                    "include_title": [
+                      "CEO",
+                      "founder",
+                      "cofounder",
+                      "owner",
+                      "General Director"
+                    ],
+                    "exclude_title": [
+                      "junior",
+                      "assistant",
+                      "intern"
+                    ],
+                    "location": [
+                      "WORLD"
+                    ],
+                    "include_headline_search": false
+                  }
+                ],
+                "max_results": 10
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK - Search Results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaterfallICPResponse"
+                },
+                "example": {
+                  "company_linkedin_url": "https://www.linkedin.com/company/wttj-fr",
+                  "max_results": 7,
+                  "results_length": 7,
+                  "results": [
+                    {
+                      "full_name": "Melissa Rumor",
+                      "first_name": "Melissa",
+                      "last_name": "Rumor",
+                      "job_title": "Growth Marketing Manager Welcome to the Jungle (France)",
+                      "linkedin_headline": "Growth & Marketing Manager B2B : Brand Strategy, Lead Gen, SEO & Content | 👀 Actively seeking new challenges",
+                      "company_domain": "welcometothejungle.com",
+                      "company_linkedin_url": "https://www.linkedin.com/company/wttj-fr",
+                      "person_linkedin_url": "https://www.linkedin.com/in/melissa-rumor",
+                      "country": "FR",
+                      "icp": 2,
+                      "ranking": 1,
+                      "what_matched": [
+                        {
+                          "value": "Growth Marketing Manager Welcome to the Jungle (France)",
+                          "key": "job_title"
+                        },
+                        {
+                          "value": "Growth Marketing Manager Welcome to the Jungle (France)",
+                          "key": "job_title"
+                        }
+                      ]
+                    },
+                    {
+                      "full_name": "Saâd Amouzigh",
+                      "first_name": "Saâd",
+                      "last_name": "Amouzigh",
+                      "job_title": "Growth Manager - B2b Paid Acquisition",
+                      "linkedin_headline": "Webmarketing Project Manager @Seenk",
+                      "company_domain": "welcometothejungle.com",
+                      "company_linkedin_url": "https://www.linkedin.com/company/wttj-fr",
+                      "person_linkedin_url": "https://www.linkedin.com/in/samouzigh",
+                      "country": "FR",
+                      "icp": 2,
+                      "ranking": 2,
+                      "what_matched": [
+                        {
+                          "value": "Growth Manager - B2b Paid Acquisition",
+                          "key": "job_title"
+                        }
+                      ]
+                    },
+                    {
+                      "full_name": "Wendy Carré",
+                      "first_name": "Wendy",
+                      "last_name": "Carré",
+                      "job_title": "Senior Content Marketing Manager",
+                      "linkedin_headline": "Senior Content Marketing Manager @ Welcome to the Jungle (France)",
+                      "company_domain": "welcometothejungle.com",
+                      "company_linkedin_url": "https://www.linkedin.com/company/wttj-fr",
+                      "person_linkedin_url": "https://www.linkedin.com/in/wendy-carr%c3%a9-6663848a",
+                      "country": "FR",
+                      "icp": 2,
+                      "ranking": 3,
+                      "what_matched": [
+                        {
+                          "value": "Senior Content Marketing Manager",
+                          "key": "job_title"
+                        }
+                      ]
+                    },
+                    {
+                      "full_name": "Ellora Ainadjoglou",
+                      "first_name": "Ellora",
+                      "last_name": "Ainadjoglou",
+                      "job_title": "Growth Manager",
+                      "linkedin_headline": null,
+                      "company_domain": "welcometothejungle.com",
+                      "company_linkedin_url": "https://www.linkedin.com/company/wttj-fr",
+                      "person_linkedin_url": "https://www.linkedin.com/in/ellora-ainadjoglou",
+                      "country": "FR",
+                      "icp": 2,
+                      "ranking": 4,
+                      "what_matched": [
+                        {
+                          "value": "Growth Manager",
+                          "key": "job_title"
+                        }
+                      ]
+                    },
+                    {
+                      "full_name": "Marie Poirier Villemin",
+                      "first_name": "Marie",
+                      "last_name": "Villemin",
+                      "job_title": "Brand Manager Welcome to the Jungle (France)",
+                      "linkedin_headline": "Brand Manager @ Welcome to the Jungle",
+                      "company_domain": "welcometothejungle.com",
+                      "company_linkedin_url": "https://www.linkedin.com/company/wttj-fr",
+                      "person_linkedin_url": "https://www.linkedin.com/in/marie-villemin",
+                      "country": "FR",
+                      "icp": 4,
+                      "ranking": 5,
+                      "what_matched": [
+                        {
+                          "value": "Brand Manager Welcome to the Jungle (France)",
+                          "key": "job_title"
+                        }
+                      ]
+                    },
+                    {
+                      "full_name": "Laura Huline Scognamiglio",
+                      "first_name": "Laura",
+                      "last_name": "Scognamiglio",
+                      "job_title": "Senior Content Manager",
+                      "linkedin_headline": "Senior Content Manager",
+                      "company_domain": "welcometothejungle.com",
+                      "company_linkedin_url": "https://www.linkedin.com/company/wttj-fr",
+                      "person_linkedin_url": "https://www.linkedin.com/in/laura-huline-scognamiglio-74a16564",
+                      "country": "FR",
+                      "icp": 4,
+                      "ranking": 6,
+                      "what_matched": [
+                        {
+                          "value": "Senior Content Manager",
+                          "key": "job_title"
+                        }
+                      ]
+                    },
+                    {
+                      "full_name": "Marie Poirier Villemin",
+                      "first_name": "Marie",
+                      "last_name": "Villemin",
+                      "job_title": "Brand Manager Welcome to the Jungle (France)",
+                      "linkedin_headline": "Brand Manager @ Welcome to the Jungle",
+                      "company_domain": "welcometothejungle.com",
+                      "company_linkedin_url": "https://www.linkedin.com/company/wttj-fr",
+                      "person_linkedin_url": "https://www.linkedin.com/in/marie-poiriervillemin",
+                      "country": "FR",
+                      "icp": 4,
+                      "ranking": 7,
+                      "what_matched": [
+                        {
+                          "value": "Brand Manager Welcome to the Jungle (France)",
+                          "key": "job_title"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
