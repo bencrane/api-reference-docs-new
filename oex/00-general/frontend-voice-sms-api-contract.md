@@ -1,561 +1,578 @@
-# Frontend Reference: Multi-Channel Campaign API
+# Frontend Voice & SMS API Contract
 
-## What Changed
+> Source of truth for the browser-based communications SDK.
+> Auto-generated from source code by Directive 25.
+> **Do not edit manually** — regenerate from source when endpoints change.
 
-We added **orchestrated multi-channel campaigns** to the backend. Previously, a campaign was tied to a single provider (e.g., EmailBison for email). Now a campaign can contain a sequence of steps across different channels — email, LinkedIn, direct mail — executed in order by the engine's orchestrator.
-
-**Existing single-channel endpoints are unchanged.** Everything the frontend already uses (`GET /api/campaigns`, `GET /api/campaigns/messages`, `POST /api/campaigns`, etc.) works identically. Multi-channel is additive.
-
-The `GET /api/campaigns` response now includes two new fields on every campaign:
-- `campaign_type`: `"single_channel"` (existing) or `"multi_channel"` (new)
-- `provider_id`: now nullable — `null` for multi-channel campaigns, populated for single-channel
+Last generated: 2026-03-17
 
 ---
 
-## What This Enables
+## Summary
 
-A user (the org admin) can now:
-1. Create a campaign that mixes email, LinkedIn, and direct mail in one sequence
-2. Define steps like: "Day 0: Send email → Day 3: Send LinkedIn connection request → Day 7: Send postcard"
-3. Set conditional skip rules: "If lead replied to step 1, skip step 2"
-4. Add leads to the campaign
-5. Activate it — the orchestrator runs the sequence automatically on a timer
-6. Monitor each lead's progress through the sequence (which step they're on, status, errors)
-
-The frontend needs to build a **campaign builder UI** for this — step-by-step sequence design with channel selection, delay configuration, and lead management.
-
----
-
-## Important: How Leads Work
-
-Leads are **inline to a campaign** — you provide lead data (email, name, company, etc.) when adding them to a specific campaign. There is no standalone "leads database" or "lead list" in this system.
-
-The typical flow:
-1. User creates a campaign
-2. User defines the sequence (steps)
-3. User adds leads to the campaign (paste emails, upload CSV, or manual entry — this is a frontend UX decision)
-4. User activates the campaign
-
-Later, leads might come from external sources (CRM import, intent signals, another service pushing leads via API). The backend accepts leads via the same add-leads endpoint regardless of where they originate. The frontend doesn't need to worry about lead source — just collect the data and POST it.
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| GET | /api/voice/token | `voice.write` | Mint voice access token |
+| POST | /api/voice/sessions/{call_sid}/disposition | `voice.write` | Set business disposition |
+| POST | /api/voice/sessions/{call_sid}/action | `voice.write` | Modify a live call |
+| GET | /api/voice/sessions | `voice.read` | List voice sessions |
+| GET | /api/voice/sessions/{call_sid} | `voice.read` | Get single voice session |
+| POST | /api/outbound-calls | `voice.write` | Initiate outbound call |
+| GET | /api/outbound-calls/{call_sid} | `voice.read` | Get call status |
+| POST | /api/sms | `sms.write` | Send SMS/MMS |
+| GET | /api/sms/{message_sid} | `sms.read` | Get message status |
+| GET | /api/sms | `sms.read` | List messages |
 
 ---
 
-## API Endpoints
+## Auth Model
 
-All endpoints require `Authorization: Bearer <jwt>` from the org admin login (`POST /api/auth/login`).
-
-Base URL: `https://api.outboundengine.dev`
+- All endpoints require authentication via API token or JWT session.
+- Auth is passed via `Authorization: Bearer <token>` header.
+- The permission string listed for each endpoint is the RBAC permission checked. If the authenticated user's role does not include the required permission, the request returns `403`.
+- `org_id` is always derived from the auth token, never from the request body.
+- `company_id` is derived from auth context when available (set on the user record).
+- Request bodies use `model_config = {"extra": "forbid"}` — unknown fields are rejected with a `422` validation error.
 
 ---
 
-### 1. Create Multi-Channel Campaign
+## Voice
 
-```
-POST /api/campaigns/multi-channel
-```
+### GET /api/voice/token
 
-**Request:**
-```json
-{
-  "campaign_type": "multi_channel",
-  "company_id": "69a9ffab-d8af-4e3c-9d6a-3d2added669f",
-  "name": "Q2 Multi-Touch - Nexus Labs"
+Mint a short-lived voice access token for the Twilio JS SDK.
+
+**Auth**
+
+Permission: `voice.write` via `require_permission("voice.write")`
+
+**Query parameters**
+
+None.
+
+**Request body**
+
+None.
+
+**Response body**
+
+| Field | Type | Nullable | Description |
+|-------|------|----------|-------------|
+| `token` | string | no | JWT access token for Twilio Voice SDK |
+| `identity` | string | no | User identity embedded in the token (user_id) |
+| `ttl_seconds` | integer | no | Token time-to-live in seconds |
+
+**Error responses**
+
+| Status | Condition | Body |
+|--------|-----------|------|
+| 400 | Twilio account_sid or auth_token missing | `{"detail": "Twilio credentials not configured for this organization"}` |
+| 400 | API Key credentials missing | `{"detail": "Twilio API Key credentials (api_key_sid, api_key_secret) not configured for this organization"}` |
+| 400 | TwiML App SID missing | `{"detail": "TwiML Application SID (twiml_app_sid) not configured for this organization"}` |
+| 404 | Organization not found | `{"detail": "Organization not found"}` |
+
+---
+
+### POST /api/voice/sessions/{call_sid}/disposition
+
+Set the business disposition for a voice session.
+
+**Auth**
+
+Permission: `voice.write` via `require_permission("voice.write")`
+
+**Path parameters**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `call_sid` | string | Twilio Call SID |
+
+**Request body**
+
+| Field | Type | Required | Default | Constraints | Description |
+|-------|------|----------|---------|-------------|-------------|
+| `disposition` | string | yes | — | Must be one of: `busy`, `callback_scheduled`, `disqualified`, `do_not_call`, `follow_up_needed`, `gatekeeper`, `left_voicemail`, `meeting_booked`, `no_answer`, `not_interested`, `other`, `qualified`, `wrong_number` | Call outcome |
+| `notes` | string \| null | no | null | — | Optional free-text notes about the call outcome |
+
+If `notes` is provided, it is stored in the session's `last_callback_payload` under the key `disposition_notes`.
+
+**Response body**
+
+| Field | Type | Nullable | Description |
+|-------|------|----------|-------------|
+| `call_sid` | string | no | Twilio Call SID |
+| `business_disposition` | string | no | The disposition that was set |
+| `updated_at` | string | no | ISO 8601 timestamp of the update |
+
+**Error responses**
+
+| Status | Condition | Body |
+|--------|-----------|------|
+| 400 | Invalid disposition value | `{"detail": "Invalid disposition '<value>'. Must be one of: busy, callback_scheduled, disqualified, do_not_call, follow_up_needed, gatekeeper, left_voicemail, meeting_booked, no_answer, not_interested, other, qualified, wrong_number"}` |
+| 404 | Voice session not found | `{"detail": "Voice session not found"}` |
+
+---
+
+### POST /api/voice/sessions/{call_sid}/action
+
+Modify a live call (hangup, redirect, hold, unhold).
+
+**Auth**
+
+Permission: `voice.write` via `require_permission("voice.write")`
+
+**Path parameters**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `call_sid` | string | Twilio Call SID |
+
+**Request body**
+
+| Field | Type | Required | Default | Constraints | Description |
+|-------|------|----------|---------|-------------|-------------|
+| `action` | string | yes | — | Must be one of: `hangup`, `hold`, `redirect`, `unhold` | The action to perform on the live call |
+| `twiml` | string \| null | no | null | — | TwiML to redirect to (for `redirect` action) |
+| `url` | string \| null | no | null | — | URL returning TwiML (for `redirect` action) |
+
+**Action-specific validation:**
+- `redirect` requires either `url` or `twiml` to be provided. If neither is set, returns `400`.
+- `hangup` sets the call status to `completed`.
+- `hold` redirects the call to hold music TwiML.
+- `unhold` redirects the call back to the org's Twilio webhook URL.
+
+**Response body**
+
+This endpoint does not use a typed response model. It returns one of two shapes:
+
+*Case 1: Session re-fetched successfully* — returns the raw `voice_sessions` row. See `VoiceSessionResponse` fields for the approximate shape.
+
+*Case 2: Session re-fetch returns empty* — returns:
+
+| Field | Type | Nullable | Description |
+|-------|------|----------|-------------|
+| `call_sid` | string | no | The call SID acted upon |
+| `action` | string | no | The action that was performed |
+
+**Error responses**
+
+| Status | Condition | Body |
+|--------|-----------|------|
+| 400 | Invalid action value | `{"detail": "Invalid action '<value>'. Must be one of: hangup, hold, redirect, unhold"}` |
+| 400 | redirect without url or twiml | `{"detail": "redirect requires url or twiml"}` |
+| 400 | Twilio credentials missing | `{"detail": "Twilio credentials not configured for this organization"}` |
+| 404 | Organization not found | `{"detail": "Organization not found"}` |
+| 404 | Voice session not found | `{"detail": "Voice session not found"}` |
+| 502 | Twilio API error | `{"detail": "Twilio API error: <error message>"}` |
+
+---
+
+### GET /api/voice/sessions
+
+List voice sessions for the organization.
+
+**Auth**
+
+Permission: `voice.read` via `require_permission("voice.read")`
+
+**Query parameters**
+
+| Parameter | Type | Required | Default | Constraints | Description |
+|-----------|------|----------|---------|-------------|-------------|
+| `company_id` | string | no | null | — | Filter by company |
+| `company_campaign_id` | string | no | null | — | Filter by campaign |
+| `direction` | string | no | null | — | Filter by call direction (e.g. `inbound`, `outbound`) |
+| `status` | string | no | null | — | Filter by call status (query param `status`, aliased from `status_filter` internally) |
+| `disposition` | string | no | null | — | Filter by business disposition |
+| `limit` | integer | no | 50 | max 200 | Page size |
+| `offset` | integer | no | 0 | — | Pagination offset |
+
+**Response body**
+
+Array of `VoiceSessionResponse`:
+
+| Field | Type | Nullable | Description |
+|-------|------|----------|-------------|
+| `id` | string | no | Voice session UUID |
+| `call_sid` | string | no | Twilio Call SID |
+| `direction` | string | no | `inbound` or `outbound` |
+| `from_number` | string | no | Caller phone number |
+| `to_number` | string | no | Called phone number |
+| `status` | string | no | Call status |
+| `agent_identity` | string \| null | yes | Identity of the agent on the call |
+| `duration_seconds` | integer \| null | yes | Call duration in seconds |
+| `business_disposition` | string \| null | yes | Disposition set by agent |
+| `amd_result` | string \| null | yes | Answering Machine Detection result |
+| `recording_sid` | string \| null | yes | Twilio Recording SID |
+| `recording_url` | string \| null | yes | URL to the recording |
+| `recording_duration_seconds` | integer \| null | yes | Recording duration in seconds |
+| `company_id` | string \| null | yes | Associated company |
+| `company_campaign_id` | string \| null | yes | Associated campaign |
+| `company_campaign_lead_id` | string \| null | yes | Associated campaign lead |
+| `started_at` | string \| null | yes | ISO 8601 timestamp |
+| `answered_at` | string \| null | yes | ISO 8601 timestamp |
+| `ended_at` | string \| null | yes | ISO 8601 timestamp |
+| `created_at` | string | no | ISO 8601 timestamp |
+| `updated_at` | string | no | ISO 8601 timestamp |
+
+**Error responses**
+
+No endpoint-specific errors beyond shared errors.
+
+---
+
+### GET /api/voice/sessions/{call_sid}
+
+Get a single voice session by call SID.
+
+**Auth**
+
+Permission: `voice.read` via `require_permission("voice.read")`
+
+**Path parameters**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `call_sid` | string | Twilio Call SID |
+
+**Response body**
+
+Single `VoiceSessionResponse` (see field listing under [GET /api/voice/sessions](#get-apivoicesessions)).
+
+**Error responses**
+
+| Status | Condition | Body |
+|--------|-----------|------|
+| 404 | Voice session not found | `{"detail": "Voice session not found"}` |
+
+---
+
+## Outbound Calls
+
+### POST /api/outbound-calls
+
+Initiate an outbound call.
+
+**Auth**
+
+Permission: `voice.write` via `require_permission("voice.write")`
+
+**Request body**
+
+| Field | Type | Required | Default | Constraints | Description |
+|-------|------|----------|---------|-------------|-------------|
+| `to` | string | yes | — | E.164 format | Phone number to call |
+| `from_number` | string | yes | — | E.164 format | Caller ID (must be owned by org) |
+| `greeting_text` | string \| null | no | null | — | Text spoken when call connects (before AMD). If omitted, a brief pause is used. |
+| `voicemail_text` | string \| null | no | null | Mutually exclusive with `voicemail_audio_url` | Text-to-speech voicemail message if machine answers |
+| `voicemail_audio_url` | string \| null | no | null | Mutually exclusive with `voicemail_text` | Pre-recorded audio URL for voicemail drop |
+| `human_message_text` | string \| null | no | null | — | Text spoken if a human answers. Required for system-initiated calls with no rep. |
+| `record` | boolean | no | false | — | Whether to record the call |
+| `timeout` | integer | no | 30 | min 5, max 120 (`ge=5, le=120`) | Ring timeout in seconds |
+| `company_campaign_id` | string \| null | no | null | — | Associated campaign ID |
+| `company_campaign_lead_id` | string \| null | no | null | — | Associated campaign lead ID |
+
+**Validation rules:**
+- `voicemail_text` and `voicemail_audio_url` are mutually exclusive. Providing both returns `400`.
+
+**Response body**
+
+| Field | Type | Nullable | Description |
+|-------|------|----------|-------------|
+| `call_sid` | string | no | Twilio Call SID |
+| `status` | string | no | Initial call status |
+| `direction` | string | no | Call direction |
+| `from_number` | string | no | Caller ID used |
+| `to` | string | no | Destination number |
+| `voice_session_id` | string \| null | yes | UUID of the created voice session |
+
+**Error responses**
+
+| Status | Condition | Body |
+|--------|-----------|------|
+| 400 | Both voicemail_text and voicemail_audio_url provided | `{"detail": "Cannot provide both voicemail_text and voicemail_audio_url"}` |
+| 400 | Twilio credentials missing | `{"detail": "Twilio credentials not configured for this organization"}` |
+| 404 | Organization not found | `{"detail": "Organization not found"}` |
+| 502 | Twilio API error | `{"detail": "Twilio API error: <error message>"}` |
+
+---
+
+### GET /api/outbound-calls/{call_sid}
+
+Get call status from voice_sessions.
+
+> **Note:** This endpoint has no typed response model — it returns the raw `voice_sessions` database row. The `VoiceSessionResponse` fields are the closest approximation.
+
+**Auth**
+
+Permission: `voice.read` via `require_permission("voice.read")`
+
+**Path parameters**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `call_sid` | string | Twilio Call SID |
+
+**Response body**
+
+Raw `voice_sessions` row. See `VoiceSessionResponse` fields under [GET /api/voice/sessions](#get-apivoicesessions) for approximate shape. Additional database columns not in the typed model may also be present.
+
+**Error responses**
+
+| Status | Condition | Body |
+|--------|-----------|------|
+| 404 | Call not found | `{"detail": "Call not found"}` |
+
+---
+
+## SMS
+
+### POST /api/sms
+
+Send an SMS/MMS message.
+
+**Auth**
+
+Permission: `sms.write` via `require_permission("sms.write")`
+
+**Request body**
+
+| Field | Type | Required | Default | Constraints | Description |
+|-------|------|----------|---------|-------------|-------------|
+| `to` | string | yes | — | E.164 format | Phone number to send to |
+| `body` | string \| null | no | null | Up to 1600 chars | Text content of the message |
+| `from_number` | string \| null | no | null | E.164 format; mutually exclusive with `messaging_service_sid` | Sender number. If omitted, uses Messaging Service. |
+| `messaging_service_sid` | string \| null | no | null | Mutually exclusive with `from_number` | Messaging Service SID for sender pool routing |
+| `media_url` | string[] \| null | no | null | Max 10 URLs | URLs of media to attach (MMS) |
+| `company_campaign_id` | string \| null | no | null | — | Associated campaign ID |
+| `company_campaign_lead_id` | string \| null | no | null | — | Associated campaign lead ID |
+
+**Validation rules (4 rules):**
+
+1. **Body or media required** — at least one of `body` or `media_url` must be provided. If neither is set, returns `400`.
+2. **Max 10 media URLs** — if `media_url` has more than 10 items, returns `400`.
+3. **from_number / messaging_service_sid mutually exclusive** — providing both returns `400`.
+4. **Fallback to org-level Messaging Service** — if neither `from_number` nor `messaging_service_sid` is provided, the system falls back to the org's configured `messaging_service_sid` from `provider_configs.twilio.messaging_service_sid`. If that is also not configured, returns `400`.
+
+**Response body**
+
+| Field | Type | Nullable | Description |
+|-------|------|----------|-------------|
+| `message_sid` | string | no | Twilio Message SID |
+| `status` | string | no | Initial message status |
+| `direction` | string | no | Message direction |
+| `from_number` | string | no | Sender number used |
+| `to` | string | no | Destination number |
+
+**Error responses**
+
+| Status | Condition | Body |
+|--------|-----------|------|
+| 400 | No body or media_url | `{"detail": "Must provide at least one of body or media_url"}` |
+| 400 | More than 10 media URLs | `{"detail": "Maximum 10 media URLs allowed"}` |
+| 400 | Both from_number and messaging_service_sid | `{"detail": "Cannot provide both from_number and messaging_service_sid"}` |
+| 400 | No sender and no default Messaging Service | `{"detail": "No sender specified and no default Messaging Service configured."}` |
+| 400 | Twilio credentials missing | `{"detail": "Twilio credentials not configured for this organization"}` |
+| 404 | Organization not found | `{"detail": "Organization not found"}` |
+| 502 | Twilio API error | `{"detail": "Twilio API error: <error message>"}` |
+
+---
+
+### GET /api/sms/{message_sid}
+
+Get message status from sms_messages.
+
+**Auth**
+
+Permission: `sms.read` via `require_permission("sms.read")`
+
+**Path parameters**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `message_sid` | string | Twilio Message SID |
+
+**Response body**
+
+| Field | Type | Nullable | Description |
+|-------|------|----------|-------------|
+| `id` | string | no | SMS message UUID |
+| `message_sid` | string | no | Twilio Message SID |
+| `direction` | string | no | `inbound` or `outbound` |
+| `from_number` | string | no | Sender phone number |
+| `to_number` | string | no | Recipient phone number |
+| `body` | string \| null | yes | Message text |
+| `status` | string | no | Message delivery status |
+| `error_code` | integer \| null | yes | Twilio error code if failed |
+| `error_message` | string \| null | yes | Twilio error message if failed |
+| `num_segments` | integer \| null | yes | Number of SMS segments |
+| `num_media` | integer \| null | yes | Number of media attachments |
+| `media_urls` | string[] \| null | yes | URLs of attached media |
+| `date_sent` | string \| null | yes | ISO 8601 timestamp when sent |
+| `created_at` | string | no | ISO 8601 timestamp |
+| `updated_at` | string | no | ISO 8601 timestamp |
+
+**Error responses**
+
+| Status | Condition | Body |
+|--------|-----------|------|
+| 404 | Message not found | `{"detail": "Message not found"}` |
+
+---
+
+### GET /api/sms
+
+List messages for the org with pagination.
+
+**Auth**
+
+Permission: `sms.read` via `require_permission("sms.read")`
+
+**Query parameters**
+
+| Parameter | Type | Required | Default | Constraints | Description |
+|-----------|------|----------|---------|-------------|-------------|
+| `direction` | string | no | null | — | Filter by direction (`inbound`, `outbound`) |
+| `status` | string | no | null | — | Filter by message status (query param `status`, aliased from `sms_status` internally) |
+| `limit` | integer | no | 50 | min 1, max 200 (`ge=1, le=200`) | Page size |
+| `offset` | integer | no | 0 | min 0 (`ge=0`) | Pagination offset |
+
+**Response body**
+
+Array of `SmsMessageResponse` (see field listing under [GET /api/sms/{message_sid}](#get-apismsmessage_sid)).
+
+**Error responses**
+
+No endpoint-specific errors beyond shared errors.
+
+---
+
+## Shared Error Responses
+
+These errors can be returned by any endpoint:
+
+| Status | Condition | Body |
+|--------|-----------|------|
+| 401 | Missing authorization header | `{"detail": "Missing authorization header"}` |
+| 401 | Invalid or expired token | `{"detail": "Invalid or expired token"}` |
+| 403 | Insufficient permissions | `{"detail": "Permission required: <permission_key>"}` |
+| 404 | Organization not found (credential resolution) | `{"detail": "Organization not found"}` |
+| 400 | Twilio credentials not configured (credential resolution) | `{"detail": "Twilio credentials not configured for this organization"}` |
+| 422 | Request body validation failure (missing required fields, unknown fields, type errors) | Pydantic validation error |
+
+---
+
+## TypeScript Type Definitions
+
+```typescript
+// --- Voice ---
+
+interface VoiceTokenResponse {
+  token: string;
+  identity: string;
+  ttl_seconds: number;
+}
+
+interface VoiceSessionResponse {
+  id: string;
+  call_sid: string;
+  direction: string;
+  from_number: string;
+  to_number: string;
+  status: string;
+  agent_identity: string | null;
+  duration_seconds: number | null;
+  business_disposition: string | null;
+  amd_result: string | null;
+  recording_sid: string | null;
+  recording_url: string | null;
+  recording_duration_seconds: number | null;
+  company_id: string | null;
+  company_campaign_id: string | null;
+  company_campaign_lead_id: string | null;
+  started_at: string | null;
+  answered_at: string | null;
+  ended_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+interface DispositionRequest {
+  disposition: string;
+  notes?: string | null;
+}
+
+interface DispositionResponse {
+  call_sid: string;
+  business_disposition: string;
+  updated_at: string;
+}
+
+interface CallActionRequest {
+  action: string;
+  twiml?: string | null;
+  url?: string | null;
+}
+
+// --- Outbound Calls ---
+
+interface OutboundCallRequest {
+  to: string;
+  from_number: string;
+  greeting_text?: string | null;
+  voicemail_text?: string | null;
+  voicemail_audio_url?: string | null;
+  human_message_text?: string | null;
+  record?: boolean;
+  timeout?: number;
+  company_campaign_id?: string | null;
+  company_campaign_lead_id?: string | null;
+}
+
+interface OutboundCallResponse {
+  call_sid: string;
+  status: string;
+  direction: string;
+  from_number: string;
+  to: string;
+  voice_session_id: string | null;
+}
+
+// --- SMS ---
+
+interface SendSmsRequest {
+  to: string;
+  body?: string | null;
+  from_number?: string | null;
+  messaging_service_sid?: string | null;
+  media_url?: string[] | null;
+  company_campaign_id?: string | null;
+  company_campaign_lead_id?: string | null;
+}
+
+interface SendSmsResponse {
+  message_sid: string;
+  status: string;
+  direction: string;
+  from_number: string;
+  to: string;
+}
+
+interface SmsMessageResponse {
+  id: string;
+  message_sid: string;
+  direction: string;
+  from_number: string;
+  to_number: string;
+  body: string | null;
+  status: string;
+  error_code: number | null;
+  error_message: string | null;
+  num_segments: number | null;
+  num_media: number | null;
+  media_urls: string[] | null;
+  date_sent: string | null;
+  created_at: string;
+  updated_at: string;
 }
 ```
-
-- `company_id`: required for org-level admins (which client is this campaign for)
-- `name`: campaign display name
-
-**Response** (201):
-```json
-{
-  "id": "abc123-...",
-  "company_id": "69a9ffab-...",
-  "provider_id": null,
-  "external_campaign_id": "",
-  "name": "Q2 Multi-Touch - Nexus Labs",
-  "status": "DRAFTED",
-  "campaign_type": "multi_channel",
-  "created_by_user_id": "...",
-  "created_at": "2026-03-03T...",
-  "updated_at": "2026-03-03T..."
-}
-```
-
-Campaign starts in `DRAFTED` status. Cannot be activated until sequence + leads are set.
-
----
-
-### 2. Define Sequence Steps
-
-```
-PUT /api/campaigns/{campaign_id}/multi-channel-sequence
-```
-
-Replaces the entire sequence. Campaign must be in `DRAFTED` status.
-
-**Request:**
-```json
-{
-  "steps": [
-    {
-      "step_order": 1,
-      "channel": "email",
-      "action_type": "send_email",
-      "delay_days": 0,
-      "execution_mode": "direct_single_touch",
-      "action_config": {
-        "subject": "Quick question about {{company}}",
-        "message": "<p>Hi {{first_name}},</p><p>...</p>",
-        "sender_email_id": 42
-      }
-    },
-    {
-      "step_order": 2,
-      "channel": "linkedin",
-      "action_type": "send_connection_request",
-      "delay_days": 3,
-      "execution_mode": "campaign_mediated",
-      "provider_campaign_id": "heyreach-campaign-id-here",
-      "skip_if": { "event": "reply_received" },
-      "action_config": {
-        "message": "Hi {{first_name}}, I sent you an email about..."
-      }
-    },
-    {
-      "step_order": 3,
-      "channel": "direct_mail",
-      "action_type": "send_postcard",
-      "delay_days": 7,
-      "execution_mode": "direct_single_touch",
-      "skip_if": { "event": "reply_received" },
-      "action_config": {
-        "description": "Q2 postcard",
-        "front": "tmpl_front_abc",
-        "back": "tmpl_back_xyz",
-        "to": {
-          "name": "{{first_name}} {{last_name}}",
-          "address_line1": "{{address}}"
-        }
-      }
-    }
-  ]
-}
-```
-
-**Field reference for each step:**
-
-| Field | Type | Required | Description |
-|---|---|---|---|
-| `step_order` | int (>= 1) | yes | Position in sequence. Must be unique. |
-| `channel` | string | yes | `"email"`, `"linkedin"`, or `"direct_mail"` |
-| `action_type` | string | yes | `"send_email"`, `"send_connection_request"`, `"send_linkedin_message"`, `"send_postcard"`, `"send_letter"` |
-| `delay_days` | int (>= 0) | no (default 0) | Days to wait after the previous step before executing this one. 0 = execute immediately on next orchestrator tick. |
-| `execution_mode` | string | no (default `"direct_single_touch"`) | `"direct_single_touch"` for email/direct mail, `"campaign_mediated"` for LinkedIn (HeyReach). The frontend can default this based on channel. |
-| `action_config` | object | yes | Channel-specific payload. See below. |
-| `skip_if` | object or null | no | Conditional skip rule. See below. |
-| `provider_campaign_id` | string or null | no | Only for `campaign_mediated` steps (LinkedIn). The pre-created HeyReach campaign ID to inject leads into. |
-
-**`action_config` by channel:**
-
-- **Email** (`send_email`): `{ "subject": "...", "message": "...", "sender_email_id": 42 }`
-- **LinkedIn** (`send_connection_request` or `send_linkedin_message`): `{ "message": "..." }`
-- **Direct mail** (`send_postcard`): Lob postcard payload — `{ "description": "...", "front": "...", "back": "...", "to": {...}, "from": {...} }`
-- **Direct mail** (`send_letter`): Lob letter payload — `{ "description": "...", "file": "...", "to": {...}, "from": {...} }`
-
-**`skip_if` options (all optional):**
-
-| Rule | Meaning |
-|---|---|
-| `{ "event": "reply_received" }` | Skip this step if the lead has replied to any prior step |
-| `{ "event": "message_received", "direction": "inbound" }` | Skip if any inbound message exists |
-| `{ "lead_status": "unsubscribed" }` | Skip if lead's status matches |
-| `null` | No condition — always execute |
-
-**Response** (200): array of created steps with server-generated `id`, `provider_id`, timestamps.
-
-**Validation errors:**
-- 400 if campaign is not `DRAFTED`
-- 400 if the company doesn't have an entitlement for a step's channel (e.g., no `linkedin_outreach` capability)
-
----
-
-### 3. Get Sequence Steps
-
-```
-GET /api/campaigns/{campaign_id}/multi-channel-sequence
-```
-
-**Response** (200):
-```json
-[
-  {
-    "id": "step-uuid-1",
-    "step_order": 1,
-    "channel": "email",
-    "action_type": "send_email",
-    "action_config": { "subject": "...", "message": "...", "sender_email_id": 42 },
-    "delay_days": 0,
-    "execution_mode": "direct_single_touch",
-    "skip_if": null,
-    "provider_campaign_id": null,
-    "provider_id": "emailbison-provider-uuid",
-    "created_at": "...",
-    "updated_at": "..."
-  }
-]
-```
-
----
-
-### 4. Add Leads to Campaign
-
-```
-POST /api/campaigns/{campaign_id}/multi-channel-leads
-```
-
-**Request:**
-```json
-{
-  "leads": [
-    {
-      "email": "alice@example.com",
-      "first_name": "Alice",
-      "last_name": "Smith",
-      "company": "Acme Inc",
-      "title": "VP Sales"
-    },
-    {
-      "email": "bob@example.com",
-      "first_name": "Bob",
-      "last_name": "Jones",
-      "company": "Beta Corp",
-      "title": "CTO"
-    }
-  ]
-}
-```
-
-Each lead requires `email`. All other fields are optional but recommended (used for template variable substitution in action_config).
-
-**Response** (200):
-```json
-{
-  "campaign_id": "abc123-...",
-  "affected": 2,
-  "status": "added"
-}
-```
-
----
-
-### 5. Activate Campaign
-
-```
-POST /api/campaigns/{campaign_id}/activate
-```
-
-No request body needed.
-
-**What it does:**
-- Validates campaign has at least 1 step and 1 lead
-- Initializes a progress row for every lead at step 1
-- Sets campaign status from `DRAFTED` to `ACTIVE`
-- The orchestrator picks up pending leads on its next tick (runs every 60 minutes)
-
-**Response** (200):
-```json
-{
-  "campaign_id": "abc123-...",
-  "status": "ACTIVE",
-  "leads_initialized": 2,
-  "first_step_order": 1,
-  "first_execute_at": "2026-03-03T17:30:00+00:00"
-}
-
-```
-
-**Validation errors:**
-- 400 if campaign is not `DRAFTED`
-- 400 if no sequence steps defined
-- 400 if no leads added
-
----
-
-### 6. View Lead Progress
-
-**All leads:**
-```
-GET /api/campaigns/{campaign_id}/lead-progress
-```
-
-Optional query param: `?step_status=pending` (filter by status)
-
-**Response** (200):
-```json
-[
-  {
-    "id": "progress-uuid",
-    "lead_id": "lead-uuid",
-    "current_step_order": 2,
-    "step_status": "pending",
-    "next_execute_at": "2026-03-06T17:30:00+00:00",
-    "executed_at": "2026-03-03T17:30:05+00:00",
-    "completed_at": null,
-    "attempts": 0,
-    "last_error": null
-  }
-]
-```
-
-**Single lead:**
-```
-GET /api/campaigns/{campaign_id}/leads/{lead_id}/progress
-```
-
-Same response shape, single object. Also includes provider ID mappings.
-
-**`step_status` values:**
-
-| Status | Meaning |
-|---|---|
-| `pending` | Waiting for `next_execute_at` to arrive |
-| `executing` | Currently being processed (transient) |
-| `executed` | Step completed, advancing to next |
-| `skipped` | Step was skipped due to `skip_if` condition |
-| `failed` | Step failed after max retries |
-| `completed` | Lead has finished all steps in the sequence |
-
----
-
-### 7. Set Per-Lead Step Content (AI-Generated)
-
-```
-PUT /api/campaigns/{campaign_id}/leads/{lead_id}/step-content
-```
-
-This is the key endpoint for AI-generated campaigns. After enrolling leads, the frontend sends leads to AI for personalization, then pushes the AI output here per-lead.
-
-**Request:**
-```json
-{
-  "steps": [
-    {
-      "step_order": 1,
-      "action_config_override": {
-        "subject": "Hey Alice, saw Acme's Series B — quick question",
-        "message": "<p>Hi Alice, congrats on the raise. We help companies at your stage...</p>"
-      }
-    },
-    {
-      "step_order": 2,
-      "action_config_override": {
-        "message": "Hi Alice, I sent you an email about how we helped similar companies post-Series B..."
-      }
-    }
-  ]
-}
-```
-
-The `action_config_override` merges over the step template's `action_config`. Override keys win. Template-only keys (like `sender_email_id`) are preserved. This means the AI only needs to generate the personalized content (subject, message) — structural config stays on the step template.
-
-Can be called multiple times — it upserts (updates existing, inserts new).
-
-**Response** (200): list of `{ "step_order": 1, "action_config_override": {...} }`
-
-**Validation errors:**
-- 400 if step_order doesn't exist in the campaign's sequence
-- 400 if campaign is not multi-channel
-
----
-
-### 8. Get Per-Lead Step Content
-
-```
-GET /api/campaigns/{campaign_id}/leads/{lead_id}/step-content
-```
-
-Returns all per-step content overrides for a lead. Useful for previewing what the AI generated before activating.
-
-**Response** (200):
-```json
-[
-  {
-    "step_order": 1,
-    "action_config_override": {
-      "subject": "Hey Alice, saw Acme's Series B — quick question",
-      "message": "<p>Hi Alice, congrats on the raise...</p>"
-    }
-  },
-  {
-    "step_order": 2,
-    "action_config_override": {
-      "message": "Hi Alice, I sent you an email about..."
-    }
-  }
-]
-```
-
----
-
-### Note: Enrolling Leads with Content in One Call
-
-`POST /api/campaigns/{id}/multi-channel-leads` also accepts per-step content inline at enrollment time:
-
-```json
-{
-  "leads": [
-    {
-      "email": "alice@example.com",
-      "first_name": "Alice",
-      "last_name": "Smith",
-      "company": "Acme Inc",
-      "step_content": [
-        {
-          "step_order": 1,
-          "action_config_override": { "subject": "...", "message": "..." }
-        }
-      ]
-    }
-  ]
-}
-```
-
-Use the inline approach if AI generates content before enrollment. Use the PUT endpoint if AI generates content after enrollment (async flow).
-
----
-
-## Existing Endpoints (Unchanged)
-
-These all still work identically for both single-channel and multi-channel campaigns:
-
-| Method | Path | Purpose |
-|---|---|---|
-| `GET` | `/api/campaigns?all_companies=true` | List all campaigns (now includes `campaign_type` field) |
-| `GET` | `/api/campaigns/messages?all_companies=true&direction=inbound` | Unified inbox |
-| `GET` | `/api/campaigns/{id}/replies` | Per-campaign replies |
-| `GET` | `/api/campaigns/{id}/analytics/summary` | Campaign analytics |
-| `GET` | `/api/auth/me` | Current user info |
-
----
-
-## VoiceDrop (Ringless Voicemail) Endpoints
-
-VoiceDrop enables ringless voicemail drops — the prospect's phone doesn't ring, the voicemail just appears. Two modes: AI voice (text-to-speech from a cloned voice) or static audio (pre-recorded file).
-
-All require `Authorization: Bearer <jwt>`.
-
-### Send Voicemail (one-off)
-
-```
-POST /api/voicemail/send
-```
-
-```json
-{
-  "company_id": "69a9ffab-...",
-  "to": "7865551234",
-  "from_number": "7865550001",
-  "voice_clone_id": "L55l0kg8...",
-  "script": "Hi {{first_name}}, this is a quick message about..."
-}
-```
-
-For static audio instead of AI voice, replace `voice_clone_id`+`script` with:
-```json
-{
-  "recording_url": "https://example.com/audio.mp3"
-}
-```
-
-### Voice Clone Management
-
-| Method | Path | Purpose |
-|---|---|---|
-| `GET` | `/api/voicemail/voice-clones` | List all voice clones |
-| `POST` | `/api/voicemail/voice-clones` | Create clone (`{ "display_name": "...", "recording_url": "..." }`) |
-| `DELETE` | `/api/voicemail/voice-clones/{voice_clone_id}` | Delete a clone |
-| `POST` | `/api/voicemail/voice-clones/{voice_clone_id}/preview` | Preview clone with test script |
-
-### Sender Number Management
-
-| Method | Path | Purpose |
-|---|---|---|
-| `GET` | `/api/voicemail/sender-numbers` | List verified numbers |
-| `POST` | `/api/voicemail/sender-numbers/verify` | Start verification (`{ "phone_number": "...", "method": "sms" }`) |
-| `POST` | `/api/voicemail/sender-numbers/verify-code` | Complete verification (`{ "phone_number": "...", "code": "..." }`) |
-
-### Other
-
-| Method | Path | Purpose |
-|---|---|---|
-| `POST` | `/api/voicemail/dnc` | Add to Do Not Call list (`{ "phone": "..." }`) |
-| `GET` | `/api/voicemail/campaigns/{campaign_id}/reports` | Export delivered RVMs (returns CSV URL) |
-
-### Voicemail in Multi-Channel Sequences
-
-When defining a multi-channel sequence step for voicemail:
-
-```json
-{
-  "step_order": 3,
-  "channel": "voicemail",
-  "action_type": "send_voicemail",
-  "delay_days": 5,
-  "execution_mode": "direct_single_touch",
-  "action_config": {
-    "voice_clone_id": "L55l0kg8...",
-    "script": "Hi, this is a follow-up about...",
-    "from_number": "7865550001"
-  }
-}
-```
-
-The lead must have a `phone` field. If missing, the step fails (non-retryable).
-
-For static audio, use `recording_url` instead of `voice_clone_id`+`script` in `action_config`.
-
----
-
-## Available Channels for Multi-Channel Sequences
-
-| Channel | Action Types | Execution Mode | Provider |
-|---|---|---|---|
-| `email` | `send_email` | `direct_single_touch` | EmailBison |
-| `linkedin` | `send_connection_request`, `send_linkedin_message` | `campaign_mediated` | HeyReach |
-| `direct_mail` | `send_postcard`, `send_letter` | `direct_single_touch` | Lob |
-| `voicemail` | `send_voicemail` | `direct_single_touch` | VoiceDrop |
-
----
-
-## Suggested Frontend UX Flow
-
-1. **Campaign list page** — show all campaigns, badge with `campaign_type` (single vs multi-channel)
-2. **Create campaign** — choice between single-channel (existing flow) and multi-channel (new flow)
-3. **Multi-channel builder** — step-by-step sequence designer:
-   - Add step → pick channel (email / LinkedIn / direct mail / voicemail)
-   - Configure step (email subject+body, LinkedIn message, postcard template, voicemail script+voice clone)
-   - Set delay (days after previous step)
-   - Optionally set skip condition ("skip if replied")
-   - Drag to reorder steps
-4. **Add leads** — manual entry, paste CSV, or bulk input. Need email + name at minimum. Phone number required if sequence includes voicemail steps.
-5. **AI personalization** — send leads to AI, get back per-step content, push via `PUT /api/campaigns/{id}/leads/{lead_id}/step-content`
-6. **Review & activate** — show summary, hit activate
-7. **Progress dashboard** — per-campaign view showing each lead's journey through the sequence with status indicators
-8. **Voicemail settings** — manage voice clones and sender numbers under a settings/configuration page
-
----
-
-## Company IDs for Outbound Solutions Org
-
-For testing, these are the companies the frontend can create campaigns for:
-
-| Company | ID |
-|---|---|
-| Nexus Labs | `69a9ffab-d8af-4e3c-9d6a-3d2added669f` |
-| Pinnacle Staffing | `cacb6480-260e-498f-9c56-b6b3e51aca1f` |
-| Horizon Media | `483ffe06-f9cb-4249-8815-a7673b0fc02e` |
-
-All three have entitlements for email_outreach (EmailBison), linkedin_outreach (HeyReach), direct_mail (Lob), and voicemail_drop (VoiceDrop).
-
-Note: voicemail_drop entitlements need to be provisioned for these companies before voicemail endpoints will work. The VoiceDrop API key also needs to be set in the org's provider_configs.
