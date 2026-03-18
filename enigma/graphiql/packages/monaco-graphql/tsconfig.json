@@ -1,0 +1,22 @@
+{
+  "extends": "../../resources/tsconfig.base.cjs.json",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "target": "es2015",
+    "noUncheckedIndexedAccess": true,
+    "lib": ["dom", "ESNext"],
+    "paths": {
+      "*": ["*"]
+    }
+  },
+  "references": [
+    {
+      "path": "../graphql-language-service"
+    }
+  ],
+  "include": ["./src"],
+  "exclude": ["**/__tests__/**", "**/*.spec.*", "dist", "esm", "node_modules"]
+}
