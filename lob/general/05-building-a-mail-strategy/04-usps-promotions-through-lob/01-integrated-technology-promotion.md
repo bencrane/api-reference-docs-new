@@ -1,0 +1,124 @@
+# Integrated Technology Promotion
+
+### What is the USPS Integrated Technology promotion?&#x20;
+
+The Integrated Technology promotion bridges the gap between physical and digital marketing by incorporating cutting-edge tools that engage consumers in new and exciting ways.&#x20;
+
+Four key USPS Integrated Technology experiences are available through Lob:&#x20;
+
+1. **Mobile shopping:** Incorporate QR codes that lead to mobile-optimized websites showcasing physical products. Note that the product you are pointing recipients to must be a physical product.&#x20;
+2. **Artificial intelligence:** Use generative AI to craft compelling copy or visuals to meet your campaign goals.&#x20;
+3. **Voice assistant integration:** Encourage interactions through voice prompts to guide exploration.&#x20;
+4. **Augmented reality (AR):** Create immersive experiences that blend physical and digital with 3D images.&#x20;
+
+Please refer to the [USPS Integrated Technology 2026 Promotion Guidebook](https://postalpro.usps.com/promotions/26-it) to ensure that the mail piece meets all the 2026 Program Requirements.
+
+### When is the USPS Integrated Technology promotion live?&#x20;
+
+Lob will be supporting this promotion from **July 1, 2026 to December 31, 2026**.
+
+### How can I take advantage of the USPS Integrated Technology promotion through Lob?&#x20;
+
+The easiest way to leverage this promotion is by using Lob's QR code feature to direct recipients to a mobile-optimized website.&#x20;
+
+Here’s everything you need to know to qualify for a 5% discount.
+
+### Opt-in to the promotion&#x20;
+
+To get started, log into the Lob Promotions Portal: \
+<https://dashboard.lob.com/promotions/available-promotions>
+
+1. Select the Available Promotion
+
+<figure><img src="https://1775164782-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FiXDYGxBp6aAwhpEhTMNC%2Fuploads%2Flvp7AIo0t42QyqEoe29f%2FScreenshot%202025-12-18%20at%202.37.29%E2%80%AFPM.png?alt=media&#x26;token=28d737a6-fc65-43d3-ac47-86d34743c3d6" alt=""><figcaption></figcaption></figure>
+
+2. Opt-In for the Tactile, Sensory, Interactive Engagement Promotion
+
+<figure><img src="https://1775164782-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FiXDYGxBp6aAwhpEhTMNC%2Fuploads%2FcX2l3nYoF83woVzjRyWT%2FScreenshot%202025-12-18%20at%202.37.55%E2%80%AFPM.png?alt=media&#x26;token=61665168-b0c4-4109-900e-e639ef497a43" alt=""><figcaption></figcaption></figure>
+
+3. Select your technology feature
+
+<figure><img src="https://1775164782-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FiXDYGxBp6aAwhpEhTMNC%2Fuploads%2Fxp7F6ydfY5VqOGQ5BX1Z%2FScreenshot%202025-12-18%20at%202.42.29%E2%80%AFPM.png?alt=media&#x26;token=0eaaa35f-fc00-40a1-b92d-0b3499098b5e" alt=""><figcaption></figcaption></figure>
+
+4. Upload PDF of your mailpiece
+
+<figure><img src="https://1775164782-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FiXDYGxBp6aAwhpEhTMNC%2Fuploads%2FOVp4r53eM1R9CeiPMg4p%2FScreenshot%202025-12-18%20at%202.43.33%E2%80%AFPM.png?alt=media&#x26;token=e9bbf06b-0068-4cbd-aaab-458cf52dcec9" alt=""><figcaption></figcaption></figure>
+
+5. Validate Promotion approval
+
+<figure><img src="https://1775164782-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FiXDYGxBp6aAwhpEhTMNC%2Fuploads%2Fm5SWvQmfEuR2A1e5kPRq%2FScreenshot%202025-12-18%20at%202.44.18%E2%80%AFPM.png?alt=media&#x26;token=48cc1561-9868-4f2c-b7c7-53e982670623" alt=""><figcaption></figcaption></figure>
+
+### Requirements for 4 USPS Integrated Technology experiences:
+
+#### **Mobile shopping**&#x20;
+
+The mobile shopping USPS Integrated Technology experience is ideal for retail or B2C campaigns targeting physical product sales.&#x20;
+
+**How to qualify:**
+
+* QR codes should meet size requirements (minimum ½ inch by ½ inch) and include adjacent directional copy, such as, “Scan for your personal offer.”&#x20;
+* Directional copy must be as big as or larger than the marketing message.
+* Must direct users to a fully optimized mobile website with an end-to-end shopping journey.
+
+**Digital shopping experience requirements:**
+
+* Scans must lead to a fully mobile-optimized website that supports the entire shopping experience, from browsing to purchase completion.
+* Landing pages can include pop-ups, provided users can easily close them.
+* The scan must direct users to a purchase site relevant to the mailpiece's message.
+* The purchase site must sell physical products (e.g., QR codes for credit card applications are eligible if a physical card is mailed to the customer).
+* Customers must be able to complete a purchase on the site.
+
+#### **AI**
+
+To qualify as an artificial intelligence Integrated Technology experience, a mailpiece must include text or images that were created by leveraging generative AI tools, such as Adobe Firefly, ChatGPT, or Microsoft Copilot.&#x20;
+
+How to qualify:
+
+* **AI-generated text:** Include at least one sentence of text generated by an AI tool (e.g. a call-to-action or supporting sentence).
+* **AI-generated images:** Use at least one AI-generated image directly related to the mailpiece's message.
+
+Pre-approval is required to participate in this promotion. Here’s an overview of the pre-approval process:
+
+* Submit a digital file (e.g., PDF) showing the AI prompt alongside its output in an unedited format.
+* Optionally, include a link to the prompt and output for reference.
+* Provide a short description of how the AI tool was used in creating the copy or image.
+* If edits were made to the AI-generated content, explain the changes and the reasons for them.
+* Ensure there is a clear connection between the prompt and the AI-generated output.
+* The mailpiece must match the AI output entirely unless justified edits are documented.
+
+Mailpieces are not eligible if they use edited AI-generated output without explanation or rely on prompts that directly instruct the AI to repeat specific phrases verbatim (e.g., prompting “Repeat after me, take me to xyz.com” to produce identical copy).
+
+#### **Voice assistant**
+
+To qualify for the Integrated Technology voice assistant experience, your mailpiece must include instructions directing recipients to use a voice prompt for a targeted response or action via a voice assistant. This promotion is best for retail or B2C companies.
+
+**How to qualify:**
+
+Eligible approaches include:
+
+* Using a simple voice command to direct recipients to a website related to the mailpiece's purpose.
+* Leveraging pre-existing modules in Alexa or Google Assistant without requiring a new skill or action.
+* Customizing pre-existing modules to include branded content or scripts unique to your campaign.
+* Developing a fully custom skill or action using tools like the Alexa Skill Kit (ASK).
+
+All voice assistant experiences must deliver measurable business outcomes.&#x20;
+
+Mailpieces that do not have a clear reason for directing users to a specific website will not qualify for Voice Assistant discounts. For example, a mailer from ABC Travel that says, "Hey Google, take me to EFGusedcars.com" for a vacation promotion to the Bahamas, or a mailer saying, "Hey Siri, take me to EFGusedcars.com" without explaining the relevance of the website, will not qualify.
+
+Companies must submit an audio file attachment demonstrating the voice command and response when submitting the mailpiece in the MPP during the pre-approval process. Any submission that does not include an audio file cannot be approved as final until USPS receives the audio file.&#x20;
+
+#### **Augmented Reality**
+
+The USPS Augmented Reality promotion allows businesses to integrate interactive 3D elements, animations, and digital experiences into their direct mailpieces, enhancing engagement by blending the physical mail with digital content.&#x20;
+
+**How to qualify**
+
+* Ensure your mailpiece includes animation, and 3D elements, images, or modules.
+* Create a dynamic interaction between the physical mailpiece and digital content, engaging the recipient through 3D elements and animations that respond to their perspective.
+* Examples:&#x20;
+* A QR code on mailpiece that directs customers to an interactive experience:
+* “Dive into your next trip with ABC Travel! Scan this QR code to splash in the pool before you arrive.”
+* A QR code opens the app store to download a branded AR experience:
+* “Want to dive deep in the ocean? Download our ABC Travel app to explore our favorite scuba tours.”
+
+AR experiences that include only static, pop-up, or worded displays that do not actively engage the recipient will not qualify. Similarly, 2D AR images, which lack interactive elements or depth, are also not eligible. For a valid AR experience, the recipient must engage with the content beyond just reading or clicking a button.

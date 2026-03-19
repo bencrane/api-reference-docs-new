@@ -1,0 +1,3 @@
+# Uploads
+
+The uploads endpoint allows you to upload audience files that are then associated with a given campaign. At this time, only CSV files are allowed. The API provides endpoints for creating uploads, uploading audience files, and marking uploaded files as ready for processing. The API also provides endpoints for downloading files that describe the results, both successful and not, of the processing.
