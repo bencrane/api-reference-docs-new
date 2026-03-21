@@ -4,38 +4,38 @@
 
 | Property name | Type | Required | PII | Description |
 |---------------|------|----------|-----|-------------|
-| `sid` | SID\<EL\> | Optional | Not PII | The unique string that identifies the Evaluation resource. Pattern: `^EL[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
-| `account_sid` | SID\<AC\> | Optional | Not PII | The SID of the Account that created the trust_product resource. Pattern: `^AC[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
-| `policy_sid` | SID\<RN\> | Optional | Not PII | The unique string of a policy that is associated to the trust_product resource. Pattern: `^RN[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
-| `trust_product_sid` | SID\<BU\> | Optional | Not PII | The unique string that we created to identify the trust_product resource. Pattern: `^BU[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
-| `status` | enum\<string\> | Optional | Not PII | The compliance status of the Evaluation resource. Possible values: `compliant`, `noncompliant` |
-| `results` | array | Optional | Not PII | The results of the Evaluation which includes the valid and invalid attributes. |
-| `date_created` | string\<date-time\> | Optional | Not PII | The date and time in GMT when the resource was created specified in ISO 8601 format. |
-| `url` | string\<uri\> | Optional | Not PII | The absolute URL of the Evaluation resource. |
+| sid | SID<EL> | Optional | Not PII | The unique string that identifies the Evaluation resource. Pattern: `^EL[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
+| account_sid | SID<AC> | Optional | Not PII | The SID of the Account that created the trust_product resource. Pattern: `^AC[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
+| policy_sid | SID<RN> | Optional | Not PII | The unique string of a policy that is associated to the trust_product resource. Pattern: `^RN[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
+| trust_product_sid | SID<BU> | Optional | Not PII | The unique string that we created to identify the trust_product resource. Pattern: `^BU[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
+| status | enum<string> | Optional | Not PII | The compliance status of the Evaluation resource. Possible values: `compliant`, `noncompliant` |
+| results | array | Optional | Not PII | The results of the Evaluation which includes the valid and invalid attributes. |
+| date_created | string<date-time> | Optional | Not PII | |
+| url | string<uri> | Optional | Not PII | |
 
 ---
 
-## Create a New Evaluation
+## Create a new Evaluation
 
 ```
 POST https://trusthub.twilio.com/v1/TrustProducts/{TrustProductSid}/Evaluations
 ```
 
-### Path Parameters
+### Path parameters
 
 | Property name | Type | Required | PII | Description |
 |---------------|------|----------|-----|-------------|
-| `trust_product_sid` | SID\<BU\> | required | Not PII | The unique string that we created to identify the trust_product resource. Pattern: `^BU[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
+| trust_product_sid | SID<BU> | required | Not PII | The unique string that we created to identify the trust_product resource. Pattern: `^BU[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
 
-### Request Body Parameters
+### Request body parameters
 
-**Encoding type:** `application/x-www-form-urlencoded`
+Encoding type: `application/x-www-form-urlencoded`
 
 | Property name | Type | Required | PII | Description |
 |---------------|------|----------|-----|-------------|
-| `policy_sid` | SID\<RN\> | required | Not PII | The unique string of a policy that is associated to the customer_profile resource. Pattern: `^RN[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
+| policy_sid | SID<RN> | required | Not PII | The unique string of a policy that is associated to the customer_profile resource. Pattern: `^RN[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
 
-### Example: Create an Evaluation
+### Create an Evaluation
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -57,7 +57,7 @@ trust_products_evaluation = client.trusthub.v1.trust_products(
 print(trust_products_evaluation.sid)
 ```
 
-### Response
+**Response:**
 
 ```json
 {
@@ -224,20 +224,20 @@ print(trust_products_evaluation.sid)
 
 ---
 
-## Fetch Specific Evaluation Instance
+## Fetch specific Evaluation Instance
 
 ```
 GET https://trusthub.twilio.com/v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid}
 ```
 
-### Path Parameters
+### Path parameters
 
 | Property name | Type | Required | PII | Description |
 |---------------|------|----------|-----|-------------|
-| `trust_product_sid` | SID\<BU\> | required | Not PII | The unique string that we created to identify the trust_product resource. Pattern: `^BU[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
-| `sid` | SID\<EL\> | required | Not PII | The unique string that identifies the Evaluation resource. Pattern: `^EL[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
+| trust_product_sid | SID<BU> | required | Not PII | The unique string that we created to identify the trust_product resource. Pattern: `^BU[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
+| sid | SID<EL> | required | Not PII | The unique string that identifies the Evaluation resource. Pattern: `^EL[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
 
-### Example: Fetch an Evaluation
+### Fetch an Evaluation
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -259,7 +259,7 @@ trust_products_evaluation = (
 print(trust_products_evaluation.sid)
 ```
 
-### Response
+**Response:**
 
 ```json
 {
@@ -426,27 +426,27 @@ print(trust_products_evaluation.sid)
 
 ---
 
-## Retrieve a List of Evaluations
+## Retrieve a list of Evaluations associated to the trust_product resource
 
 ```
 GET https://trusthub.twilio.com/v1/TrustProducts/{TrustProductSid}/Evaluations
 ```
 
-### Path Parameters
+### Path parameters
 
 | Property name | Type | Required | PII | Description |
 |---------------|------|----------|-----|-------------|
-| `trust_product_sid` | SID\<BU\> | required | Not PII | The unique string that we created to identify the trust_product resource. Pattern: `^BU[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
+| trust_product_sid | SID<BU> | required | Not PII | The unique string that we created to identify the trust_product resource. Pattern: `^BU[0-9a-fA-F]{32}$` Min length: 34, Max length: 34 |
 
-### Query Parameters
+### Query parameters
 
 | Property name | Type | Required | PII | Description |
 |---------------|------|----------|-----|-------------|
-| `page_size` | integer\<int64\> | Optional | Not PII | How many resources to return in each list page. The default is 50, and the maximum is 1000. Minimum: 1, Maximum: 1000 |
-| `page` | integer | Optional | Not PII | The page index. This value is simply for client state. Minimum: 0 |
-| `page_token` | string | Optional | Not PII | The page token. This is provided by the API. |
+| page_size | integer<int64> | Optional | Not PII | How many resources to return in each list page. The default is 50, and the maximum is 1000. Minimum: 1, Maximum: 1000 |
+| page | integer | Optional | Not PII | The page index. This value is simply for client state. Minimum: 0 |
+| page_token | string | Optional | Not PII | The page token. This is provided by the API. |
 
-### Example: List Multiple Evaluations
+### List multiple Evaluations
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -467,7 +467,7 @@ for record in trust_products_evaluations:
     print(record.sid)
 ```
 
-### Response
+**Response:**
 
 ```json
 {
@@ -482,4 +482,4 @@ for record in trust_products_evaluations:
     "key": "results"
   }
 }
-```
+```s

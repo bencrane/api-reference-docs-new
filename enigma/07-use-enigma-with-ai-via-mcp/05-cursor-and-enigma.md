@@ -1,15 +1,15 @@
-# Cursor + Enigma
+# Cursor + Enigma​
 
 URL: https://documentation.enigma.com/guides/ai-mcp/cursor
 
 Beta
-Enigma's remote MCP server is currently in beta.
+The Enigma remote MCP server is currently in beta.
 
-Give Cursor the power of Enigma's business intelligence. Through MCP, your coding assistant gains comprehensive business knowledge perfect for building data-driven applications.
+Give Cursor the power of Enigma business intelligence. Through MCP, your coding assistant gains comprehensive business knowledge perfect for building data-driven applications.
 
 ## Prerequisites
 
-- An Enigma API key, which you can find in the settings menu of the [Enigma Console](https://console.enigma.com/)
+- An Enigma API key, which you can find in the the [Enigma Console](https://console.enigma.com/settings/api-keys) under **Settings > Account > API Keys**
 - A Cursor account that is either:
 - An individual account with the [Pro Plan](https://cursor.com/pricing) , or
 - A team account with Admin permissions
@@ -57,11 +57,11 @@ Open this link to automatically add Enigma to Cursor:
 
 > "Analyze Tacombi's business model and revenue trends"
 
-You should see your Cursor AI intelligently using Enigma's business intelligence to provide comprehensive analysis.
+You should see your Cursor AI intelligently using Enigma business intelligence to provide comprehensive analysis.
 
 ## What Your Cursor AI Can Do
 
-With Enigma's business intelligence, your Cursor AI can:
+With Enigma business intelligence, your Cursor AI can:
 
 - **Research any company** while you build B2B applications
 - **Validate market assumptions** with real data during development

@@ -2,13 +2,15 @@
 
 To create a secondary customer profile using the API, gather details about that business, create the regulatory bundle components, and assign them to an empty regulatory bundle.
 
+---
+
 ## Prerequisites
 
 ### Twilio Primary Customer Profile
 
 A Primary Customer Profile in the `twilio-approved` state created in the same account.
 
-### Business Registration Data
+### Business registration data
 
 Gather the following data for your business.
 
@@ -24,7 +26,7 @@ Gather the following data for your business.
 | Website URL | Required | HTTP URL as set in RFC 1738 3.3 |
 | Social Media Profile URL | Optional | HTTP URL as set in RFC 1738 3.3 |
 
-### Representative Data
+### Representative data
 
 For each representative of the entity set in the CustomerProfile, collect the following data.
 
@@ -40,9 +42,9 @@ For each representative of the entity set in the CustomerProfile, collect the fo
 
 ---
 
-## Create a Compliant Secondary Customer Profile
+## Create a compliant Secondary Customer Profile
 
-### Step 1: Fetch Your Policy SID
+### Fetch your Policy SID
 
 Fetch the Policy SID for your Primary Customer Profile.
 
@@ -66,7 +68,7 @@ customer_profile = client.trusthub.v1.customer_profiles(
 print(customer_profile.sid)
 ```
 
-#### Response
+**Response:**
 
 ```json
 {
@@ -83,16 +85,16 @@ Copy the `policy_sid` from the response. To create a regulatory bundle, you need
 
 ---
 
-### Step 2: Create an Empty Regulatory Bundle
+### Create an empty regulatory bundle
 
 A regulatory bundle needs data about the company or individual requesting regulatory approval for a specific phone number.
 
 Create an empty regulatory bundle. To create this bundle, provide the following parameters:
 
-- `Email`
-- `FriendlyName`
-- `PolicySid`
-- `StatusCallback`
+- Email
+- FriendlyName
+- PolicySid
+- StatusCallback
 
 To find acceptable values for these parameters, see Request body parameters for the Profiles resource.
 
@@ -119,7 +121,7 @@ customer_profile = client.trusthub.v1.customer_profiles.create(
 print(customer_profile.account_sid)
 ```
 
-#### Response
+**Response:**
 
 ```json
 {
@@ -145,7 +147,7 @@ print(customer_profile.account_sid)
 
 ---
 
-### Step 3: Create Components for Regulatory Bundle
+### Create components for regulatory bundle
 
 Each regulatory bundle needs four components:
 
@@ -156,15 +158,14 @@ Each regulatory bundle needs four components:
 
 To add these components into Trust Hub, call three API resources: EndUser three times, Accounts, and SupportingDocuments.
 
-> **Danger**
->
+Provide your business identity data.
+
+> 🚨 **Danger**
 > Updates are coming to Twilio's Starter Brand registration based on changes from The Campaign Registry (TCR) and mobile carriers. We will provide updates on how this change may impact US A2P 10DLC registration as soon as they are available. Brands with EINs will no longer be able to use Twilio's Starter Brand registration going forward.
 >
 > In the meantime, if you are registering on behalf of an organization with an EIN/Tax ID, please complete a Standard registration.
 
 #### Create EndUser of type: customer_profile_business_information
-
-Provide your business identity data.
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -196,7 +197,7 @@ end_user = client.trusthub.v1.end_users.create(
 print(end_user.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -221,9 +222,9 @@ print(end_user.sid)
 }
 ```
 
-#### Create EndUser of type: authorized_representative_1
-
 Provide data about your first authorized representative.
+
+#### Create EndUser of type: authorized_representative_1
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -252,7 +253,7 @@ end_user = client.trusthub.v1.end_users.create(
 print(end_user.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -274,9 +275,9 @@ print(end_user.sid)
 }
 ```
 
-#### Create EndUser of type: authorized_representative_2
-
 Provide data about your second authorized representative.
+
+#### Create EndUser of type: authorized_representative_2
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -305,7 +306,7 @@ end_user = client.trusthub.v1.end_users.create(
 print(end_user.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -327,13 +328,14 @@ print(end_user.sid)
 }
 ```
 
-#### Create an Address
+Provide the physical location for your business.
 
-Provide the physical location for your business. If you already have an address SID, skip this step.
+If you already have an address SID, skip this step.
 
-> **Warning**
->
+> ⚠️ **Warning**
 > Twilio can't accept PO Boxes as your address.
+
+#### Create an address
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -359,7 +361,7 @@ address = client.addresses.create(
 print(address.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -367,7 +369,7 @@ print(address.sid)
   "city": "Any City",
   "customer_name": "name",
   "date_created": "Tue, 18 Aug 2015 17:07:30 +0000",
-  "date_upd": "Tue, 18 Aug 2015 17:07:30 +0000",
+  "date_updated": "Tue, 18 Aug 2015 17:07:30 +0000",
   "emergency_enabled": false,
   "friendly_name": "Main Office",
   "iso_country": "US",
@@ -382,9 +384,9 @@ print(address.sid)
 }
 ```
 
-#### Create Supporting Document
-
 Provide the supporting documentation about your business.
+
+#### Create Supporting Document
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -406,7 +408,7 @@ supporting_document = client.trusthub.v1.supporting_documents.create(
 print(supporting_document.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -427,7 +429,7 @@ print(supporting_document.sid)
 
 ---
 
-### Step 4: Assign Components to Your Regulatory Bundle
+### Assign components to your regulatory bundle
 
 Associate data with the empty bundle. Each component (supporting document/address, customer profile information, authorized representative 1, authorized representative 2) has its own `object_sid` to assign to the bundle.
 
@@ -453,7 +455,7 @@ customer_profiles_entity_assignment = client.trusthub.v1.customer_profiles(
 print(customer_profiles_entity_assignment.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -488,7 +490,7 @@ customer_profiles_entity_assignment = client.trusthub.v1.customer_profiles(
 print(customer_profiles_entity_assignment.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -523,7 +525,7 @@ customer_profiles_entity_assignment = client.trusthub.v1.customer_profiles(
 print(customer_profiles_entity_assignment.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -536,11 +538,13 @@ print(customer_profiles_entity_assignment.sid)
 }
 ```
 
-#### Assign a Primary Customer Profile
-
 Assign the Customer Profile as an entity to another Customer Profile. Fetch the Primary Customer Profile SID from the primary account.
 
-Add this SID as the value of the `ObjectSid` parameter. `ObjectSid` accepts a Customer Profile SID from the same account or from the primary account.
+Add this SID as the value of the `ObjectSid` parameter.
+
+`ObjectSid` accepts a Customer Profile Sid from the same account or from the primary account.
+
+#### Assign a Primary Customer Profile
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -562,7 +566,7 @@ customer_profiles_entity_assignment = client.trusthub.v1.customer_profiles(
 print(customer_profiles_entity_assignment.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -575,9 +579,9 @@ print(customer_profiles_entity_assignment.sid)
 }
 ```
 
-#### Assign a Supporting Document
-
 Assign supporting documentation to the Secondary CustomerProfile instance.
+
+#### Assign a Supporting Document
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -599,7 +603,7 @@ customer_profiles_entity_assignment = client.trusthub.v1.customer_profiles(
 print(customer_profiles_entity_assignment.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -612,9 +616,9 @@ print(customer_profiles_entity_assignment.sid)
 }
 ```
 
-#### Assign Phone Numbers
-
 Assign phone numbers to your Secondary Customer Profile. To find your phone number SID, go to Phone Numbers in the Console.
+
+#### Assign Phone Numbers
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -639,7 +643,7 @@ customer_profiles_channel_endpoint_assignment = (
 print(customer_profiles_channel_endpoint_assignment.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -655,11 +659,11 @@ print(customer_profiles_channel_endpoint_assignment.sid)
 
 ---
 
-### Step 5: Validate Your Secondary CustomerProfile
+## Validate your Secondary CustomerProfile
 
 Evaluate the Secondary CustomerProfile instance.
 
-#### Run an Evaluation
+### Run an evaluation
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -681,7 +685,7 @@ customer_profiles_evaluation = client.trusthub.v1.customer_profiles(
 print(customer_profiles_evaluation.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -728,119 +732,6 @@ print(customer_profiles_evaluation.sid)
       ],
       "requirement_friendly_name": "Business",
       "requirement_name": "business_info"
-    },
-    {
-      "friendly_name": "Excerpt from the commercial register (Extrait K-bis) showing name of Authorized Representative",
-      "object_type": "commercial_registrar_excerpt",
-      "passed": false,
-      "failure_reason": "An Excerpt from the commercial register (Extrait K-bis) showing name of Authorized Representative is missing. Please add one to the regulatory bundle.",
-      "error_code": 22216,
-      "valid": [],
-      "invalid": [
-        {
-          "friendly_name": "Business Name",
-          "object_field": "business_name",
-          "failure_reason": "The Business Name is missing. Or, it does not match the Business Name you entered within Business information. Please enter in the Business Name shown on the Excerpt from the commercial register (Extrait K-bis) showing name of Authorized Representative or make sure both Business Name fields use the same exact inputs.",
-          "error_code": 22217
-        }
-      ],
-      "requirement_friendly_name": "Business Name",
-      "requirement_name": "business_name_info"
-    },
-    {
-      "friendly_name": "Excerpt from the commercial register showing French address",
-      "object_type": "commercial_registrar_excerpt",
-      "passed": false,
-      "failure_reason": "An Excerpt from the commercial register showing French address is missing. Please add one to the regulatory bundle.",
-      "error_code": 22216,
-      "valid": [],
-      "invalid": [
-        {
-          "friendly_name": "Address sid(s)",
-          "object_field": "address_sids",
-          "failure_reason": "The Address is missing. Please enter in the address shown on the Excerpt from the commercial register showing French address.",
-          "error_code": 22219
-        }
-      ],
-      "requirement_friendly_name": "Business Address (Proof of Address)",
-      "requirement_name": "business_address_proof_info"
-    },
-    {
-      "friendly_name": "Excerpt from the commercial register (Extrait K-bis)",
-      "object_type": "commercial_registrar_excerpt",
-      "passed": false,
-      "failure_reason": "An Excerpt from the commercial register (Extrait K-bis) is missing. Please add one to the regulatory bundle.",
-      "error_code": 22216,
-      "valid": [],
-      "invalid": [
-        {
-          "friendly_name": "Document Number",
-          "object_field": "document_number",
-          "failure_reason": "The Document Number is missing. Please enter in the Document Number shown on the Excerpt from the commercial register (Extrait K-bis).",
-          "error_code": 22217
-        }
-      ],
-      "requirement_friendly_name": "Business Registration Number",
-      "requirement_name": "business_reg_no_info"
-    },
-    {
-      "friendly_name": "Government-issued ID",
-      "object_type": "government_issued_document",
-      "passed": false,
-      "failure_reason": "A Government-issued ID is missing. Please add one to the regulatory bundle.",
-      "error_code": 22216,
-      "valid": [],
-      "invalid": [
-        {
-          "friendly_name": "First Name",
-          "object_field": "first_name",
-          "failure_reason": "The First Name is missing. Or, it does not match the First Name you entered within Business information. Please enter in the First Name shown on the Government-issued ID or make sure both First Name fields use the same exact inputs.",
-          "error_code": 22217
-        },
-        {
-          "friendly_name": "Last Name",
-          "object_field": "last_name",
-          "failure_reason": "The Last Name is missing. Or, it does not match the Last Name you entered within Business information. Please enter in the Last Name shown on the Government-issued ID or make sure both Last Name fields use the same exact inputs.",
-          "error_code": 22217
-        }
-      ],
-      "requirement_friendly_name": "Name of Authorized Representative",
-      "requirement_name": "name_of_auth_rep_info"
-    },
-    {
-      "friendly_name": "Executed Copy of Power of Attorney",
-      "object_type": "power_of_attorney",
-      "passed": false,
-      "failure_reason": "An Executed Copy of Power of Attorney is missing. Please add one to the regulatory bundle.",
-      "error_code": 22216,
-      "valid": [],
-      "invalid": [],
-      "requirement_friendly_name": "Power of Attorney",
-      "requirement_name": "power_of_attorney_info"
-    },
-    {
-      "friendly_name": "Government-issued ID",
-      "object_type": "government_issued_document",
-      "passed": false,
-      "failure_reason": "A Government-issued ID is missing. Please add one to the regulatory bundle.",
-      "error_code": 22216,
-      "valid": [],
-      "invalid": [
-        {
-          "friendly_name": "First Name",
-          "object_field": "first_name",
-          "failure_reason": "The First Name is missing on the Governnment-Issued ID.",
-          "error_code": 22217
-        },
-        {
-          "friendly_name": "Last Name",
-          "object_field": "last_name",
-          "failure_reason": "The Last Name is missing on the Government-issued ID",
-          "error_code": 22217
-        }
-      ],
-      "requirement_friendly_name": "Name of Person granted the Power of Attorney",
-      "requirement_name": "name_in_power_of_attorney_info"
     }
   ]
 }
@@ -848,11 +739,11 @@ print(customer_profiles_evaluation.sid)
 
 ---
 
-### Step 6: Submit Your Secondary CustomerProfile
+## Submit your Secondary CustomerProfile
 
 Submit the Secondary CustomerProfile instance for review.
 
-#### Submit for Review
+### Submit for review
 
 ```python
 # Download the helper library from https://www.twilio.com/docs/python/install
@@ -872,7 +763,7 @@ customer_profile = client.trusthub.v1.customer_profiles(
 print(customer_profile.sid)
 ```
 
-##### Response
+**Response:**
 
 ```json
 {
@@ -896,11 +787,7 @@ print(customer_profile.sid)
 }
 ```
 
----
-
-## After Submission
-
 After submission, Twilio performs an evaluation of your request.
 
-- **If it complies:** Your Secondary Customer Profile state changes to `in-review` status.
-- **If it doesn't comply:** Twilio rejects it and changes its status to `twilio-rejected`.
+- If it complies, your Secondary Customer Profile state changes to `in-review` status.
+- If it doesn't comply, Twilio rejects it and changes its status to `twilio-rejected`.s

@@ -1,15 +1,15 @@
-# Claude Code + Enigma
+# Claude Code + Enigma​
 
 URL: https://documentation.enigma.com/guides/ai-mcp/claude-code
 
 Beta
-Enigma's remote MCP server is currently in beta.
+The Enigma remote MCP server is currently in beta.
 
-Give your Claude Code the power of Enigma's business intelligence with a single command. Supercharge your development with real business data.
+Give your Claude Code the power of Enigma business intelligence with a single command. Supercharge your development with real business data.
 
 ## Prerequisites
 
-- An Enigma API key, which you can find in the settings menu of the [Enigma Console](https://console.enigma.com/)
+- An Enigma API key, which you can find in the the [Enigma Console](https://console.enigma.com/settings/api-keys) under **Settings > Account > API Keys**
 - [Claude Code installed](https://docs.anthropic.com/en/docs/claude-code/setup)
 - A [Claude API key](https://console.anthropic.com/settings/keys)
 
@@ -40,7 +40,7 @@ Claude Code will open a window in your default web browser for authentication wh
 Test the connection with a quick business lookup:
 
 ```bash
-# In Claude Code, try this example:
+# [In Claude Code, try this example:](#in-claude-code-try-this-example)
 "Find basic information about Tacombi's business"
 ```
 
@@ -48,7 +48,7 @@ You should see Enigma tools being used to fetch business data, location counts, 
 
 ## What Your Claude Code Can Do
 
-With Enigma's business intelligence, your Claude Code can:
+With Enigma business intelligence, your Claude Code can:
 
 - **Research any company** while you build business applications
 - **Validate market assumptions** with real data during development
