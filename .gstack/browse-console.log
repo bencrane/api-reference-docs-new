@@ -1,0 +1,112 @@
+[2026-03-26T00:44:08.222Z] [error] Failed to fetch (a-cdn.anthropic.com)
+[2026-03-26T00:44:42.920Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at Array.map (<anonymous>)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94201
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:86430
+    at n (https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:1:84953)
+[2026-03-26T00:44:51.542Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at Array.map (<anonymous>)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94201
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:86430
+    at n (https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:1:84953)
+[2026-03-26T00:44:57.022Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at Array.map (<anonymous>)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94201
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:86430
+    at n (https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:1:84953)
+[2026-03-26T00:45:03.459Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at Array.map (<anonymous>)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94201
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:86430
+    at n (https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:1:84953)
+[2026-03-26T00:45:05.634Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at Array.map (<anonymous>)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94201
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:86430
+    at n (https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:1:84953)
+[2026-03-26T00:45:15.489Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94042
+    at Object.next (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:13475)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:12508
+    at new Promise (<anonymous>)
+    at s (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:12257)
+    at p (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93944)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94428
+[2026-03-26T00:45:20.266Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at Array.map (<anonymous>)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94201
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:86430
+    at n (https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:1:84953)
+[2026-03-26T00:45:26.283Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at Array.map (<anonymous>)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94201
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:86430
+    at n (https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:1:84953)
+[2026-03-26T00:49:45.520Z] [error] Loading the script 'https://platform.claude.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' violates the following Content Security Policy directive: "script-src 'strict-dynamic' https: 'nonce-nltTM9/qtUmksnNKoGAyRw==' https://via.intercom.io https://api.intercom.io https://api.au.intercom.io https://api.eu.intercom.io https://api-iam.intercom.io https://api-iam.eu.intercom.io https://api-iam.au.intercom.io https://api-ping.intercom.io https://nexus-websocket-a.intercom.io wss://nexus-websocket-a.intercom.io https://nexus-websocket-b.intercom.io wss://nexus-websocket-b.intercom.io https://nexus-europe-websocket.intercom.io wss://nexus-europe-websocket.intercom.io https://nexus-australia-websocket.intercom.io wss://nexus-australia-websocket.intercom.io https://uploads.intercomcdn.com https://uploads.intercomcdn.eu https://uploads.au.intercomcdn.com https://uploads.eu.intercomcdn.com https://uploads.intercomusercontent.com https://maps.googleapis.com https://maps.gstatic.com 'wasm-unsafe-eval'". Note that 'strict-dynamic' is present, so host-based allowlisting is disabled. Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.
+[2026-03-26T00:49:52.262Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94042
+    at Object.next (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:13475)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:12508
+    at new Promise (<anonymous>)
+    at s (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:12257)
+    at p (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93944)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94428
+[2026-03-26T00:51:03.195Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at Array.map (<anonymous>)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94201
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:86430
+    at n (https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:1:84953)
+[2026-03-26T00:51:33.248Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at Array.map (<anonymous>)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94201
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:86430
+    at n (https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:1:84953)
+[2026-03-26T00:52:46.986Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at Array.map (<anonymous>)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94201
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:86430
+    at n (https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:1:84953)
+[2026-03-26T00:54:12.090Z] [error] TypeError: Failed to fetch (a-api.anthropic.com)
+    at https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:14:1612
+    at a (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:2794)
+    at f (https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:93748)
+    at Array.map (<anonymous>)
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:94201
+    at https://platform.claude.com/_next/static/chunks/83318-dc2050caf7c703e0.js:1:86430
+    at n (https://platform.claude.com/_next/static/chunks/35246-f2bcb60cff3b14d7.js:1:84953)

@@ -1,0 +1,182 @@
+# Pardot
+
+Send your event data from RudderStack to Pardot.
+
+* * *
+
+  * __4 minute read
+
+  * 
+
+
+[Pardot](<https://www.pardot.com/>) is a Salesforce product and a marketing automation solution that enables organizations to track and measure the effectiveness of their communications, gain insight into user behavior, and personalize content across campaigns based on any specific criteria.
+
+RudderStack supports Pardot as a destination to which you can seamlessly send your event data.
+
+Find the open source transformer code for this destination in the [GitHub repository](<https://github.com/rudderlabs/rudder-transformer/tree/master/src/v0/destinations/pardot>).
+
+## Connection compatibility
+
+Destination Information  
+---  
+  
+  * **Status:** Generally Available
+  * **Supported sources:** Android (Java) , Android (Kotlin) , iOS (Obj-C) , iOS (Swift) , Web, Unity, AMP , Cloud, Warehouse, React Native , Flutter, Cordova, Shopify
+  * Refer to it as **Pardot** in the [Integrations object](</docs/sources/event-streams/sdks/rudderstack-javascript-sdk/filtering/#filtering-destinations>).
+
+  
+  
+Connection Modes [__](</docs/destinations/rudderstack-connection-modes>)  
+---  
+Source|  Cloud mode| Device mode| Hybrid mode  
+AMP| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+Android (Java)| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+Android (Kotlin)| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+Cloud| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+Cordova| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+Flutter| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+iOS (Obj-C)| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+iOS (Swift)| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+React Native| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+Shopify| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+Unity| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+Warehouse| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+Web| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+  
+Supported Message Types  
+---  
+Source| Identify| Page| Track| Screen| Group| Alias| Record| AudienceList  
+Cloud mode  
+Supported sources| ![supported](/docs/images/tick.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)| ![not supported](/docs/images/no-image.svg)  
+  
+## Get started
+
+Once you have confirmed that the source platform supports sending events to Pardot, follow these steps:
+
+  * From your [RudderStack dashboard](<https://app.rudderstack.com/>), add the source. Then, from the list of destinations, select **Pardot**.
+
+
+## Connection settings
+
+To successfully configure Pardot as a destination, first authenticate your account by following the below steps:
+
+  1. Click **Create Account** in the **Account Settings** section.
+  2. From the modal, click the **Sign in with Google** button.
+  3. Choose the required account and grant RudderStack the required permissions.
+  4. Click **Save** to use the specified account:
+
+[![Google Account authentication](/docs/images/event-stream-destinations/cm-360-account-connect-normal.webp)](</docs/images/event-stream-destinations/cm-360-account-connect-normal.webp>)
+
+> ![info](/docs/images/info.svg)
+> 
+> In case you have authenticated multiple accounts, you can click **Edit Credentials** to select or delete any other authenticated account:
+> 
+> ![Google Account authentication](/docs/images/event-stream-destinations/cm-360-edit-account-creds.webp)
+> 
+> RudderStack **gives an error** if you try to delete an account used by any other connection set up for the same destination.
+
+Next, configure the following settings:
+
+[![Pardot connection settings](/docs/images/event-stream-destinations/pardot-connection-settings3.webp)](</docs/images/event-stream-destinations/pardot-connection-settings3.webp>)
+
+  * **Business Unit Id** : Your **Business Unit ID** is the 18 character long string starting with `0Uv`. You can find it in your **Salesforce** account by following the steps listed below:
+    1. Go to **Setup** at the top right corner and click **Pardot**.
+    2. Click **Pardot Account Setup** to obtain the Business Unit ID.
+
+[![Pardot Business Unit Id](/docs/images/event-stream-destinations/pardot-business-unit-id.webp)](</docs/images/event-stream-destinations/pardot-business-unit-id.webp>)
+
+  * **Campaign Id** : You can find the Campaign ID (or piCId) under **Marketing** > **Campaigns** in your Pardot account. After selecting the desired website campaign, click **View Tracking Code**.
+
+
+> ![info](/docs/images/info.svg)
+> 
+> Alternatively, you can go to the [Pardot campaigns](<https://pi.pardot.com/campaign>) and select the desired campaign from the list. The last 5 digits of the campaign URL is your campaign ID. For example, `12345` is the campaign ID for the campaign URL `https://pi.pardot.com/campaign/read/id/12345` .
+
+## Identify
+
+The `identify` call lets you capture the details of a visiting user along with any associated traits such as their name, email address, etc.
+
+A sample `identify` call is shown below:
+    
+    
+    rudderanalytics.identify("userId", {
+      "active_seats": 6,
+      "salutation": "Mr",
+      "firstName": "Alex",
+      "lastName": "Keener",
+      "email": "alex@example.com",
+      "website": "https://www.example.com",
+      "score": 16,
+      "company": "Example Organization",
+      "job_title": "Sales Executive",
+      "department": "Sales",
+      "country": "USA",
+      "address": {
+        "street": "6649 N Blue Gum Street",
+        "city": "New Orleans",
+        "state": "LA",
+        "zip": "00000"
+      },
+      "phone": "8005550100",
+      "annual_revenue": "100000",
+      "employees": "100",
+      "industry": "Technology sector",
+      "notes": "example notes",
+      "address_two": "example address",
+      "fax": "fax321",
+      "years_in_business": 13,
+      "comments": "good",
+      "is_do_not_email": false,
+      "opted_out": false,
+      "is_reviewed": false,
+      "is_starred": true,
+      "territory": "territory",
+      "campaign_id": 12345
+    }, {
+      externalId: [{
+        type: "crmfid", // can be pardotid for sending pardot ID
+        id: "crmFidUser",
+      }]
+    });
+    
+
+The following behavior can be observed whenever an `identify` call is made through RudderStack:
+
+  * RudderStack throws an error if either `email` or `externalId` (`crmfid`/`pardotid`) is absent.
+  * RudderStack calls the update API if `email` is absent but either `pardotid` or `crmfid` is present. However, if `pardotid` and `crmfid` are not already linked to a prospect, it throws an error.
+  * RudderStack throws an error if `email` is absent and `prospectid` or `crmfid` is entered incorrectly.
+  * If only `email` is present, or Pardot already contains more than one prospect with the same email ID, a new prospect is created as Pardot does not allow write operation on email IDs.
+  * RudderStack considers only the first `externalId` in case of multiple `externalId`.
+
+
+## FAQ
+
+#### How do I find the crmfid (used for upsert operation)?
+
+You can find the `crmfid` (CRM Lead ID) under any **Prospect** by clicking on **Sync with CRM** as shown below:
+
+[![Pardot CRM Lead ID](/docs/images/event-stream-destinations/Pardot-crmfid1.webp)](</docs/images/event-stream-destinations/Pardot-crmfid1.webp>)The CRM Lead ID can be located here:[![Pardot CRM Lead ID](/docs/images/event-stream-destinations/Pardot-crmfid2.webp)](</docs/images/event-stream-destinations/Pardot-crmfid2.webp>)
+
+#### How do I update the prospect data?
+
+To update the prospect data, you need to send a payload that contains `externalId` in the payload as shown below:
+    
+    
+    // Sample payload with `id` data for update
+    {
+      "externalId": [{
+        "type": "pardotid"
+        "id": "12345",
+      }]
+    }
+    
+
+  * `type` can contain either of the following fields:
+    * Pardot ID with field name as `pardotid`.
+    * CRM FID with field name as `crmfid`.
+  * `id` field contains the actual value.
+
+
+#### Can I send the event data to Pardot’s Sandbox environment?
+
+Unfortunately, you can currently send the event data only to the Pardot’s **production** environment. Sandbox environments are not supported.

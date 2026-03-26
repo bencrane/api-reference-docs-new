@@ -1,0 +1,93 @@
+# Flush Events in Android (Java) SDK
+
+Flush events from the Android (Java) SDK’s internal database to the RudderStack server.
+
+* * *
+
+  * __2 minute read
+
+  * 
+
+
+The Android (Java) SDKAndroid (Java) refers to the legacy RudderStack Android SDK. **Note that it will be deprecated soon.**  
+  
+For new implementations, use the Android (Kotlin) SDK instead. supports the `flush()` API. It retrieves all messages present in the database, divides them into individual batches based on the specified queue size, and flushes them to the RudderStack server/backend.
+
+For example, if the `flushQueueSize` is 30 and there are 180 events in the database when the `flush()` API is called, the SDK will retrieve all those events and divide them into batches of 30 messages each, that is, into 6 batches.
+
+If a batch fails for some reason, RudderStack drops the remaining batches to maintain the sequence of the messages. A batch is considered as failed if it isn’t sent to the RudderStack server after 3 retries.
+
+In device mode, the `flush()` API also calls the destination SDK’s `flush()` API (if applicable).
+
+## Flush events periodically
+
+RudderStack supports periodic flushing of events from the Android (Java) SDK to RudderStack, irrespective of whether your app is opened or not. This ensures that the events that are triggered just before closing the app are sent from the device - even if the app is not opened by the user for a long time.
+
+To use this feature, follow these steps:
+
+  1. Open your `app/build.gradle` and add the [WorkManager](<https://developer.android.com/jetpack/androidx/releases/work>) dependency under `dependencies` as shown below:
+
+
+    
+    
+    implementation 'androidx.work:work-runtime:2.7.1'
+    
+
+  2. Use the `withFlushPeriodically()` function while passing the `RudderConfig` object to the `getInstance()` API, as shown below:
+
+
+    
+    
+    rudderClient =
+        RudderClient.getInstance(
+            this,
+            WRITE_KEY,
+            RudderConfig.Builder()
+                .withDataPlaneUrl(DATA_PLANE_URL)
+                // enabling periodical flush of events in the DB with a repeat interval of 15 minutes
+                .withFlushPeriodically(15, TimeUnit.MINUTES)
+                .build()
+        )
+    
+
+### `withFlushPeriodically` parameters
+
+The `withFlushPeriodically` function takes two parameters:
+
+  * The first parameter is the number representing the time interval for the flushing to be repeated.
+  * The second parameter is the time unit of the repeat interval. It can be **Minutes** , **Hours** , or **Days**. The minimum value of the repeat interval is **15 minutes**.
+
+
+## Initializing WorkManager on demand
+
+By default, the WorkManager is initialized on the startup of the application. However, you can initialize it only on demand by following these steps:
+
+  1. Add a `provider` to the application tag of your application’s `AndroidManifest.xml`.
+
+
+    
+    
+    <provider
+        android:name="androidx.startup.InitializationProvider"
+        android:authorities="${applicationId}.androidx-startup"
+        android:exported="false"
+        tools:node="merge">
+        <!-- If you are using androidx.startup to initialize other components -->
+        <meta-data
+            android:name="androidx.work.WorkManagerInitializer"
+            android:value="androidx.startup"
+            tools:node="remove" />
+     </provider>
+    
+
+  2. Implement `Configuration.Provider` and define the function `getWorkManagerConfiguration()` in your application class as shown below:
+
+
+    
+    
+    class MyApplication() : Application(), Configuration.Provider {
+        override fun getWorkManagerConfiguration() =
+            Configuration.Builder()
+                .setMinimumLoggingLevel(android.util.Log.INFO)
+                .build()
+    }

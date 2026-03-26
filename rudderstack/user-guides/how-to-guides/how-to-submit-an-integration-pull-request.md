@@ -1,0 +1,82 @@
+# Submit PR for New Integration
+
+Submit a pull request to a RudderStack GitHub repository.
+
+* * *
+
+  * __3 minute read
+
+  * 
+
+
+This guide will take you through the steps to contribute to our open-source code while creating your RudderStack integration. It will also make sure that your integration code fits into our existing codebase without any issues.
+
+To create and submit an integration, you must contribute to the following repositories:
+
+Repository| Link| Description  
+---|---|---  
+RudderStack Transformer| [rudder-transformer](<https://github.com/rudderlabs/rudder-transformer>)| Transforms the standard RudderStack payload from the source to the required destination payload format.  
+Control Plane Lite| [config-generator](<https://github.com/rudderlabs/config-generator>)| Gathers the connection-specific configurations specific to each user.  
+RudderStack documentation| [rudderstack-docs](<https://github.com/rudderlabs/rudderstack-docs>)| Includes the documentation to set up, configure, and use the integration.  
+  
+> ![info](/docs/images/info.svg)
+> 
+> To contribute, you first need to sign the [RudderStack Contributor License Agreement (“CLA”)](<https://rudderlabs.wufoo.com/forms/rudderlabs-contributor-license-agreement>) before making the first commit. Once you sign the CLA, we will add you to the list of approved contributors and review your proposed changes.
+
+## Creating a pull request
+
+Follow the steps below to create a pull request and submit your integration to our open-source code:
+
+  1. Fork and clone the above-mentioned respositories in your local machine. If you’ve done it already, ensure that the local repositories are updated to prevent any merge conflicts.
+  2. Create a branch with a clear, descriptive name.
+  3. Push your changes to the remote origin.
+  4. Click **New pull request** in the RudderStack repository.
+  5. Click **Compare across forks** link.
+  6. Change the **Head Repository** to your forked repository and change **Compare** to be the associated branch name.
+  7. Make the necessary title or description changes. For example, you can add tags such as WIP (work in progress), etc. to add your work status.
+  8. Click **Create pull request**.
+
+
+> ![info](/docs/images/info.svg)
+> 
+> Repeat the above steps for each of the repositories: `rudder-transformer`, `config-generator`, and `rudderstack-docs`.
+
+## RudderStack transformer
+
+[GitHub repository](<https://github.com/rudderlabs/rudder-transformer>)
+
+The `rudder-transformer` repository is responsible for transforming the source payload into the destination-specific format. As it contains a lot of code, keep the following tips in mind when contributing to this repository:
+
+  * Format the code to match the existing structure. In case of any queries, [contact us](<mailto:%20docs@rudderstack.com>).
+  * Include any `eslint` logic at the top of the file.
+  * Include test cases that provide around 80% code coverage.
+
+
+## Control Plane Lite
+
+[GitHub repository](<https://github.com/rudderlabs/config-generator>)
+
+The `config-generator` repository can be used to upload the settings required for configuring the integration. The best practice is to follow the pre-existing structure to the best of your ability and [reach out to us](<https://rudderstack.com/join-rudderstack-slack-community>) in case of any questions.
+
+Also, note the following:
+
+  * Include the regex validation rules for all text input fields.
+  * The icon file must be in the SVG format.
+
+
+## RudderStack documentation
+
+[GitHub repository](<https://github.com/rudderlabs/rudderstack-docs>)
+
+The `rudderstack-docs` repository houses all RudderStack documentation. You can refer to the [destination template](<https://github.com/rudderlabs/rudderstack-docs/blob/master/DESTINATION_TEMPLATE.mdx>) while creating the documentation for the integration; it will help you understand the pre-defined documentation structure.
+
+Also, a few tips while documenting your integration:
+
+  * Ensure that the document is detailed and thorough to avoid any confusion and errors.
+  * Include clear and concise steps to set up, configure, and use your integration.
+  * Include tips and suggestions wherever possible.
+
+
+> ![warning](/docs/images/warning.svg)
+> 
+> Do not include any images or screenshots in the documentation. They will be added once all changes are merged.

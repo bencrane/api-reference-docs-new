@@ -1,0 +1,49 @@
+# Community
+
+Find help, contribute to RudderStack, and participate in the community.
+
+* * *
+
+  * __less than a minute
+
+  * 
+
+
+This guide lists different channels and resources you can use to get the required help from the RudderStack team.
+
+## Technical support
+
+If you have any RudderStack-related questions, feel free to reach out to us by:
+
+  * Starting a conversation in our [Slack community](<https://rudderstack.com/join-rudderstack-slack-community>).
+  * Dropping an [email](<mailto:support@rudderstack.com>) to the support team.
+  * [Requesting a demo](<https://rudderstack.com/request-a-demo/>) to see RudderStack in action.
+
+
+## GitHub
+
+Explore our [GitHub repositories](<https://github.com/rudderlabs>) to learn more about the platform.
+
+## Contribute
+
+We would love to see you contribute to RudderStack. Read the [Contributing Guidelines](<https://github.com/rudderlabs/rudder-server/blob/master/CONTRIBUTING.md>) for more information.
+
+One way you can contribute to RudderStack is by creating an integration. An integration is a connection between RudderStack and a downstream destination where you want to send your event data. There are several reasons why you may want to build an integration:
+
+  * To send data to a certain destination but RudderStack doesn’t support it yet.
+  * To add features to an already-existing integration, and many more!
+
+
+You can refer to the following contributor guides and start building integrations for RudderStack:
+
+  * [How to Develop Integrations for RudderStack](<https://www.rudderstack.com/docs/user-guides/how-to-guides/developing-integrations-for-rudderstack/>)
+  * [How to Submit a Pull Request for a New Integration](<https://www.rudderstack.com/docs/user-guides/how-to-guides/how-to-submit-an-integration-pull-request/>)
+
+
+## Other resources
+
+  * [RudderStack Community Office Hours](<https://youtube.com/playlist?list=PLmlCAvdaZkW6CgoLn2ScJu6aUjhPAj9A0>)
+  * [Events](<https://rudderstack.com/events/>)
+  * [YouTube Channel](<https://youtube.com/channel/UCgV-B77bV_-LOmKYHw8jvBw>)
+  * [Customer Case Studies](<https://rudderstack.com/customers/>)
+  * [Blog](<https://rudderstack.com/blog/>)

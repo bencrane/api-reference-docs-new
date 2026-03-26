@@ -1,0 +1,1124 @@
+# JavaScript SDK APIs
+
+> Version: Latest (v3)v1.1
+
+# JavaScript SDK APIs
+
+Send events by leveraging different JavaScript SDK APIs.
+
+* * *
+
+  * __23 minute read
+
+  * 
+
+
+The JavaScript SDK provides a comprehensive API that lets you track and send your event data to any destination.
+
+## Identify
+
+The `identify` API lets you identify a user and associate them to their actions. It also lets you record any traits about them like their name, email, etc.
+
+Once you make the `identify` call, the SDK persists the user information and passes it to the subsequent calls.
+
+> ![info](/docs/images/info.svg)
+> 
+> The subsequent `identify` calls with the same `userId` deeply merge (values are merged recursively, exhausting the entire hierarchy tree) the new user traits with the previously persisted traits.
+> 
+> See Update user traits section for more information.
+
+The `identify` method definition is as follows:
+    
+    
+    rudderanalytics.identify(userId, [traits], [apiOptions], [callback]);
+    
+    
+    
+    // Identify call with user ID, traits, and callback
+    rudderanalytics.identify(userId, [traits], [callback]);
+    
+    // Identify call with user ID and callback
+    rudderanalytics.identify(userId, [callback]);
+    
+    // Identify call with user traits, apiOptions, and callback
+    rudderanalytics.identify(traits, [apiOptions], [callback]);
+    
+    // Identify call with user traits and callback
+    rudderanalytics.identify(traits, [callback]);
+    
+
+The following table describes the above parameters in detail:
+
+Parameter| Type| Name  
+---|---|---  
+`userId`| String| The unique user identifier. When provided, RudderStack prefers this over `anonymousId` while sending data to the destinations.  
+`traits`| Dictionary| Contains the user’s traits or the properties associated with `userId` such as email, address, etc. See [Identify traits](<https://www.rudderstack.com/docs/event-spec/standard-events/identify/#identify-traits>) for more information.  
+  
+Note that:  
+  
+
+
+  * RudderStack stores the traits as `context.traits` in the final event object.
+  * If you do not want to send the user traits, pass an empty object (`{}`) instead.
+
+  
+`apiOptions`| Dictionary| Option to override `integrations`, `anonymousId`, and `originalTimestamp` fields. Any other keys are merged into the event’s `context` object.  
+  
+See `apiOptions` section for more details.  
+`callback`| Function| Invoked after successfully processing and queueing the event data for delivery. It **does not** indicate the actual event delivery but ensures that the SDK makes a delivery attempt.  
+  
+A sample `identify` call is shown below:
+    
+    
+    rudderanalytics.identify(
+      "1hKOmRA4GRlm", {
+        firstName: "Alex",
+        lastName: "Keener",
+        email: "alex@example.com",
+        phone: "+1-202-555-0146"
+      }, {
+        environment: "production"
+      },
+      () => {
+        console.log("Identify event successfully submitted to the RudderStack SDK.");
+      }
+    );
+    
+
+In the above example, the JavaScript SDK captures the `userId` along with `firstName`, `lastName`, `email`, and `phone` as traits and `environment` as the contextual information along with other automatically-captured [contextual fields](<https://www.rudderstack.com/docs/event-spec/standard-events/common-fields/#contextual-fields>).
+
+### Anonymous user ID
+
+The `anonymousId` is an auto-generated **UUID** (Universally Unique Identifier) that gets assigned to each unique and unidentified visitor to your website.
+
+#### Retrieve anonymous user ID
+
+Run the following snippet to retrieve the anonymous ID of any visitor:
+    
+    
+    rudderanalytics.getAnonymousId();
+    
+
+> ![info](/docs/images/info.svg)
+> 
+> The SDK always ensures that a valid anonymous user ID is returned by the `getAnonymousId` API. If required, it even auto-generates and sets a new value. For example, if the `anonymousId` is `null` and you call the `getAnonymousId` function, then the SDK automatically sets a new value for `anonymousId`.
+
+#### How SDK uses anonymous user ID
+
+The JavaScript SDK generates a unique `anonymousId`, stores it in the `rl_anonymous_id` cookie in the top-level domain by default, and attaches it to every subsequent event. This helps in sharing the identity of the anonymous users across the parent domain and all the sub-domain sites.
+
+> ![info](/docs/images/info.svg)
+> 
+> If you identify a user with your application’s unique identifier like email, database ID, etc., RudderStack stores this ID in the `rl_user_id` cookie and attaches it to every event.
+
+Refer to the [Data Storage](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/data-storage-cookies/>) guide for more information on how the JavaScript SDK stores persistent user data in cookies.
+
+#### Override anonymous user ID
+
+You can use any of the following three methods to override the `anonymousId` generated by the JavaScript SDK:
+
+  * Set the `anonymousId` for all future events using the `setAnonymousId()` method. An example is shown below:
+
+
+    
+    
+    rudderanalytics.setAnonymousId("my-anonymous-id");
+    // All event payloads will have the anonymousId key set "my-anonymous-id".
+    rudderanalytics.identify("1hKOmRA4el9Zt1WSfVJIVo4GRlm", {
+      email1: "alex@example.com"
+    }, () => {
+      console.log("Identify event successfully submitted to the RudderStack SDK.");
+    });
+    
+
+  * Parse the AMP Linker ID and set the `anonymousId` using AMP Analytics:
+
+
+    
+    
+    rudderanalytics.setAnonymousId(
+      null,
+      "<version>*<checkSum>*<idName1>*<idValue1>*<idName2>*<idValue2>..."
+    );
+    
+
+Here, the second parameter is the AMP Linker ID format in the [specified structure](<https://github.com/ampproject/amphtml/blob/master/extensions/amp-analytics/linker-id-receiving.md#format>). For websites using the [RudderStack AMP Analytics SDK](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-amp-analytics/#amp-linker>), the `<idName1>` value will be `rs_amp_id`.
+
+Calling the above method will parse the Linker ID and set the `rs_amp_id` key value as the `anonymousId`.
+
+  * Provide `anonymousId` in the `apiOptions` parameter of the `identify` call.
+
+
+> ![info](/docs/images/info.svg)
+> 
+> Note that all other events will have the `anonymousId` persisted from the cookie except the particular event where you override the `apiOptions` parameter.
+
+An example is shown below:
+    
+    
+    rudderanalytics.identify(
+      "1hKOmRA4el9Zt1WSfVJIVo4GRlm", {
+        email: "alex@example.com"
+      }, {
+        anonymousId: "my-anonymous-id"
+      },
+      () => {
+        console.log("Identify event successfully submitted to the RudderStack SDK.");
+      }
+    );
+    
+
+### Set a blank user ID
+
+To set a blank user ID, you can pass an empty string as the `userId` parameter in the `identify` API call.
+
+Note that setting an empty string as the `userId` only clears the user ID unlike the `reset` API (that also clears the persisted values, for example, user traits).
+
+> ![warning](/docs/images/warning.svg)
+> 
+> Do not set the `userId` value to `null` to reset its value in the SDK.
+
+#### Use case
+
+Suppose an anonymous user is identified with a `userId` and then logs out of their account. You can then call `identify("", {isLoggedIn: false})` and the user will continue to be identified by their `anonymousId` for the future events.
+
+### Identify new users
+
+You can use any of the below approaches to identify new users in scenarios like new logins:
+
+  * Call `identify` with a new `userId`
+  * Call `reset` followed by the `identify`
+
+
+RudderStack resets all cookies related to the user (associated with the `userId` and `traits`) and updates them with the newly provided values.
+
+> ![info](/docs/images/info.svg)
+> 
+> The `anonymousId` remains unchanged in this case. It will be the auto-generated value set by the SDK or the one explicitly set using the `setAnonymousId` method.
+
+### Update user traits
+
+For updating the user traits, you can call `identify` method with the same `userId` multiple times with the new traits. This will append or modify all traits associated with that user. See How SDK merges traits section for more information.
+
+An example is shown below:
+    
+    
+    rudderanalytics.identify("1hKOmRA4GRlm", {
+        email1: "alex@example.com"
+    }, () => {
+        console.log("Identify event successfully submitted to the RudderStack SDK.");
+    });
+    
+    rudderanalytics.identify("1hKOmRA4GRlm", {
+        email2: "john@example.com"
+    }, () => {
+        console.log("Identify event successfully submitted to the RudderStack SDK.");
+    });
+    
+
+In the above example, both `email1` and `email2` will be sent in the payload for the second `identify` call, as shown:
+    
+    
+    {
+      "userId": "1hKOmRA4GRlm",
+      "email1": "alex@example.com",
+      "email2": "john@example.com",
+        "library": {
+            "name": "http"
+        },
+      "timestamp": "2020-02-02T00:23:09.544Z"
+    }
+    
+
+#### How the SDK merges traits
+
+While updating user traits via the `identify` API, the SDK deeply merges (values are merged recursively, exhausting the entire hierarchy tree) the new user traits with the existing traits.
+
+Note the following:
+
+  * **Missing properties** : The SDK adds any properties present in one object but missing in the other to the resulting object.
+
+  * **Shared properties** : If both the objects contain the same properties, then:
+
+    * If both the properties are **objects** , then their contents are merged recursively.
+    * If both the properties are **arrays** , then values from the right-side array will replace those in the left-side array at the same position. **Note this could result in duplicate values in the array**.
+    * If the data types of the shared properties **do not match** , then the value from the right-side object will take precedence, overwriting the left-side value.
+
+
+#### Reset user traits vs. update user traits
+
+Note that the `reset` API and `identify` API handle user traits differently.
+
+##### **Reset user traits**
+
+You can use the `reset` API to selectively reset user traits as per your requirement.
+
+  * To reset all user traits, call `reset()` or explicitly set the `userTraits` parameter of the `entries` object to `true`:
+
+
+    
+    
+    // Reset all user traits (along with other default entries)
+    rudderanalytics.reset();
+    
+    // Or explicitly specify
+    rudderanalytics.reset({
+      entries: {
+        userTraits: true
+      }
+    });
+    
+
+  * To reset only user traits while preserving all other data:
+
+
+    
+    
+    // Reset only user traits, preserve all other persisted information
+    
+    rudderanalytics.reset({
+      entries: {
+        sessionInfo: false,
+        userId: false,
+        userTraits: true,
+        groupId: false,
+        groupTraits: false,
+        authToken: false
+      }
+    });
+    
+
+See the Reset API section for more details.
+
+##### **Update user traits**
+
+You can call the `identify` API with new traits to update the existing user traits, as shown:
+    
+    
+    rudderanalytics.identify("1hKOmRA4GRlm", {
+      email: "alex@example.com"
+    }, () => {
+      console.log("Identify event successfully submitted to the RudderStack SDK.");
+    });
+    
+    rudderanalytics.identify({
+      email: "alice@example.com"
+    }, () => {
+      console.log("Identify event successfully submitted to the RudderStack SDK.");
+    });
+    
+
+In this case, the SDK updates the `email` field from `alex@example.com` to `alice@example.com`.
+
+## Page
+
+The `page` API lets you record your website’s page views with any additional relevant information about the viewed page. Many destinations require the `page` call to be made at least once every page load.
+
+The `page` method definition is as follows:
+    
+    
+    rudderanalytics.page([category], [name], [properties], [apiOptions], [callback]);
+    
+    
+    
+    // Page call with page category, name, properties, options, and callback
+    rudderanalytics.page(category, name, [properties], [apiOptions], [callback]);
+    
+    // Page call with page category, name, properties, and callback
+    rudderanalytics.page(category, name, [properties], [callback]);
+    
+    // Page call with page category, name, and callback
+    rudderanalytics.page(category, name, [callback]);
+    
+    // Page call with page name, properties, options, and callback
+    rudderanalytics.page(name, [properties], [apiOptions], [callback]);
+    
+    // Page call with page name, properties, and callback
+    rudderanalytics.page(name, [properties], [callback]);
+    
+    // Page call with page name and callback
+    rudderanalytics.page(name, [callback]);
+    
+    // Page call with page properties, options, and callback
+    rudderanalytics.page(properties, [apiOptions], [callback]);
+    
+    // Page call with page properties, and callback
+    rudderanalytics.page(properties, [callback]);
+    
+    // Page call with callback
+    rudderanalytics.page([callback]);
+    
+
+The following table describes the above (optional) parameters in detail:
+
+Parameter| Type| Description  
+---|---|---  
+`category`| String| Category of the page.  
+`name`| String| Name of the page.  
+`properties`| Dictionary| The page properties. The SDK auto-captures the page `path`, `url`, `referrer`, `search`, and `title` fields if not explicitly provided in the `page` API.  
+  
+**Note** : If you do not want to send the page properties, pass an empty object (`{}`) instead.  
+`apiOptions`| Dictionary| Provides information such as `integrations`, `anonymousId`, and `originalTimestamp`. Reference.  
+`callback`| Function| Invoked after successfully processing and queueing the event data for delivery. It **does not** indicate the actual event delivery but ensures that the SDK makes a delivery attempt.  
+  
+A sample `page` call is shown below:
+    
+    
+    rudderanalytics.page(
+      "Cart",
+      "Cart Viewed", {
+        environment: "production"
+      }, {
+        integrations: {
+          All: false,
+          Amplitude: true
+        }
+      }
+      () => {
+        console.log("Page event successfully submitted to the RudderStack SDK.");
+      }
+    );
+    
+
+In the above example, the JavaScript SDK captures the page `category` and `name` along with the [contextual information](<https://www.rudderstack.com/docs/event-spec/standard-events/common-fields/#contextual-fields>), and sends the event **only** to the Amplitude destination.
+
+## Track
+
+The `track` API lets you capture user events along with the associated properties.
+
+The `track` method definition is as follows:
+    
+    
+    rudderanalytics.track(event, [properties], [apiOptions], [callback]);
+    
+    
+    
+    // Track call with event, properties, and callback
+    rudderanalytics.track(event, [properties], [callback]);
+    
+    // Track call with event and callback
+    rudderanalytics.track(event, [callback]);
+    
+
+The following table describes the above parameters in detail:
+
+Parameter| Type| Description  
+---|---|---  
+`event`| String| The name of the tracked event.  
+`properties`| Dictionary| The event-related properties.  
+  
+**Note** : If you do not want to send the properties, pass an empty object (`{}`) instead.  
+`apiOptions`| Dictionary| Provides information such as `integrations`, `anonymousId`, and `originalTimestamp`. Reference.  
+`callback`| Function| Invoked after successfully processing and queueing the event data for delivery. It **does not** indicate the actual event delivery but ensures that the SDK makes a delivery attempt.  
+  
+A sample `track` call is shown below:
+    
+    
+    rudderanalytics.track(
+      "Order Completed", {
+        revenue: 30,
+        currency: "USD",
+        user_actual_id: 12345
+      },
+      () => {
+        console.log("Track event successfully submitted to the RudderStack SDK.");
+      }
+    );
+    
+
+In the above example, the `track` method tracks the `Order Completed` event along with other information like `revenue`, `currency`, and the `user_actual_id`.
+
+Refer to the [Ecommerce Events Specification](<https://www.rudderstack.com/docs/event-spec/ecommerce-events-spec/>) for more information on the ecommerce events captured by RudderStack.
+
+## Group
+
+The `group` API lets you associate an identified user with a group such as a company, organization, or an account.
+
+> ![warning](/docs/images/warning.svg)
+> 
+> RudderStack does not support associating a user to more than one group in a single `group` API call.
+
+The `group` method definition is as follows:
+    
+    
+    rudderanalytics.group(groupId, [traits], [apiOptions], [callback]);
+    
+    
+    
+    // Group call with group ID, traits, and callback
+    rudderanalytics.group(groupId, [traits], [callback]);
+    
+    // Group call with group ID and callback
+    rudderanalytics.group(groupId, [callback]);
+    
+    // Group call with traits, apiOptions, and callback
+    rudderanalytics.group(traits, [apiOptions], [callback]);
+    
+    // Group call with traits and callback
+    rudderanalytics.group(traits, [callback]);
+    
+
+The following table describes the above parameters in detail:
+
+Parameter| Type| Description  
+---|---|---  
+`groupId`| String| The unique group identifier in the database. RudderStack calls the relevant destination APIs to associate the identified user to this group.  
+`traits`| Dictionary| The group-related traits. RudderStack passes these traits to the destination to enhance the group properties.  
+  
+Note that:  
+  
+
+
+  * RudderStack stores the group traits at the root level as `traits` object in the final event object.
+  * If you do not want to send the group traits, pass an empty object (`{}`) instead.
+
+  
+`apiOptions`| Dictionary| Provides information such as `integrations`, `anonymousId`, and `originalTimestamp`. Reference.  
+`callback`| Function| Invoked after successfully processing and queueing the event data for delivery. It **does not** indicate the actual event delivery but ensures that the SDK makes a delivery attempt.  
+  
+A sample `group` call is shown:
+    
+    
+    rudderanalytics.group("grp114412", {
+      name: "Apple Inc.",
+      location: "USA",
+    });
+    
+
+### Update group traits
+
+For updating the group traits, you can call `group` method with the same `groupId` multiple times along with the new traits. This appends or modifies all traits associated with that group. See How SDK merges group traits section for more information.
+
+An example is shown below:
+    
+    
+    rudderanalytics.group("grp114412", {
+      name1: "Group A"
+    }, () => {
+        console.log("Group event successfully submitted to the RudderStack SDK.");
+    });
+    
+    rudderanalytics.group("grp114412", {
+        name2: "Group B"
+    }, () => {
+        console.log("Group event successfully submitted to the RudderStack SDK.");
+    });
+    
+
+In the above example, both `name1` and `name2` will be sent in the payload for the second `group` call, as shown:
+    
+    
+    {
+      "groupId": "grp114412",
+      "name1": "Group A",
+      "name2": "Group B",
+        "library": {
+            "name": "http"
+        },
+      "timestamp": "2020-02-02T00:23:09.544Z"
+    }
+    
+
+#### How SDK merges group traits
+
+While updating group traits via the `group` API, the SDK deeply merges (values are merged recursively, exhausting the entire hierarchy tree) the new user traits with the existing traits.
+
+Note the following:
+
+  * **Missing properties** : The SDK adds any properties present in one object but missing in the other to the resulting object.
+
+  * **Shared properties** : If both the objects contain the same properties, then:
+
+    * If both the properties are **objects** , then their contents are merged recursively.
+    * If both the properties are **arrays** , then values from the right-side array will replace those in the left-side array at the same position. **Note this could result in duplicate values in the array**.
+    * If the data types of the shared properties **do not match** , then the value from the right-side object will take precedence, overwriting the left-side value.
+
+
+#### Reset group traits vs. update group traits
+
+The `reset` API and `group` API handle group traits differently.
+
+##### **Reset group traits**
+
+You can use the `reset` API to selectively reset group traits as per your requirement.
+
+  * To reset all group traits, call `reset()` or explicitly set the `groupTraits` parameter of the `entries` object to `true`:
+
+
+    
+    
+    // Reset all group traits (along with other default entries)
+    rudderanalytics.reset();
+    
+    // Or explicitly specify
+    rudderanalytics.reset({
+      entries: {
+        groupTraits: true
+      }
+    });
+    
+
+  * To reset only group traits while preserving all other data:
+
+
+    
+    
+    // Reset only group traits, preserve all other persisted information
+    
+    rudderanalytics.reset({
+      entries: {
+        sessionInfo: false,
+        userId: false,
+        userTraits: false,
+        groupId: false,
+        groupTraits: true
+      }
+    });
+    
+
+##### **Update group traits**
+
+On the other hand, call the `group()` API with new traits to **update** the existing group traits, as shown:
+    
+    
+    rudderanalytics.group("grp114412", {
+      name: "Group A"
+    }, () => {
+      console.log("Group event successfully submitted to the RudderStack SDK.");
+    });
+    
+    rudderanalytics.group({
+      name: "Group B"
+    }, () => {
+      console.log("Group event successfully submitted to the RudderStack SDK.");
+    });
+    
+
+In this case, the SDK updates the `name` field from `Group A` to `Group B`.
+
+## Alias
+
+The `alias` API lets you merge different identities of a known user.
+
+The `alias` method definition is as follows:
+    
+    
+    rudderanalytics.alias(to, [from], [apiOptions], [callback]);
+    
+    
+    
+    // Alias call with new and old user identifier and callback
+    rudderanalytics.alias(to, [from], [callback]);
+    
+    // Alias call with new user identifier, apiOptions, and callback
+    rudderanalytics.alias(to, [apiOptions], [callback]);
+    
+    // Alias call with new user identifier and callback
+    rudderanalytics.alias(to, [callback]);
+    
+
+The following table describes the above parameters in detail:
+
+Parameter| Type| Description  
+---|---|---  
+`to`| String| New user identifier (`userId`) associated with the user.  
+  
+**Note** : Subsequent events will still have the previous identifier as the `userId` field.  
+`from`| String| Old user identifier which will be an alias for the `to` parameter. If not provided, the SDK populates this as the currently identified `userId`, or `anonymousId` in case of anonymous users.  
+`apiOptions`| Dictionary| Provides information such as `integrations`, `anonymousId`, and `originalTimestamp`. Reference.  
+`callback`| Function| Invoked after successfully processing and queueing the event data for delivery. It **does not** indicate the actual event delivery but ensures that the SDK makes a delivery attempt.  
+  
+A sample `alias` call is shown below:
+    
+    
+    rudderanalytics.alias("new_id", "old_id", () => {
+      console.log("Alias event successfully submitted to the RudderStack SDK.");
+    });
+    
+
+## Reset
+
+The `reset` API lets you clear the persisted user session data.
+
+Note that:
+
+  * If [session tracking](<https://www.rudderstack.com/docs/sources/event-streams/sdks/session-tracking/>) is enabled, calling the `reset` method also clears the current `sessionId` and generates a new one.
+  * The `reset` API only clears the [user data](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/data-storage-cookies/>) persisted by RudderStack. It **does not clear** the data stored by the integrated destinations.
+
+
+The `reset` method supports the following invocations:
+    
+    
+    // Reset with selective options (Recommended)
+    rudderanalytics.reset(options);
+    
+    // Reset all data except anonymous user ID and initial page referrer information (Default behavior)
+    rudderanalytics.reset();
+    
+    // Reset all data (including anonymous user ID) (Deprecated)
+    rudderanalytics.reset(true);
+    
+
+#### The `options` parameter
+
+The `options` parameter of the `reset` API accepts an object with the following structure:
+    
+    
+    {
+      entries: {
+        sessionInfo: boolean,                // Default: true
+        userId: boolean,                     // Default: true
+        userTraits: boolean,                 // Default: true
+        groupId: boolean,                    // Default: true
+        groupTraits: boolean,                // Default: true
+        authToken: boolean,                  // Default: true
+        anonymousId: boolean,                // Default: false
+        initialReferrer: boolean,            // Default: false
+        initialReferringDomain: boolean      // Default: false
+      }
+    }
+    
+
+The following table describes the `entries` parameters:
+
+Parameter| Description| Default value  
+---|---|---  
+`sessionInfo`| Clears the current session information.| `true`  
+`userId`| Clears the persisted user ID.| `true`  
+`userTraits`| Clears the persisted user traits.| `true`  
+`groupId`| Clears the persisted group ID.| `true`  
+`groupTraits`| Clears the persisted group traits.| `true`  
+`authToken`| Clears the persisted authentication token.| `true`  
+`anonymousId`| Clears and regenerates the anonymous user ID.| `false`  
+`initialReferrer`| Clears the persisted initial page referrer information.| `false`  
+`initialReferringDomain`| Clears the persisted initial referring domain information.| `false`  
+  
+> ![info](/docs/images/info.svg)
+> 
+> Note that:
+> 
+>   * All entries in the `options.entries` object are optional.
+>   * If you do not specify any entry, the SDK sets its default value as described in the above table.
+> 
+
+
+#### Examples
+
+  * **Default behavior** — Reset all data except `anonymousId` and initial page referrer information:
+
+
+    
+    
+    rudderanalytics.reset();
+    
+
+  * Reset all data except session information:
+
+
+    
+    
+    rudderanalytics.reset({
+      entries: {
+        sessionInfo: false,
+        anonymousId: true,
+        initialReferrer: true,
+        initialReferringDomain: true
+      }
+    });
+    
+
+  * Reset only session information but preserve all other data:
+
+
+    
+    
+    rudderanalytics.reset({
+      entries: {
+        sessionInfo: true,               // Resets session information
+        userId: false,
+        userTraits: false,
+        groupId: false,
+        groupTraits: false,
+        authToken: false
+      }
+    });
+    
+
+  * Reset all data, including `anonymousId` and initial page referrer information:
+
+
+    
+    
+    rudderanalytics.reset({
+      entries: {
+        anonymousId: true,                // Default: false
+        initialReferrer: true,            // Default: false
+        initialReferringDomain: true      // Default: false
+      }
+    });
+    
+
+  * Reset only user ID and user traits but preserve all other data:
+
+
+    
+    
+    rudderanalytics.reset({
+      entries: {
+        userId: true,
+        userTraits: true,
+        sessionInfo: false,
+        groupId: false,
+        groupTraits: false,
+        authToken: false
+      }
+    });
+    
+
+> ![info](/docs/images/info.svg)
+> 
+> Note that `rudderanalytics.reset(true)` continues to work **but is deprecated**. RudderStack recommends using the following instead:
+>     
+>     
+>     rudderanalytics.reset({
+>       entries: {
+>         anonymousId: true
+>       }
+>     });
+>     
+
+## `apiOptions` parameter
+
+You can use the `apiOptions` parameter to override specific event-level properties and include any additional contextual information.
+
+> ![warning](/docs/images/warning.svg)
+> 
+> The SDK does not carry forward any of the information contained in `apiOptions` to the other events.
+
+The structure of the `apiOptions` parameter is shown:
+    
+    
+    {
+      integrations: IntegrationOpts,
+      anonymousId: string,
+      originalTimestamp: ISO 8601 date string,
+      <other keys>: <value> // Additional keys merged with event's contextual information
+    }
+    
+
+The following table describes the above parameters in detail:
+
+Parameter| Type| Description  
+---|---|---  
+`integrations`| [IntegrationOpts](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/load-js-sdk/#integrationopts>)| Sends event data only to the [selective destinations](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/filtering/>).  
+`anonymousId`| String| Overrides the current event’s `anonymousId` at the top level.  
+`originalTimestamp`| ISO 8601 Date string| Overrides the current event’s `originalTimestamp` at the top level. See [Clock skew considerations](<https://www.rudderstack.com/docs/event-spec/standard-events/common-fields/#clock-skew-considerations>) for more information.  
+  
+> ![info](/docs/images/info.svg)
+> 
+> Note that:
+> 
+>   * The SDK merges any fields other than the ones mentioned above into the event’s `context` object.
+>   * If you specify the IP address in the event’s `apiOptions`, RudderStack uses that instead of [automatically capturing it in the backend](<https://www.rudderstack.com/docs/event-spec/standard-events/common-fields/#how-rudderstack-collects-ip-address>). You can use this feature to anonymize your users’ IP addresses.
+> 
+
+
+## Ready
+
+The JavaScript SDK exposes a `ready` API with a callback parameter that fires when the SDK is fully initialized and ready, including all third-party destination SDKs.
+    
+    
+    rudderanalytics.ready(() => {
+      console.log('The JavaScript SDK is ready.');
+    });
+    
+
+#### `ready` callback scenarios
+
+There are three main scenarios where the SDK can be considered “ready”:
+
+  * When all connected integrations are ready
+  * When the SDK times out waiting for some native integrations and moves to the ready state
+  * When using the [pre-consent mode](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/consent-management/#pre-consent-user-tracking>)
+
+
+> ![info](/docs/images/info.svg)
+> 
+> You can start instrumenting events immediately after the SDK initialization snippet (for CDN installation) or once the SDK instance is created (for NPM installations). The SDK has built-in mechanisms to buffer events and process them appropriately for delivery to the data plane and device mode destinations, even before it’s fully ready.
+> 
+> However, this callback is helpful when you want to:
+> 
+>   * **Determine if the SDK is fully ready** by ensuring the SDK and all connected integrations (including device mode destinations) are completely initialized and operational.
+>   * **Interact with native third-party SDKs directly** in cases where the integration SDKs initialize or create them.
+> 
+
+
+#### Difference between `ready` and `onLoaded` callbacks
+
+> ![warning](/docs/images/warning.svg)
+> 
+> Do not confuse the `ready` callback with the `onLoaded` callback — the `onLoaded` callback fires earlier in the SDK initialization process. It executes after the JavaScript SDK loads but before the device mode destination SDKs are loaded.
+> 
+> See the [`onLoaded` callback documentation](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/load-js-sdk/#onloaded>) for more information.
+
+The JavaScript SDK provides two different callbacks — `ready` and `onLoaded` — both serving distinct purposes:
+
+Callback| Purpose| When it fires| Use case  
+---|---|---|---  
+`ready`| Determines if the SDK and all connected integrations are fully ready| After all device mode destination SDKs are loaded and initialized| Interact with native third-party SDK instances directly, ensure complete initialization, and no pending items remain.  
+`onLoaded`| Indicates the SDK’s core modules have finished initializing| After the SDK loads but before device mode destination SDKs are loaded| Access core SDK functionality.  
+  
+#### `RSA_Ready` event
+
+The JavaScript SDK also supports the `RSA_Ready` event as an alternative to the `ready` API to ensure that the SDK is ready. It provides a reference to the analytics instance (`analyticsInstance`) to invoke any API method and can be used for orchestration with the JavaScript frameworks and libraries.
+
+> ![success](/docs/images/tick.svg)
+> 
+> The `RSA_Ready` event is useful in cases where the relevant business logic is in functions that cannot be declared alongside the analytics integration or they need to be declared on a decoupled code base.
+
+You can listen to the `RSA_Ready` event as follows:
+    
+    
+    <script>
+       document.addEventListener('RSA_Ready', function(e) {
+         console.log('RSA_Ready', e.detail.analyticsInstance);
+       })
+    </script>
+    
+
+## Consent
+
+You can invoke the JavaScript SDK’s [`consent` API](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/supported-api/#consent-api>) once the user consent is available. The SDK then comes out of the pre-consent mode and resumes normal functioning.
+
+A sample implementation for a [custom provider](<https://www.rudderstack.com/docs/data-governance/consent-management/custom-consent-manager/javascript/>) is shown below:
+    
+    
+    <script type = "text/javascript">
+      // consent provider callback
+      function ConsentManagerWrapper() { /// Pseudo name
+        if (window.isConsented()) { // Pseudo name
+    
+          // Pass the allowed and denied category IDs for custom setup
+          rudderanalytics.consent({
+            options: {
+              trackConsent: true / false, // Optional; default is false
+              consentManagement: {
+                allowedConsentIds: ['<category_id_1>','<category_id_2>',.....], // Required for Custom provider
+                deniedConsentIds: ['<category_id_3>','<category_id_4>',.....]
+              }, // Required for Custom provider
+              storage: {
+                type: "cookieStorage", // Other supported values are "localStorage","sessionStorage", "memoryStorage", and "none"
+                entries: {
+                  userId: {
+                    type: "localStorage" // Other supported values are "cookieStorage","sessionStorage", "memoryStorage", and "none"
+                  },
+                  userTraits: {
+                    type: "cookieStorage" // Other supported values are "localStorage","sessionStorage", "memoryStorage", and "none"
+                  },
+                  sessionInfo: {
+                    type: "cookieStorage" // Other supported values are "localStorage","sessionStorage", "memoryStorage", and "none"
+                  }
+                }
+              }, // Optional
+              integrations: IntegrationOpts, // Optional
+              discardPreConsentEvents: true / false, // Optional; default is false
+              sendPageEvent: true / false // Optional, default is false
+            }
+          });
+        }
+      } 
+    </script>
+    
+
+The `consent` API options are listed below:
+
+Parameter| Type| Description  
+---|---|---  
+`trackConsent`| Boolean| Determines if the SDK should send a `track` event with the name `Consent Management Interaction`.  
+  
+**Default value** : `false`  
+`consentManagement`| Object| Lets you pass the user consent data in case of a [custom consent management provider](<https://www.rudderstack.com/docs/data-governance/consent-management/custom-consent-manager/>). The SDK **requires** the `allowedConsentIds` and `deniedConsentIds` fields in case of a **Custom** consent provider.  
+`storage`| Object| Lets you configure the different storage-specific options like:  
+  
+
+
+  * [`storage.type`](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/data-storage-cookies/persistent-data-storage/#set-storage-type>): Specify where the persisted data should be stored.
+  * [`storage.entries`](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/data-storage-cookies/persistent-data-storage/##set-storage-for-specific-information-type>): Lets you define storage for specific type of persisted user data.
+
+  
+`integrations`| Object| Instructs the SDK to filter the integrations before the consent filtering takes effect.  
+`discardPreConsentEvents`| Boolean| Determines if the SDK should discard all the pre-consent events buffered previously.  
+  
+**Default value** : `false`  
+`sendPageEvent`| Boolean| Determines if the SDK should send a `page` event.  
+  
+**Default value** : `false`  
+  
+The SDK does the following once you invoke the `consent` API:
+
+  * Loads the device mode integrations based on consent.
+  * Fetches the consent information from the consent manager.
+  * Stores persistent user information like `userId`, `anonymousId`, `traits`, etc. according to the specified [`storage`](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/data-storage-cookies/persistent-data-storage/#set-storage-type>) option.
+  * Discards or replays the buffered pre-consent events to the destinations based on the `discardPreconsentEvents` parameter.
+
+
+The SDK also sends any events received after the user gives consent to the destinations immediately.
+
+See [Consent Management in JavaScript SDK](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/consent-management/>) for more information.
+
+## Query string API
+
+RudderStack’s **Query string API** lets you trigger the `track`, `identify`, and `setAnonymousId` calls using query parameters within the URL.
+
+You can use this API to achieve the following use cases:
+
+  * Track actions that redirect users to a new web page.
+  * Implement consistent identity tracking for users (known and anonymous) across multiple top-level domains.
+
+
+> ![info](/docs/images/info.svg)
+> 
+> The JavaScript SDK executes these calls immediately upon loading, making them the first set of events processed by the SDK even if there are any buffered calls on the web page.
+
+Parameter| Action  
+---|---  
+`ajs_aid`| Triggers a `rudderanalytics.setAnonymousId()` call with `anonymousId` set to the parameter value.  
+`ajs_uid`| Triggers a `rudderanalytics.identify()` call with `userId` set to the parameter value.  
+`ajs_trait_<trait>`| Triggers a `rudderanalytics.identify()` call even if only traits are provided. Essentially, it will set/update the traits of an existing or anonymous user.  
+  
+`rudderanalytics.identify(<traits>)`  
+`ajs_event`| Triggers a `rudderanalytics.track()` call with the event name set to the parameter value.  
+`ajs_prop_<property>`| Populates the `properties` object of the `track` call.  
+  
+
+
+> ![info](/docs/images/info.svg)This parameter requires `ajs_event` to be present in the query string.  
+  
+For example, consider the following URL containing the query string parameters:
+
+`https://example.com/?ajs_uid=12345&ajs_event=test%20event&ajs_aid=abcde&ajs_prop_testProp=prop1&ajs_trait_name=Firstname+Lastname`
+
+It triggers the following API calls (in order):
+    
+    
+    // Sets the anonymous ID
+    rudderanalytics.setAnonymousId("abcde");
+    
+    // Identify call
+    rudderanalytics.identify("12345", {
+      name: "Firstname Lastname"
+    });
+    
+    // Track call
+    rudderanalytics.track("test event", {
+      testProp: "prop1"
+    });
+    
+
+You can also trigger an `identify` call with only traits by providing `ajs_trait_*` parameters without `ajs_uid`:
+
+`https://example.com/?ajs_trait_email=user@example.com&ajs_trait_name=Name`
+
+This triggers the following API call:
+    
+    
+    rudderanalytics.identify({
+      email: "user@example.com",
+      name: "Name"
+    });
+    
+
+## Context and traits
+
+This section describes the `context` and `traits` objects in the JavaScript SDK in detail.
+
+#### Context
+
+The `context` object in the event payload is a dictionary of additional information about a particular event. It contains:
+
+  * Event or user-specific data provided through the API as `apiOptions`
+  * Data automatically captured by the JavaScript SDK.
+
+
+See [Contextual fields](<https://www.rudderstack.com/docs/event-spec/standard-events/common-fields/#automatically-collected-contextual-fields>) for the complete list of auto-captured data.
+
+> ![info](/docs/images/info.svg)
+> 
+> The SDK merges the `apiOptions` data with these auto-captured contextual fields and makes them available in the event payload.
+
+#### Traits
+
+The `traits` object is an optional dictionary included within `context` specifying the user’s unique traits. This is a very useful field for linking the user’s information from a previously made `identify` call to the subsequent calls, for example, `track` or `page`.
+
+#### Use case
+
+See the following `identify` event:
+    
+    
+    rudderanalytics.identify("1hKOmRA4el9Zt1WSfVJIVo4GRlm", {
+      name: "Alex Keener",
+      email: "alex@example.com",
+      subscriptionStatus: "subscribed",
+      plan: "Silver"
+    });
+    
+
+The traits in the above event are `name`, `email`, `subscriptionStatus`, and `plan`. To add or override any traits in the subsequent `track` or `page` events triggered by the user, passing them in the `traits` object as `apiOptions` as shown:
+    
+    
+    rudderanalytics.track(
+      "Subscription Update", {
+        campaign: "Subscribe"
+      }, {
+        traits: {
+          plan: "Gold",
+          addOn: true
+        }
+      }
+    );
+    
+
+The above snippet will add a new trait `addOn` and update the user trait `plan` to `Gold` for the `track` event. However, note that the subsequent events will still have the old traits.
+
+## Disable trait forwarding
+
+By default, the JavaScript SDK automatically forwards the user traits from `identify` calls to the subsequent calls. You can override this behavior for **each** call through the `apiOptions` argument by setting `traits` to `null`.
+
+A sample `track` call highlighting this functionality is shown:
+    
+    
+    rudderanalytics.track(
+      "Order Completed", {
+        revenue: 30,
+        currency: "USD",
+        user_actual_id: 12345
+      }, {
+        traits: null
+      }
+      () => {
+        console.log("Track event successfully submitted to the RudderStack SDK.");
+      }
+    );
+    
+
+The above snippet removes the `context.traits` object only for the specific `Order Completed` event.
+
+Note that:
+
+  * You can use this functionality for `track`, `page`, and `alias` calls.
+  * The persisted user traits are not impacted at all.
+  * You can also override a subset of user traits using the same approach.
+
+
+## Register custom integrations
+
+The JavaScript SDK provides a `addCustomIntegration` API to register your [custom web device mode integration](<https://www.rudderstack.com/docs/destinations/custom-web-device-mode-integrations/>) with the SDK.
+
+See the following guides for more information:
+
+  * [`addCustomIntegration` API Reference](<https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/register-custom-integrations/>)
+  * [How to Create Custom Web Device Mode Integrations](<https://www.rudderstack.com/docs/destinations/custom-web-device-mode-integrations/setup/>)
+
+
+  * [![](/docs/images/previous.svg)Previous](</docs/sources/event-streams/sdks/rudderstack-javascript-sdk/load-js-sdk/>)
+  * [Next ![](/docs/images/next.svg)](</docs/sources/event-streams/sdks/rudderstack-javascript-sdk/breaking-changes/>)

@@ -1,0 +1,24 @@
+# PostHog Destination
+
+Send your event data from RudderStack to PostHog.
+
+* * *
+
+  * __less than a minute
+
+  * 
+
+
+[PostHog](<https://posthog.com/>) is a suite of product and data tools built for engineers and technical product managers. In addition to a complete product analytics suite, PostHog also offers features such as session recording, feature flags, A/B experimentation, and much more.
+
+PostHog is entirely open-source and can be deployed both to the cloud, or to your own infrastructure if you need full control of your data. PostHog Cloud is available with both US and EU-based hosting.
+
+RudderStack supports PostHog as a destination to which you can seamlessly send your event data for analytics.
+
+## Links
+
+This documentation consists of the following sections:
+
+  * [Setting up PostHog in RudderStack](<https://www.rudderstack.com/docs/destinations/streaming-destinations/posthog/setting-up-posthog/>)
+  * [Sending events via cloud mode](<https://www.rudderstack.com/docs/destinations/streaming-destinations/posthog/posthog-cloud-mode/>)
+  * [Sending events via device mode](<https://www.rudderstack.com/docs/destinations/streaming-destinations/posthog/posthog-device-mode/>)

@@ -1,0 +1,96 @@
+# Drip Web Device Mode Integration
+
+Send events to Drip using RudderStack web device mode.
+
+* * *
+
+  * __2 minute read
+
+  * 
+
+
+RudderStack lets you send your event data to Drip via device mode, i.e. using the native web SDK.
+
+> ![info](/docs/images/info.svg)
+> 
+> For more information on sending events via device mode, refer to the [RudderStack Connection Modes](<https://www.rudderstack.com/docs/destinations/rudderstack-connection-modes/>) guide.
+
+Find the open source JavaScript SDK code for this destination in the [GitHub repository](<https://github.com/rudderlabs/rudder-sdk-js/tree/develop/packages/analytics-js-integrations/src/integrations/Drip>).
+
+## Identify
+
+The `identify` method pushes the subscriber data to Drip. If the subscriber is not present in your account, RudderStack will create a new record for them. Otherwise, RudderStack updates the user records with the latest information.
+
+> ![info](/docs/images/info.svg)
+> 
+> To update a subscriber’s email address, use the `new_email` property.
+
+A sample `identify` call is as shown:
+    
+    
+    rudderanalytics.identify(
+      "6781206",
+      {
+        email: "sampleUser@testmail.com",
+        tags: ["Customer"],
+      },
+      {
+        externalId: [
+          {
+            type: "dripCampaignId",
+            id: "846616660",
+          },
+        ],
+      }
+    )
+    
+
+The following table lists the properties that RudderStack transforms and maps to Drip’s standard properties:
+
+**RudderStack Property Name**| **Drip Standard Property**  
+---|---  
+`email`| `email`  
+`newEmail`| `new_email`  
+`userId or anonymousId`| `user_id`  
+`tags`| `tags`  
+`removeTags`| `remove_tags`  
+`prospect`| `prospect`  
+`euConsent`| `eu_consent`  
+`euConsentMessage`| `eu_consent_message`  
+  
+> ![info](/docs/images/info.svg)
+> 
+> All other fields in `context.traits` will be passed as custom fields.
+
+You can subscribe a user to a [Email Series Campaign](<https://www.drip.com/learn/docs/guides/overview-of-drip>) by providing the associated **Campaign ID**. Doing so will add the subscriber directly to that email series campaign.
+
+If you want to add a subscriber to your account without subscribing them to an email series campaign, use the `identify` call instead. You can also send some additional properties with the `identify` call. These are listed in the following table:
+
+**RudderStack Property Name**| **Drip Standard Property**  
+---|---  
+`doubleOptin`| `double_optin`  
+  
+## Track
+
+> ![warning](/docs/images/warning.svg)
+> 
+> This destination does not strictly adhere to the [RudderStack Ecommerce Event Spec](<https://www.rudderstack.com/docs/event-spec/ecommerce-events-spec/>).
+
+When you call the `track` API, RudderStack sends the event to Drip along with its name and all of the specified properties. If you include `revenue` as a property, it will get passed to Drip as the conversion value of the event.
+
+A sample `track` call is as shown:
+    
+    
+    rudderanalytics.track("randomProduct", {
+      email: "sampleUser@rudderstackdrip.com",
+      revenue: 100,
+    })
+    
+
+The following table lists the properties that RudderStack transforms and maps to Drip’s standard properties:
+
+**RudderStack Property Name**| **Drip Standard Property**  
+---|---  
+`email`| `email`  
+`revenue`| `value`  
+`occurred_at or originalTimestamp`| `occurred_at`

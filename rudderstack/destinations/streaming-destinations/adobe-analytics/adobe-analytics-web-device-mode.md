@@ -1,0 +1,91 @@
+# Adobe Analytics Web Mode Integration
+
+Configure web device mode settings for an Adobe Analytics destination.
+
+* * *
+
+  * __2 minute read
+
+  * 
+
+
+Find the open source JavaScript SDK code for this destination in the [GitHub repository](<https://github.com/rudderlabs/rudder-sdk-js/tree/develop/packages/analytics-js-integrations/src/integrations/AdobeAnalytics>).
+
+## Initialization
+
+We initialize [`appmeasurement.js`](<https://cdn.rudderlabs.com/adobe-analytics-js/adobe-analytics-js.js>) or [`mediaSDK.js`](<https://cdn.rudderlabs.com/adobe-analytics-js/adobe-analytics-js-heartbeat.js>) according to the settings in the RudderStack dashboard.
+
+RudderStack first checks if any global properties are set in `window.s_account` or `window.s objects`. If already present, they will be used. Otherwise, RudderStack uses the Report Suite IDs, Tracking Server URL, and Tracking Server Secure URL (optional) as set in the RudderStack dashboard.
+
+> ![info](/docs/images/info.svg)
+> 
+> Refer to the [Dashboard Settings](<https://www.rudderstack.com/docs/destinations/streaming-destinations/adobe-analytics/setting-up-adobe-analytics-in-rudderstack/#connection-settings>) guide for more information on these settings.
+
+If Marketing Cloud Organization ID is set in the dashboard, RudderStack initializes `visitorApi.js` and sets the ID in `window.Visitor.getInstance(<Your Marketing Cloud Org Id>)`.
+
+## Page
+
+RudderStack sends a page view event to Adobe Analytics whenever you make a **`page()`** call.
+
+A sample `page` call is as shown:
+    
+    
+    // Passing page category, name and properties
+    rudderanalytics.page("category", "name", {
+      path: "path",
+      url: "url",
+      title: "title",
+      search: "search",
+      referrer: "referrer",
+    })
+    
+
+If this call is made the `pageName` of the `window.s` variable will be set as **Viewed Page name**. RudderStack also sends other information like `referrer`,`url`, etc.
+
+> ![info](/docs/images/info.svg)
+> 
+> The mappings done in the RudderStack dashboard will be set as context data, eVars, hiers, lists and props for every `page` call. The `t()` method is called to compile all variables set and send them to Adobe Analytics.
+
+## Track
+
+According to the mapping done in RudderStack, the events can be sent as particular Adobe Events.
+
+The `track` events for Adobe can be broadly categorized in 3 types:
+
+  1. Normal track events
+  2. Ecommerce track events
+  3. Video type (Heartbeat) track events
+
+
+> ![info](/docs/images/info.svg)
+> 
+> For the regular and video type (Heartbeat) `track` events, it is necessary to map the events in the RudderStack dashboard.
+
+For ecommerce track events, if the events fall under the following mapping they will be sent accordingly. Otherwise, the mapping should be done in the dashboard.
+
+> ![info](/docs/images/info.svg)
+> 
+> For more info on RudderStack ecommerce events, see the [Ecommerce Events Specification](<https://www.rudderstack.com/docs/event-spec/ecommerce-events-spec/>).
+
+The mapping is as shown:
+
+Rudder ecommerce event| Adobe event  
+---|---  
+`product viewed`| `prodView`  
+`product list viewed`| `prodView`  
+`product added`| `scAdd`  
+`product removed`| `scRemove`  
+`order completed`| `purchase`  
+`cart viewed`| `scView`  
+`checkout started`| `scCheckout`  
+`cart opened`| `scOpen`  
+`opened cart`| `scOpen`  
+  
+A sample `track` call is as shown:
+    
+    
+    rudderanalytics.track("Track me", {
+      category: "category",
+      label: "label",
+      value: "value",
+    })

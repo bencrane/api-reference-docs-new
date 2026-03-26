@@ -1,0 +1,81 @@
+# DCM Floodlight Cloud Mode Integration
+
+Send events to DCM Floodlight using RudderStack cloud mode.
+
+* * *
+
+  * __2 minute read
+
+  * 
+
+
+RudderStack lets you send your event data to DCM Floodlight via [cloud mode](<https://www.rudderstack.com/docs/destinations/rudderstack-connection-modes/#cloud-mode>).
+
+Find the open source code for this destination in the [GitHub repository](<https://github.com/rudderlabs/rudder-transformer/tree/master/src/cdk/v1/dcm_floodlight>).
+
+## Track
+
+The [`track`](<https://www.rudderstack.com/docs/event-spec/standard-events/track/>) call lets you capture user events along with the properties associated with them.
+
+A sample `track` call is as shown below:
+    
+    
+    rudderanalytics.track("Checkout Started", {
+        countingMethod: "standard",
+        orderId: 1234,
+        quantity: 45,
+        revenue: 800,
+    }, {
+        device: {
+            advertisingId: "2a3e36d172-5e28-45a1-9eda-ce22a3e36d1a",
+        },
+        userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36",
+        integrations: {
+            All: true,
+            "DCM_Floodlight": {
+                COPPA: "false",
+                GDPR: "1",
+                npa: true
+            }
+        }
+    });
+    
+
+> ![warning](/docs/images/warning.svg)
+> 
+> The `userAgent` is a required field.
+
+The following table details the mapping of `integrations` object for DCM Floodlight:
+
+**RudderStack property**| **DCM Floodlight property**| **Description**  
+---|---|---  
+`COPPA`| `tag_for_child_directed_treatment`| Imposes requirements on the websites/online services operators directed to children under 13 years of age. [Reference](<https://www.ftc.gov/tips-advice/business-center/privacy-and-security/children%27s-privacy>).  
+`GDPR`| `tfua`| The EU law on general data protection and privacy. [Reference](<http://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0679>).  
+`npa`| `npa`| The law catering to users who wish to opt out of remarketing.  
+  
+The following table details the mapping between RudderStack and DCM Floodlight properties:
+
+**RudderStack property**| **DCM Floodlight property**| **Presence**| **Tag**  
+---|---|---|---  
+`context.device.advertisingId`| `dc_rdid`| Required| Counter/Sales  
+`context.device.adTrackingEnabled`| `dc_lat`| Optional| Counter/Sales  
+`messageId`| `ord`| Optional| Counter  
+`properties.orderId`| `ord`| Optional| Sales  
+`properties.quantity`| `qty`| Optional| Sales  
+`properties.revenue`| `cost`| Optional| Sales  
+  
+> ![info](/docs/images/info.svg)
+> 
+> You must send the device-specific information for DCM Floodlight like `IDFA` or `advertisingId` which are mapped to `context.device.advertisingId`. You can do so using RudderStack’s mobile SDKs as they collect this information automatically.
+> 
+> However, in case you are using a RudderStack server-side SDK, the `advertisingId` needs to be included manually.
+
+The following table gives some more context on the above DCM Floodlight properties:
+
+DCM Floodlight property| Description  
+---|---  
+`dc_rdid`| The IDFA or Android Advertising ID to be passed over SSL.  
+`dc_lat`| Indicates if the user has enabled the **Limited Ad Tracking** option for IDFA/Android Advertising ID.  
+`ord`| Used to make the Floodlight tag unique and prevent browser caching.  
+`qty`| Applicable for **Sales** tags only - RudderStack adds the quantity of all products in the `products` array or refers to the top-level `quantity` property.  
+`cost`| Applicable for **Sales** tags only - RudderStack sends the `revenue` parameter to DCM Floodlight.
