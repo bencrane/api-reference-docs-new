@@ -1,0 +1,12 @@
+---
+title: "webFsWriter"
+url: "https://www.remotion.dev/docs/webcodecs/web-fs-writer"
+path: "/docs/webcodecs/web-fs-writer"
+---
+
+"---\nimage: /generated/articles-docs-webcodecs-web-fs-writer.png\nid: web-fs-writer\ntitle: webFsWriter\nslug: /webcodecs/web-fs-writer\ncrumb: '@remotion/webcodecs'\n---\n\n:::warning\n[We are phasing out Remotion WebCodecs and are moving to Mediabunny](/blog/mediabunny)!\n:::\n\nimport {LicenseDisclaimer} from './LicenseDisclaimer';\nimport {UnstableDisclaimer} from './UnstableDisclaimer';\n\n<details>\n  <summary>💼 Important License Disclaimer</summary>\n  <LicenseDisclaimer />\n</details>\n\n:::warning\n**Unstable API**: The writer interface is experimental. The API may change in the future.\n:::\n\nA writer for `@remotion/webcodecs` that writes to the browser's file system using the File System Access API.\n\nCan be used for [`convertMedia()`](/docs/webcodecs/convert-media) to write the converted output directly to a temporary file in the browser's origin-private file system.\n\n## Availability\n\nThis writer is only available in browsers that support the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API). Use [`canUseWebFsWriter()`](#canusewebfswriter) to check if it's available.\n\n## Example\n\n```tsx twoslash title=\"Using webFsWriter\"\nimport {convertMedia} from '@remotion/webcodecs';\nimport {webFsWriter} from '@remotion/webcodecs/web-fs';\n\nconst result = await convertMedia({\n  src: 'https://remotion.media/BigBuckBunny.mp4',\n  container: 'webm',\n  writer: webFsWriter,\n});\n\nconst blob = await result.save();\n```\n\n## canUseWebFsWriter()\n\nA function that returns a `Promise<boolean>` indicating whether the `webFsWriter` can be used in the current environment.\n\n```tsx twoslash title=\"Checking availability\"\nimport {canUseWebFsWriter, webFsWriter} from '@remotion/webcodecs/web-fs';\n\nconst canUse = await canUseWebFsWriter();\nif (canUse) {\n  // Use webFsWriter\n} else {\n  // Fall back to bufferWriter or another writer\n}\n```\n\n## See also\n\n- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/webcodecs/src/writers/web-fs.ts)\n- [`bufferWriter`](/docs/webcodecs/buffer-writer) - Alternative in-memory writer\n- [`convertMedia()`](/docs/webcodecs/convert-media)\n"
+]()]()
+]()
+- ]()
+- ]()
+- ]()

@@ -1,0 +1,12 @@
+---
+title: "enableTailwind()"
+url: "https://www.remotion.dev/docs/tailwind/enable-tailwind"
+path: "/docs/tailwind/enable-tailwind"
+---
+
+"---\nimage: /generated/articles-docs-tailwind-enable-tailwind.png\ntitle: enableTailwind()\ncrumb: '@remotion/tailwind'\n---\n\n_available from v3.3.95_\n\n:::note\nThis is documentation for enabling Tailwind v3.  \nFor the Tailwind v4 version of this site, see the [Tailwind v4 documentation](/docs/tailwind-v4/enable-tailwind).\n:::\n\nA function that modifies the default Webpack configuration to make the necessary changes to support TailwindCSS.\nSee the [setup](/docs/tailwind) to see full instructions on how to setup TailwindCSS in Remotion.\n\n```ts twoslash title=\"remotion.config.ts\"\nimport {Config} from '@remotion/cli/config';\nimport {enableTailwind} from '@remotion/tailwind';\n\nConfig.overrideWebpackConfig((currentConfiguration) => {\n  return enableTailwind(currentConfiguration);\n});\n```\n\n## Multiple Webpack changes\n\nIf you want to make other configuration changes, you can do so by doing them reducer-style:\n\n```ts twoslash title=\"remotion.config.ts\"\nimport {Config} from '@remotion/cli/config';\nimport {enableTailwind} from '@remotion/tailwind';\n\nConfig.overrideWebpackConfig((currentConfiguration) => {\n  return enableTailwind({\n    ...currentConfiguration,\n\n    // Make other changes\n  });\n});\n```\n\n## Custom Tailwind config location<AvailableFrom v=\"4.0.187\" />\n\nBy default, TailwindCSS will search for a file called `tailwind.config.js` in the current working directory where you executed the Remotion CLI.  \nThis is not in line with Remotion which resolves files relative to the [Remotion Root](/docs/terminology/remotion-root).\n\nThis mean if you execute the Remotion CLI from a different directory, Tailwind will not be able to find the config file.  \nTo fix this, you can pass the path to the config file as the second argument to `enableTailwind()`:\n\n```ts twoslash title=\"remotion.config.ts\"\nimport path from 'node:path';\nimport {Config} from '@remotion/cli/config';\nimport {enableTailwind} from '@remotion/tailwind';\n\nConfig.overrideWebpackConfig((currentConfiguration) => {\n  return enableTailwind(currentConfiguration, {\n    configLocation: path.join(__dirname, 'tailwind.config.js'),\n  });\n});\n```\n"
+
+*available from v3.3.95*
+]()]()
+]()
+- ]()

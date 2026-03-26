@@ -1,0 +1,16 @@
+---
+title: "canReencodeAudioTrack()"
+url: "https://www.remotion.dev/docs/webcodecs/can-reencode-audio-track"
+path: "/docs/webcodecs/can-reencode-audio-track"
+---
+
+"---\nimage: /generated/articles-docs-webcodecs-can-reencode-audio-track.png\nid: can-reencode-audio-track\ntitle: canReencodeAudioTrack()\nslug: /webcodecs/can-reencode-audio-track\ncrumb: '@remotion/webcodecs'\n---\n\n:::warning\n[We are phasing out Remotion WebCodecs and are moving to Mediabunny](/blog/mediabunny)!\n:::\n\n_Part of the [`@remotion/webcodecs`](/docs/webcodecs) package._\n\n:::warning\n**Unstable API**: This package is experimental. We might change the API at any time, until we remove this notice.\n:::\n\nGiven an `AudioTrack`, determine if it can be re-encoded to another track.\n\nYou can obtain an `AudioTrack` using [`parseMedia()`](/docs/media-parser/parse-media) or during the conversion process using the [`onAudioTrack`](/docs/webcodecs/convert-media#onaudiotrack) callback of [`convertMedia()`](/docs/webcodecs/convert-media).\n\n## Examples\n\n```tsx twoslash title=\"Check if audio tracks can be re-encoded to Opus\"\nimport {parseMedia} from '@remotion/media-parser';\nimport {canReencodeAudioTrack} from '@remotion/webcodecs';\n\nconst {tracks} = await parseMedia({\n  src: 'https://remotion.media/BigBuckBunny.mp4',\n  fields: {\n    tracks: true,\n  },\n});\n\nconst audioTracks = tracks.filter((t) => t.type === 'audio');\n\nfor (const track of audioTracks) {\n  await canReencodeAudioTrack({\n    track,\n    audioCodec: 'opus',\n    bitrate: 128000,\n    sampleRate: null,\n  });\n}\n```\n\n```tsx twoslash title=\"Convert an audio track to Opus, otherwise drop it\"\nimport {convertMedia, canReencodeAudioTrack} from '@remotion/webcodecs';\n\nawait convertMedia({\n  src: 'https://remotion.media/BigBuckBunny.mp4',\n  container: 'webm',\n  videoCodec: 'vp8',\n  audioCodec: 'opus',\n  onAudioTrack: async ({track}) => {\n    const canReencode = await canReencodeAudioTrack({\n      track,\n      audioCodec: 'opus',\n      bitrate: 128000,\n      sampleRate: null,\n    });\n\n    if (canReencode) {\n      return {type: 'reencode', audioCodec: 'opus', bitrate: 128000, sampleRate: null};\n    }\n\n    return {type: 'drop'};\n  },\n});\n```\n\n## API\n\n### `track`\n\nA `AudioTrack` object.\n\n### `audioCodec`\n\n_string_ <TsType type=\"ConvertMediaAudioCodec\" source=\"@remotion/webcodecs\" />\n\n### `bitrate`\n\n_number_\n\nThe bitrate with which you'd like to re-encode the audio track.\n\n### `sampleRate`\n\n_number | null_\n\nThe sample rate with which you'd like to re-encode the audio track. If the sampleRate is `null`, the sample rate of the original track will be used.\n\n## Return value\n\nReturns a `Promise<boolean>`.\n\n## See also\n\n- [Source code for this function on GitHub](https://github.com/remotion-dev/remotion/blob/main/packages/webcodecs/src/can-reencode-audio-track.ts)\n- [`canReencodeVideoTrack()`](/docs/webcodecs/can-reencode-video-track)\n- [`convertMedia()`](/docs/webcodecs/convert-media)\n- [`parseMedia()`](/docs/media-parser/parse-media)\n"
+]()]()
+]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()

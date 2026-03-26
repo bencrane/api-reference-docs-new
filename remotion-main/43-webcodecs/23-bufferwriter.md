@@ -1,0 +1,11 @@
+---
+title: "bufferWriter"
+url: "https://www.remotion.dev/docs/webcodecs/buffer-writer"
+path: "/docs/webcodecs/buffer-writer"
+---
+
+"---\nimage: /generated/articles-docs-webcodecs-buffer-writer.png\nid: buffer-writer\ntitle: bufferWriter\nslug: /webcodecs/buffer-writer\ncrumb: '@remotion/webcodecs'\n---\n\n:::warning\n[We are phasing out Remotion WebCodecs and are moving to Mediabunny](/blog/mediabunny)!\n:::\n\nimport {LicenseDisclaimer} from './LicenseDisclaimer';\nimport {UnstableDisclaimer} from './UnstableDisclaimer';\n\n<details>\n  <summary>💼 Important License Disclaimer</summary>\n  <LicenseDisclaimer />\n</details>\n\n:::warning\n**Unstable API**: The writer interface is experimental. The API may change in the future.\n:::\n\nA writer for `@remotion/webcodecs` that writes to an in-memory resizable ArrayBuffer.\n\nCan be used for [`convertMedia()`](/docs/webcodecs/convert-media) to write the converted output to memory as a buffer.\n\n## Example\n\n```tsx twoslash title=\"Using bufferWriter\"\nimport {convertMedia} from '@remotion/webcodecs';\nimport {bufferWriter} from '@remotion/webcodecs/buffer';\n\nconst result = await convertMedia({\n  src: 'https://remotion.media/BigBuckBunny.mp4',\n  container: 'webm',\n  writer: bufferWriter,\n});\n\nconst blob = await result.save();\n```\n\n## Memory limitations\n\nThe `bufferWriter` uses a resizable ArrayBuffer with a maximum size of 2GB. If your output file would exceed this limit, the conversion will fail.\n\n```tsx twoslash title=\"Error handling for large files\"\nimport {convertMedia} from '@remotion/webcodecs';\nimport {bufferWriter} from '@remotion/webcodecs/buffer';\n\ntry {\n  const result = await convertMedia({\n    src: 'very-large-video.mp4',\n    container: 'webm',\n    writer: bufferWriter,\n  });\n} catch (error) {\n  if ((error as Error).message.includes('Could not create buffer writer')) {\n    // Handle case where ArrayBuffer cannot be resized further\n    console.log('File too large for buffer writer, consider using webFsWriter');\n  }\n}\n```\n\n## See also\n\n- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/webcodecs/src/writers/buffer-implementation/writer.ts)\n- [`webFsWriter`](/docs/webcodecs/web-fs-writer) - Alternative file system writer\n- [`convertMedia()`](/docs/webcodecs/convert-media)\n"
+]()
+]()
+- ]()
+- ]()

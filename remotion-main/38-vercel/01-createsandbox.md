@@ -1,0 +1,18 @@
+---
+title: "createSandbox()"
+url: "https://www.remotion.dev/docs/vercel/create-sandbox"
+path: "/docs/vercel/create-sandbox"
+---
+
+"---\nimage: /generated/articles-docs-vercel-create-sandbox.png\ntitle: createSandbox()\ncrumb: '@remotion/vercel'\n---\n\n# createSandbox()<AvailableFrom v=\"4.0.426\" />\n\n:::warning\nExperimental package: We reserve the right to make breaking changes in order to correct bad design decisions until this notice is gone.\n:::\n\nCreates a new [Vercel Sandbox](https://vercel.com/docs/vercel-sandbox) with all Remotion dependencies installed, including system libraries, the compositor, and a browser.  \nAfter creating the sandbox, call [`addBundleToSandbox()`](/docs/vercel/add-bundle-to-sandbox) to copy your Remotion bundle into it.\n\n## Example\n\n```ts twoslash title=\"create-snapshot.ts\"\n// @module: es2022\n// @target: es2022\nimport {addBundleToSandbox, createSandbox} from '@remotion/vercel';\nimport type {CreateSandboxOnProgress} from '@remotion/vercel';\n// ---cut---\nconst sandbox = await createSandbox({\n  onProgress: async ({progress, message}) => {\n    console.log(`${message} (${Math.round(progress * 100)}%)`);\n  },\n});\n\nawait addBundleToSandbox({\n  sandbox,\n  bundleDir: '/path/to/bundle',\n});\n\n// ... use the sandbox\n\nawait sandbox.stop();\n```\n\n## Arguments\n\nAn object with the following properties:\n\n### `onProgress?`\n\nA callback that receives progress updates during sandbox creation.\n\n```ts twoslash\nimport type {CreateSandboxOnProgress} from '@remotion/vercel';\n// ---cut---\nconst onProgress: CreateSandboxOnProgress = async ({progress, message}) => {\n  console.log(`${message} (${Math.round(progress * 100)}%)`);\n};\n```\n\n### `resources?`\n\nThe resources to allocate to the sandbox. The type is inherited from the [`@vercel/sandbox`](https://vercel.com/docs/vercel-sandbox) SDK.\n\nEach vCPU gets 2048 MB of memory.\n\n```ts twoslash title=\"custom-resources.ts\"\n// @module: es2022\n// @target: es2022\nimport {createSandbox} from '@remotion/vercel';\n// ---cut---\nconst sandbox = await createSandbox({\n  resources: {vcpus: 8},\n});\n```\n\nDefault: `{vcpus: 4}`.\n\n## Return value\n\nA [`VercelSandbox`](/docs/vercel/types#vercelsandbox) object (a [`Sandbox`](https://vercel.com/docs/vercel-sandbox/sdk-reference#sandbox-class) with `AsyncDisposable` support).\n\n## Stopping the sandbox\n\nWhen you are done with the sandbox, you need to stop it to free resources. There are two ways to do this:\n\n### Using `sandbox.stop()`\n\nManually call `sandbox.stop()` when you are done:\n\n```ts twoslash title=\"manual-cleanup.ts\"\n// @module: es2022\n// @target: es2022\nimport {createSandbox} from '@remotion/vercel';\n// ---cut---\nconst sandbox = await createSandbox();\n\n// ... use the sandbox\n\nawait sandbox.stop();\n```\n\n### Using `await using`\n\nUse `await using` to automatically stop the sandbox when it goes out of scope:\n\n```ts twoslash title=\"auto-cleanup.ts\"\n// @module: es2022\n// @target: es2022\nimport {createSandbox} from '@remotion/vercel';\n// ---cut---\nawait using sandbox = await createSandbox();\n\n// ... use the sandbox\n// sandbox.stop() is called automatically\n```\n\n## See also\n\n- [`addBundleToSandbox()`](/docs/vercel/add-bundle-to-sandbox)\n- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/vercel/src/create-sandbox.ts)\n"
+
+]()]()
+]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
