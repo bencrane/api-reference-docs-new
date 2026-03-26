@@ -1,0 +1,30 @@
+# List all DNS Protection rules.
+
+`GET /accounts/{account_id}/magic/advanced_dns_protection/configs/dns_protection/rules`
+
+List all DNS Protection rules for an account.
+
+## Parameters
+
+- **account_id** (string, required) [path]: The ID of the account.
+- **page** (integer, optional) [query]: The page number for pagination. Defaults to 1.
+- **per_page** (integer, optional) [query]: The number of items per page. Must be between 10 and 1000. Defaults to 25.
+- **order** (string, optional) [query]: The field to order by. Defaults to 'prefix'.
+- **direction** (string, optional) [query]: The direction of ordering (ASC or DESC). Defaults to 'ASC'.
+
+## Response
+
+### 200
+
+List all DNS Protection rules response.
+
+- **result** (array, optional): 
+
+### 4XX
+
+List all DNS Protection rules failure.
+
+- **errors** (object): 
+- **messages** (object): 
+- **result** (object): 
+- **success** (boolean): Whether the API call was successful.

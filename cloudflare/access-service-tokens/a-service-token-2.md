@@ -1,0 +1,27 @@
+# Get a service token
+
+`GET /accounts/{account_id}/access/service_tokens/{service_token_id}`
+
+Fetches a single service token.
+
+## Parameters
+
+- **service_token_id** (string, required) [path]: 
+- **account_id** (string, required) [path]: 
+
+## Response
+
+### 200
+
+Get a service token response
+
+_Empty object_
+
+### 4XX
+
+Get a service token response failure
+
+- **errors** (object): 
+- **messages** (object): 
+- **result** (object): 
+- **success** (boolean): Whether the API call was successful.

@@ -1,0 +1,26 @@
+# Get Regional Tiered Cache setting
+
+`GET /zones/{zone_id}/cache/regional_tiered_cache`
+
+Instructs Cloudflare to check a regional hub data center on the way to your upper tier. This can help improve performance for smart and custom tiered cache topologies.
+
+## Parameters
+
+- **zone_id** (string, required) [path]: 
+
+## Response
+
+### 200
+
+Get Regional Tiered Cache setting response.
+
+_Empty object_
+
+### 4XX
+
+Get Regional Tiered Cache setting response failure.
+
+- **errors** (array): 
+- **messages** (array): 
+- **result** (object): 
+- **success** (boolean): Whether the API call was successful.

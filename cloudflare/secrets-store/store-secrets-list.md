@@ -1,0 +1,33 @@
+# List store secrets
+
+`GET /accounts/{account_id}/secrets_store/stores/{store_id}/secrets`
+
+Lists all store secrets
+
+## Parameters
+
+- **account_id** (string, required) [path]: 
+- **store_id** (string, required) [path]: 
+- **direction** (string, optional) [query]: Direction to sort objects
+- **page** (integer, optional) [query]: Page number
+- **per_page** (integer, optional) [query]: Number of objects to return per page
+- **search** (string, optional) [query]: Search secrets using a filter string, filtering across name and comment
+- **order** (string, optional) [query]: Order secrets by values in the given field
+- **scopes** (array, optional) [query]: Only secrets with the given scopes will be returned
+
+## Response
+
+### 200
+
+List store secrets response
+
+- **result** (array, optional): 
+
+### 4XX
+
+List store secrets response failure
+
+- **errors** (object, optional): 
+- **messages** (object, optional): 
+- **result** (object, optional):  Values: ``
+- **success** (boolean, optional): Whether the API call was successful. Values: `false`

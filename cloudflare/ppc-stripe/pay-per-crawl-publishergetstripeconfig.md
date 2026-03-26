@@ -1,0 +1,29 @@
+# Gets the stripe config for a publisher
+
+`GET /accounts/{account_id}/pay-per-crawl/publisher/stripe`
+
+Gets the stripe config for a publisher.
+
+## Parameters
+
+- **account_id** (string, required) [path]: account id
+
+## Response
+
+### 200
+
+OK
+
+- **errors** (array): 
+- **messages** (array): 
+- **result** (object): 
+- **result_info** (object): 
+- **success** (boolean): 
+
+### 400
+
+Bad Request
+
+- **errors** (array): 
+- **result** (object): 
+- **success** (boolean):

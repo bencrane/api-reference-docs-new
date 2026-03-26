@@ -1,0 +1,25 @@
+# Get location details
+
+`GET /radar/entities/locations/{location}`
+
+Retrieves the requested location information. (A confidence level below `5` indicates a low level of confidence in the traffic data - normally this happens because Cloudflare has a small amount of traffic from/to this location).
+
+## Parameters
+
+- **location** (string, required) [path]: Location alpha-2 code.
+- **format** (string, optional) [query]: Format in which results will be returned.
+
+## Response
+
+### 200
+
+Successful response.
+
+- **result** (object): 
+- **success** (boolean): 
+
+### 404
+
+Not found.
+
+- **error** (string):
