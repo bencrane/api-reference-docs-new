@@ -1,0 +1,27 @@
+---
+title: "getAudioData()"
+url: "https://www.remotion.dev/docs/get-audio-data"
+path: "/docs/get-audio-data"
+---
+
+"---\nimage: /generated/articles-docs-get-audio-data.png\ntitle: getAudioData()\nid: get-audio-data\ncrumb: '@remotion/media-utils'\n---\n\n_Part of the `@remotion/media-utils` package of helper functions._\n\nTakes an audio or video `src`, loads it and returns data and metadata for the specified source.\n\n:::info\nRemote audio files need to support [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).\n\n<details>\n  <summary>More info</summary>\n  <ul>\n    <li>\n      Remotion's origin is usually <code>http://localhost:3000</code>, but it may be different if rendering on Lambda or the port is busy.\n    </li>\n    <li>\n      You can use{' '}\n      <a href=\"/docs/get-audio-duration-in-seconds\">\n        <code>getAudioDurationInSeconds()</code>\n      </a>{' '}\n      without the audio needing CORS.\n    </li>\n    <li>\n      You can <a href=\"/docs/chromium-flags#--disable-web-security\">disable CORS</a> during renders.\n    </li>\n  </ul>\n</details>\n:::\n\n## Arguments\n\n### `src`\n\nA string pointing to an audio asset.\n\n### `options?`<AvailableFrom v=\"4.0.121\"/>\n\n#### `sampleRate?`<AvailableFrom v=\"4.0.121\"/>\n\nThe `sampleRate` that should be passed into the [`AudioContext`](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/AudioContext) constructor. If not provided, the default value is `48000`.\n\nIn versions before 4.0.121, the default value was `undefined`, leading to undeterministic behavior across devices rendering.\n\n## Return value\n\n_`Promise<AudioData>`_\n\nAn object with information about the audio data:\n\n### `channelWaveforms`\n\n_Float32Array[]_\n\nAn array with waveform information for each channel.\n\n### `sampleRate`\n\n_number_\n\nThe sample rate of the generated `AudioContext`. This will be the same as the `sampleRate` input option if passed, `48000` otherwise, and in version previous to 4.0.121, the sample rate of the device's preferred output device.\n\n:::note\nPreviously, this documentation stated that this is the sample rate of the audio file. This is incorrect. [The sample rate of the audio file is not exposed to the browser's JavaScript environment.](https://github.com/WebAudio/web-audio-api/issues/30)\n:::\n\n### `durationInSeconds`\n\n_number_\n\nThe duration of the audio in seconds.\n\n### `numberOfChannels`\n\n_number_\n\nThe number of channels contained in the audio file. This corresponds to the length of the `channelWaveforms` array.\n\n### `resultId`\n\n_string_ Unique identifier of this audio data fetching call. Other functions can cache expensive operations if they get called with the same resultId multiple times.\n\n### `isRemote`\n\n_boolean_\n\nWhether the audio was imported locally or from a different origin.\n\n## Example\n\n```ts twoslash\nimport {Audio, staticFile} from 'remotion';\n// ---cut---\nimport {getAudioData} from '@remotion/media-utils';\nimport music from './music.mp3';\n\nawait getAudioData(music); /* {\n  channelWaveforms: [Float32Array(4410000), Float32Array(4410000)],\n  sampleRate: 44100,\n  durationInSeconds: 100.0000,\n  numberOfChannels: 2,\n  resultId: \"0.432878981\",\n  isRemote: false\n} */\nawait getAudioData('https://example.com/remote-audio.aac'); /* {\n  channelWaveforms: [Float32Array(4800000)],\n  sampleRate: 48000,\n  durationInSeconds: 100.0000,\n  numberOfChannels: 1,\n  resultId: \"0.432324444\",\n  isRemote: true\n} */\nawait getAudioData(staticFile('my-file.wav')); /* {\n  channelWaveforms: [Float32Array(4800000)],\n  sampleRate: 48000,\n  durationInSeconds: 100.0000,\n  numberOfChannels: 1,\n  resultId: \"0.6891332223\",\n  isRemote: false\n} */\n```\n\n## Errors\n\nIf you pass in a file that has no audio track, this function will throw an error you need to handle.\n\nTo determine if a file has an audio track, you may use the [`getVideoMetadata()`](/docs/renderer/get-video-metadata#audiocodec) function on the server to reject a file if it has no audio track. To do so, check if the `audioCodec` field is `null`.\n\n## Caching behavior\n\nThis function is memoizing the results it returns.\n\nIf you pass in the same argument to `src` multiple times, it will return a cached version from the second time on, regardless of if the file has changed.  \nTo clear the cache, you have to reload the page.\n\n## Alternatives\n\nIf you need only the duration, prefer [`getAudioDurationInSeconds()`](/docs/get-audio-duration-in-seconds) which is faster because it doesn't need to read waveform data.\n\nUse the [`useAudioData()`](/docs/use-audio-data) helper hook to not have to do state management yourself and to wrap the call in [`delayRender()`](/docs/delay-render).\n\n## See also\n\n- [Source code for this function](https://github.com/remotion-dev/remotion/blob/main/packages/media-utils/src/get-audio-data.ts)\n- [Using audio](/docs/using-audio)\n- [Audio visualization](/docs/audio/visualization)\n- [`<Html5Audio>`](/docs/html5-audio)\n- [`visualizeAudio()`](/docs/visualize-audio)\n- [`useAudioData()`](/docs/use-audio-data)\n- [`useWindowedAudioData()`](/docs/use-windowed-audio-data)\n"
+
+*Part of the `@remotion/media-utils` package of helper functions.*
+
+Takes an audio or video `src`, loads it and returns data and metadata for the specified source.
+]()]()
+]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()

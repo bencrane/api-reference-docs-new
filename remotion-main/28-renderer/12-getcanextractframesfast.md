@@ -1,0 +1,16 @@
+---
+title: "getCanExtractFramesFast()"
+url: "https://www.remotion.dev/docs/renderer/get-can-extract-frames-fast"
+path: "/docs/renderer/get-can-extract-frames-fast"
+---
+
+"---\nimage: /generated/articles-docs-renderer-get-can-extract-frames-fast.png\ntitle: getCanExtractFramesFast()\nid: get-can-extract-frames-fast\ncrumb: '@remotion/renderer'\n---\n\n:::warning\nFrom v4.0 on, frames can always be extracted fast and therefore the function has been removed. The information in this document only applies to older versions of Remotion and is preserved for people who are still using them.\n:::\n\n_Available since v3.3.2, removed in v4.0 - Part of the `@remotion/renderer` package._\n\nProbes whether frames of a video can be efficiently extracted when using [`<OffthreadVideo>`](/docs/offthreadvideo).\n\n```ts\nimport {getCanExtractFramesFast} from '@remotion/renderer';\n\nconst result = await getCanExtractFramesFast({\n  src: '/var/path/to/video.mp4',\n});\n\nconsole.log(result.canExtractFramesFast); // false\nconsole.log(result.shouldReencode); // true\n```\n\n:::info\nPass an absolute path to `getCanExtractFramesFast()`. URLs are not supported.\n:::\n\n## When to use this API\n\nIf you are using [`<OffthreadVideo>`](/docs/offthreadvideo), you might get a warning [\"Using a slow method to extract the frame\"](/docs/slow-method-to-extract-frame) if a video is included which does not include enough metadata to efficiently extract a certain frame of a video. This might result in the render becoming slow.\n\nUsing this API, you can probe whether this issue affects your video file. It will try to extract the last frame of a video and if it succeeds, your video is not affected. Otherwise, `canExtractFramesFast` will be `false`.\n\n## How to act on the results\n\nWhen `canExtractFramesFast` is `false`, you should check the `shouldReencode` flag. If it is true, you can re-encode the video to make the render faster. Note that it is not always faster to re-encode the video than it is to deal with a slow render.\n\nVideos with a VP8 codec don't support fast frame extraction at all, and therefore `shouldReencode` can be false even if `canExtractFramesFast` is false.\n\n## Reencoding a video\n\nYou can re-encode a video using FFmpeg:\n\n```sh\nffmpeg -i inputvideo.mp4 outputvideo.mp4\n```\n\n## Arguments\n\nAn object containing one or more of the following options:\n\n### `src`\n\nPointing to a video file. Must be an absolute file path.\n\n### ~~`ffmpegExecutable`~~\n\n_removed in v4.0_\n\nAn absolute path overriding the `ffmpeg` executable to use.\n\n### ~~`ffprobeExecutable`~~\n\n_removed in v4.0_\n\nAn absolute path overriding the `ffprobe` executable to use.\n\n## Return value\n\nReturns a promise which resolves to an object with the following parameters:\n\n- `canExtractFramesFast`: _boolean_ Whether it will be fast to extract a frame from a video.\n- `shouldReencode`: _boolean_ Whether the video can be re-encoded to make the render faster.\n"
+]()]()
+]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
+- ]()
