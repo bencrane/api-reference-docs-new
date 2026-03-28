@@ -1,0 +1,1029 @@
+{
+  "source_repo": "https://github.com/assistant-ui/assistant-ui",
+  "source_commit": "6554892",
+  "crawled_at": "2026-03-28",
+  "files": [
+    {
+      "path": "api-reference/context-providers/assistant-runtime-provider.mdx",
+      "title": "<AssistantRuntimeProvider />",
+      "description": "Root provider that connects your runtime to assistant-ui components.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/context-providers/assistant-runtime-provider",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/context-providers/text-message-part-provider.mdx",
+      "title": "<TextMessagePartProvider />",
+      "description": "Context provider for reusing text components outside of message content.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/context-providers/text-message-part-provider",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/integrations/react-data-stream.mdx",
+      "title": "@assistant-ui/react-data-stream",
+      "description": "Hooks for connecting to data stream protocol endpoints and Assistant Cloud.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/integrations/react-data-stream",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/integrations/react-hook-form.mdx",
+      "title": "@assistant-ui/react-hook-form",
+      "description": "React Hook Form integration for AI-assisted form filling.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/integrations/react-hook-form",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/integrations/vercel-ai-sdk.mdx",
+      "title": "@assistant-ui/react-ai-sdk",
+      "description": "Vercel AI SDK integration with chat runtime hooks and transport utilities.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/integrations/vercel-ai-sdk",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/overview.mdx",
+      "title": "Overview",
+      "description": "API reference for primitives, runtime hooks, and context providers.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/overview",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/action-bar-more.mdx",
+      "title": "ActionBarMorePrimitive",
+      "description": null,
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/action-bar-more",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/action-bar.mdx",
+      "title": "ActionBarPrimitive",
+      "description": "Buttons for message actions like copy, edit, reload, speak, and feedback.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/action-bar",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/assistant-if.mdx",
+      "title": "AuiIf",
+      "description": "Conditional rendering component based on thread, message, or composer state.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/assistant-if",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/assistant-modal.mdx",
+      "title": "AssistantModalPrimitive",
+      "description": "A popover chat interface for floating assistant UI in the corner of the screen.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/assistant-modal",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/attachment.mdx",
+      "title": "AttachmentPrimitive",
+      "description": "Components for displaying and managing file attachments in messages and composer.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/attachment",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/branch-picker.mdx",
+      "title": "BranchPickerPrimitive",
+      "description": "Navigate between conversation branches with previous/next controls.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/branch-picker",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/composer.mdx",
+      "title": "ComposerPrimitive",
+      "description": "Primitives for the text input, send button, and attachments.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/composer",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/composition.mdx",
+      "title": "Composition",
+      "description": "How to compose primitives with custom components using asChild.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/composition",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/error.mdx",
+      "title": "ErrorPrimitive",
+      "description": "Components for displaying error messages in the chat interface.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/error",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/message-part.mdx",
+      "title": "MessagePartPrimitive",
+      "description": "Primitives for text, images, tool calls, and other message content.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/message-part",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/message.mdx",
+      "title": "MessagePrimitive",
+      "description": "Components for rendering message content, parts, and attachments.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/message",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/selection-toolbar.mdx",
+      "title": "SelectionToolbarPrimitive",
+      "description": "A floating toolbar that appears when text is selected within a message.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/selection-toolbar",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/suggestion.mdx",
+      "title": "SuggestionPrimitive",
+      "description": null,
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/suggestion",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/thread-list-item-more.mdx",
+      "title": "ThreadListItemMorePrimitive",
+      "description": "Dropdown menu for additional thread actions like archive and delete.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/thread-list-item-more",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/thread-list-item.mdx",
+      "title": "ThreadListItemPrimitive",
+      "description": "Individual thread item with title, archive, and delete controls.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/thread-list-item",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/thread-list.mdx",
+      "title": "ThreadListPrimitive",
+      "description": "Display and manage multiple conversation threads with create and archive actions.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/thread-list",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/primitives/thread.mdx",
+      "title": "ThreadPrimitive",
+      "description": "Primitives for the message list, viewport, and welcome screen.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/primitives/thread",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/runtimes/assistant-runtime.mdx",
+      "title": "AssistantRuntime",
+      "description": "Root runtime for managing threads, tool UIs, and assistant state.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/runtimes/assistant-runtime",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/runtimes/attachment-runtime.mdx",
+      "title": "AttachmentRuntime",
+      "description": "Hooks for accessing attachment state in composer and messages.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/runtimes/attachment-runtime",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/runtimes/composer-runtime.mdx",
+      "title": "ComposerRuntime",
+      "description": "Runtime for programmatically controlling the message composer.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/runtimes/composer-runtime",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/runtimes/message-part-runtime.mdx",
+      "title": "MessagePartRuntime",
+      "description": "Hook for accessing message part state within parts.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/runtimes/message-part-runtime",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/runtimes/message-runtime.mdx",
+      "title": "MessageRuntime",
+      "description": "Hooks for accessing message state and edit composer.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/runtimes/message-runtime",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/runtimes/thread-list-item-runtime.mdx",
+      "title": "ThreadListItemRuntime",
+      "description": "Runtime for managing individual thread list items.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/runtimes/thread-list-item-runtime",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/runtimes/thread-list-runtime.mdx",
+      "title": "ThreadListRuntime",
+      "description": "Runtime for accessing and managing the list of threads.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/runtimes/thread-list-runtime",
+      "section": "api-reference"
+    },
+    {
+      "path": "api-reference/runtimes/thread-runtime.mdx",
+      "title": "ThreadRuntime",
+      "description": "Runtime for thread state, messages, and viewport management.",
+      "source_url": "https://www.assistant-ui.com/docs/api-reference/runtimes/thread-runtime",
+      "section": "api-reference"
+    },
+    {
+      "path": "architecture.mdx",
+      "title": "Architecture",
+      "description": "How components, runtimes, and cloud services fit together.",
+      "source_url": "https://www.assistant-ui.com/docs/architecture",
+      "section": "core"
+    },
+    {
+      "path": "cli.mdx",
+      "title": "CLI",
+      "description": "Scaffold projects, add components, and manage updates from the command line.",
+      "source_url": "https://www.assistant-ui.com/docs/cli",
+      "section": "core"
+    },
+    {
+      "path": "cloud/ai-sdk-assistant-ui.mdx",
+      "title": "AI SDK + assistant-ui",
+      "description": "Integrate cloud persistence using assistant-ui runtime and pre-built components.",
+      "source_url": "https://www.assistant-ui.com/docs/cloud/ai-sdk-assistant-ui",
+      "section": "cloud"
+    },
+    {
+      "path": "cloud/ai-sdk.mdx",
+      "title": "AI SDK",
+      "description": "Add cloud persistence to your existing AI SDK app with a single hook.",
+      "source_url": "https://www.assistant-ui.com/docs/cloud/ai-sdk",
+      "section": "cloud"
+    },
+    {
+      "path": "cloud/authorization.mdx",
+      "title": "User Authorization",
+      "description": "Configure workspace auth tokens and integrate with auth providers.",
+      "source_url": "https://www.assistant-ui.com/docs/cloud/authorization",
+      "section": "cloud"
+    },
+    {
+      "path": "cloud/index.mdx",
+      "title": "Overview",
+      "description": "Add thread persistence and chat history to your AI app in minutes.",
+      "source_url": "https://www.assistant-ui.com/docs/cloud",
+      "section": "cloud"
+    },
+    {
+      "path": "cloud/langgraph.mdx",
+      "title": "LangGraph + assistant-ui",
+      "description": "Integrate cloud persistence and thread management with LangGraph Cloud.",
+      "source_url": "https://www.assistant-ui.com/docs/cloud/langgraph",
+      "section": "cloud"
+    },
+    {
+      "path": "copilots/assistant-frame.mdx",
+      "title": "Assistant Frame API",
+      "description": "Share model context across iframe boundaries",
+      "source_url": "https://www.assistant-ui.com/docs/copilots/assistant-frame",
+      "section": "copilots"
+    },
+    {
+      "path": "copilots/make-assistant-tool-ui.mdx",
+      "title": "makeAssistantToolUI",
+      "description": "Register custom UI components to render tool executions and their status.",
+      "source_url": "https://www.assistant-ui.com/docs/copilots/make-assistant-tool-ui",
+      "section": "copilots"
+    },
+    {
+      "path": "copilots/make-assistant-tool.mdx",
+      "title": "makeAssistantTool",
+      "description": "Create React components that provide reusable tools to the assistant.",
+      "source_url": "https://www.assistant-ui.com/docs/copilots/make-assistant-tool",
+      "section": "copilots"
+    },
+    {
+      "path": "copilots/make-assistant-visible.mdx",
+      "title": "makeAssistantVisible",
+      "description": "Make React components visible and interactive to assistants via higher-order component wrapping.",
+      "source_url": "https://www.assistant-ui.com/docs/copilots/make-assistant-visible",
+      "section": "copilots"
+    },
+    {
+      "path": "copilots/model-context.mdx",
+      "title": "Model Context",
+      "description": "Configure assistant behavior through system instructions, tools, and context providers.",
+      "source_url": "https://www.assistant-ui.com/docs/copilots/model-context",
+      "section": "copilots"
+    },
+    {
+      "path": "copilots/motivation.mdx",
+      "title": "Intelligent Components",
+      "description": "Add intelligence to React components through readable interfaces and assistant tools.",
+      "source_url": "https://www.assistant-ui.com/docs/copilots/motivation",
+      "section": "copilots"
+    },
+    {
+      "path": "copilots/use-assistant-instructions.mdx",
+      "title": "useAssistantInstructions",
+      "description": "React hook for setting system instructions to guide assistant behavior.",
+      "source_url": "https://www.assistant-ui.com/docs/copilots/use-assistant-instructions",
+      "section": "copilots"
+    },
+    {
+      "path": "devtools.mdx",
+      "title": "DevTools",
+      "description": "Inspect runtime state, context, and events in the browser.",
+      "source_url": "https://www.assistant-ui.com/docs/devtools",
+      "section": "core"
+    },
+    {
+      "path": "guides/attachments.mdx",
+      "title": "Attachments",
+      "description": "Let users attach files, images, and documents to messages.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/attachments",
+      "section": "guides"
+    },
+    {
+      "path": "guides/branching.mdx",
+      "title": "Message Branching",
+      "description": "Navigate between different conversation branches when editing or reloading messages.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/branching",
+      "section": "guides"
+    },
+    {
+      "path": "guides/chain-of-thought.mdx",
+      "title": "Chain of Thought",
+      "description": "Group reasoning and tool calls into a collapsible accordion UI.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/chain-of-thought",
+      "section": "guides"
+    },
+    {
+      "path": "guides/context-api.mdx",
+      "title": "Context API",
+      "description": "Read and update assistant state to build custom components.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/context-api",
+      "section": "guides"
+    },
+    {
+      "path": "guides/dictation.mdx",
+      "title": "Speech-to-Text (Dictation)",
+      "description": null,
+      "source_url": "https://www.assistant-ui.com/docs/guides/dictation",
+      "section": "guides"
+    },
+    {
+      "path": "guides/editing.mdx",
+      "title": "Message Editing",
+      "description": "Allow users to edit their messages with custom editor interfaces.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/editing",
+      "section": "guides"
+    },
+    {
+      "path": "guides/interactables.mdx",
+      "title": "Interactables",
+      "description": "Persistent UI whose state can be read and updated by the AI assistant.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/interactables",
+      "section": "guides"
+    },
+    {
+      "path": "guides/latex.mdx",
+      "title": "LaTeX",
+      "description": "Render mathematical expressions in chat messages using KaTeX.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/latex",
+      "section": "guides"
+    },
+    {
+      "path": "guides/message-timing.mdx",
+      "title": "Message Timing",
+      "description": "Display stream timing metadata like duration, tokens per second, and time to first token.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/message-timing",
+      "section": "guides"
+    },
+    {
+      "path": "guides/multi-agent.mdx",
+      "title": "Multi-Agent",
+      "description": "Render sub-agent conversations inside tool call UIs.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/multi-agent",
+      "section": "guides"
+    },
+    {
+      "path": "guides/quoting.mdx",
+      "title": "Quote Selected Text",
+      "description": "Let users select and quote text from messages. Full guide including backend handling and programmatic API.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/quoting",
+      "section": "guides"
+    },
+    {
+      "path": "guides/speech.mdx",
+      "title": "Text-to-Speech (Speech Synthesis)",
+      "description": "Read messages aloud with Web Speech API or custom TTS.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/speech",
+      "section": "guides"
+    },
+    {
+      "path": "guides/suggestions.mdx",
+      "title": "Suggestions",
+      "description": "Display suggested prompts to help users get started with your assistant.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/suggestions",
+      "section": "guides"
+    },
+    {
+      "path": "guides/tool-ui.mdx",
+      "title": "Generative UI",
+      "description": "Render tool calls as interactive UI instead of plain text.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/tool-ui",
+      "section": "guides"
+    },
+    {
+      "path": "guides/tools.mdx",
+      "title": "Tools",
+      "description": "Give your assistant actions like API calls, database queries, and more.",
+      "source_url": "https://www.assistant-ui.com/docs/guides/tools",
+      "section": "guides"
+    },
+    {
+      "path": "index.mdx",
+      "title": "Introduction",
+      "description": "Beautiful, enterprise-grade AI chat interfaces for React, React Native, and terminal applications.",
+      "source_url": "https://www.assistant-ui.com/docs",
+      "section": "core"
+    },
+    {
+      "path": "ink/adapters.mdx",
+      "title": "Adapters",
+      "description": "Title generation adapters for React Ink.",
+      "source_url": "https://www.assistant-ui.com/docs/ink/adapters",
+      "section": "ink"
+    },
+    {
+      "path": "ink/custom-backend.mdx",
+      "title": "Custom Backend",
+      "description": "Connect your terminal app to your own backend API.",
+      "source_url": "https://www.assistant-ui.com/docs/ink/custom-backend",
+      "section": "ink"
+    },
+    {
+      "path": "ink/hooks.mdx",
+      "title": "Hooks",
+      "description": "Reactive hooks for accessing runtime state in React Ink.",
+      "source_url": "https://www.assistant-ui.com/docs/ink/hooks",
+      "section": "ink"
+    },
+    {
+      "path": "ink/index.mdx",
+      "title": "Getting Started",
+      "description": "Build AI chat interfaces for the terminal with @assistant-ui/react-ink.",
+      "source_url": "https://www.assistant-ui.com/docs/ink",
+      "section": "ink"
+    },
+    {
+      "path": "ink/migration.mdx",
+      "title": "Migration from Web",
+      "description": "Migrate an existing @assistant-ui/react app to the terminal with React Ink.",
+      "source_url": "https://www.assistant-ui.com/docs/ink/migration",
+      "section": "ink"
+    },
+    {
+      "path": "ink/primitives.mdx",
+      "title": "Primitives",
+      "description": "Composable terminal components for building chat UIs with Ink.",
+      "source_url": "https://www.assistant-ui.com/docs/ink/primitives",
+      "section": "ink"
+    },
+    {
+      "path": "installation.mdx",
+      "title": "Installation",
+      "description": "Get assistant-ui running in 5 minutes with npm and your first chat component.",
+      "source_url": "https://www.assistant-ui.com/docs/installation",
+      "section": "core"
+    },
+    {
+      "path": "llm.mdx",
+      "title": "Agent Skills",
+      "description": "Use AI tools to build with assistant-ui faster. AI-accessible documentation, Claude Code skills, and MCP integration.",
+      "source_url": "https://www.assistant-ui.com/docs/llm",
+      "section": "core"
+    },
+    {
+      "path": "migrations/deprecation-policy.mdx",
+      "title": "Deprecation Policy",
+      "description": "Stability guarantees and deprecation timelines for assistant-ui features.",
+      "source_url": "https://www.assistant-ui.com/docs/migrations/deprecation-policy",
+      "section": "migrations"
+    },
+    {
+      "path": "migrations/react-langgraph-v0-7.mdx",
+      "title": "Migrating to react-langgraph v0.7",
+      "description": "Guide to upgrading to the simplified LangGraph integration API.",
+      "source_url": "https://www.assistant-ui.com/docs/migrations/react-langgraph-v0-7",
+      "section": "migrations"
+    },
+    {
+      "path": "migrations/v0-11.mdx",
+      "title": "Migration to v0.11",
+      "description": "ContentPart renamed to MessagePart for better semantic clarity.",
+      "source_url": "https://www.assistant-ui.com/docs/migrations/v0-11",
+      "section": "migrations"
+    },
+    {
+      "path": "migrations/v0-12.mdx",
+      "title": "Migration to v0.12",
+      "description": "Unified state API replaces individual context hooks.",
+      "source_url": "https://www.assistant-ui.com/docs/migrations/v0-12",
+      "section": "migrations"
+    },
+    {
+      "path": "migrations/v0-14.mdx",
+      "title": "Migration to v0.14",
+      "description": "Primitives migrate from components prop to children render functions.",
+      "source_url": "https://www.assistant-ui.com/docs/migrations/v0-14",
+      "section": "migrations"
+    },
+    {
+      "path": "primitives/action-bar.mdx",
+      "title": "ActionBar",
+      "description": "Build message action buttons with auto-hide, copy state, and intelligent disabling.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives/action-bar",
+      "section": "primitives"
+    },
+    {
+      "path": "primitives/assistant-modal.mdx",
+      "title": "AssistantModal",
+      "description": "A floating chat popover with a fixed-position trigger button that opens a chat panel.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives/assistant-modal",
+      "section": "primitives"
+    },
+    {
+      "path": "primitives/attachment.mdx",
+      "title": "Attachment",
+      "description": "File and image attachment rendering for the composer and messages.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives/attachment",
+      "section": "primitives"
+    },
+    {
+      "path": "primitives/branch-picker.mdx",
+      "title": "BranchPicker",
+      "description": "Navigate between message branches, which are alternative responses the user can flip through.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives/branch-picker",
+      "section": "primitives"
+    },
+    {
+      "path": "primitives/chain-of-thought.mdx",
+      "title": "ChainOfThought",
+      "description": "Collapsible accordion for grouping reasoning steps and tool calls.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives/chain-of-thought",
+      "section": "primitives"
+    },
+    {
+      "path": "primitives/composer.mdx",
+      "title": "Composer",
+      "description": "Build custom message input UIs with full control over layout and behavior.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives/composer",
+      "section": "primitives"
+    },
+    {
+      "path": "primitives/error.mdx",
+      "title": "Error",
+      "description": "Accessible error display for messages with automatic error text extraction.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives/error",
+      "section": "primitives"
+    },
+    {
+      "path": "primitives/index.mdx",
+      "title": "Overview",
+      "description": "Unstyled, accessible building blocks for AI chat interfaces.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives",
+      "section": "primitives"
+    },
+    {
+      "path": "primitives/message.mdx",
+      "title": "Message",
+      "description": "Build custom message rendering with content parts, attachments, and hover state.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives/message",
+      "section": "primitives"
+    },
+    {
+      "path": "primitives/selection-toolbar.mdx",
+      "title": "SelectionToolbar",
+      "description": "A floating toolbar that appears when text is selected within a message.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives/selection-toolbar",
+      "section": "primitives"
+    },
+    {
+      "path": "primitives/suggestion.mdx",
+      "title": "Suggestion",
+      "description": "Suggested prompts that users can click to quickly send or populate the composer.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives/suggestion",
+      "section": "primitives"
+    },
+    {
+      "path": "primitives/thread-list.mdx",
+      "title": "ThreadList",
+      "description": "Multi-thread management for listing, creating, switching, archiving, and deleting conversations.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives/thread-list",
+      "section": "primitives"
+    },
+    {
+      "path": "primitives/thread.mdx",
+      "title": "Thread",
+      "description": "Build custom scrollable message containers with auto-scroll, empty states, and message rendering.",
+      "source_url": "https://www.assistant-ui.com/docs/primitives/thread",
+      "section": "primitives"
+    },
+    {
+      "path": "react-compatibility.mdx",
+      "title": "Using old React versions",
+      "description": "Compatibility notes for React 18 and 19.",
+      "source_url": "https://www.assistant-ui.com/docs/react-compatibility",
+      "section": "core"
+    },
+    {
+      "path": "react-native/adapters.mdx",
+      "title": "Adapters",
+      "description": "Persistence and title generation adapters for React Native.",
+      "source_url": "https://www.assistant-ui.com/docs/react-native/adapters",
+      "section": "react-native"
+    },
+    {
+      "path": "react-native/custom-backend.mdx",
+      "title": "Custom Backend",
+      "description": "Connect your React Native app to your own backend API.",
+      "source_url": "https://www.assistant-ui.com/docs/react-native/custom-backend",
+      "section": "react-native"
+    },
+    {
+      "path": "react-native/hooks.mdx",
+      "title": "Hooks",
+      "description": "Reactive hooks for accessing runtime state in React Native.",
+      "source_url": "https://www.assistant-ui.com/docs/react-native/hooks",
+      "section": "react-native"
+    },
+    {
+      "path": "react-native/index.mdx",
+      "title": "Getting Started",
+      "description": "Build AI chat interfaces for iOS and Android with @assistant-ui/react-native.",
+      "source_url": "https://www.assistant-ui.com/docs/react-native",
+      "section": "react-native"
+    },
+    {
+      "path": "react-native/migration.mdx",
+      "title": "Migration from Web",
+      "description": "Migrate an existing @assistant-ui/react app to React Native.",
+      "source_url": "https://www.assistant-ui.com/docs/react-native/migration",
+      "section": "react-native"
+    },
+    {
+      "path": "react-native/primitives.mdx",
+      "title": "Primitives",
+      "description": "Composable React Native components for building chat UIs.",
+      "source_url": "https://www.assistant-ui.com/docs/react-native/primitives",
+      "section": "react-native"
+    },
+    {
+      "path": "runtimes/a2a/index.mdx",
+      "title": "A2A Protocol",
+      "description": "Connect to A2A (Agent-to-Agent) v1.0 protocol servers.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/a2a",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/ai-sdk/v4-legacy.mdx",
+      "title": "AI SDK v4 (Legacy)",
+      "description": "Legacy integration for Vercel AI SDK v4 using data stream runtime.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/ai-sdk/v4-legacy",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/ai-sdk/v5-legacy.mdx",
+      "title": "AI SDK v5 (Legacy)",
+      "description": "Integrate Vercel AI SDK v5 with useChatRuntime for streaming chat.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/ai-sdk/v5-legacy",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/ai-sdk/v6.mdx",
+      "title": "AI SDK v6",
+      "description": "Integrate Vercel AI SDK v6 with assistant-ui for streaming chat.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/ai-sdk/v6",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/assistant-transport.mdx",
+      "title": "Assistant Transport",
+      "description": "Stream agent state to the frontend and handle user commands for custom agents.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/assistant-transport",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/custom/custom-thread-list.mdx",
+      "title": "Custom Thread List",
+      "description": "Plug a custom thread database for multi-thread persistence.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/custom/custom-thread-list",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/custom/external-store.mdx",
+      "title": "ExternalStoreRuntime",
+      "description": "Bring your own Redux, Zustand, or state manager.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/custom/external-store",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/custom/local.mdx",
+      "title": "LocalRuntime",
+      "description": "Quickest path to a working chat. Handles state while you handle the API.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/custom/local",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/data-stream.mdx",
+      "title": "Data Stream Protocol",
+      "description": "Integration with data stream protocol endpoints for streaming AI responses.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/data-stream",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/google-adk/index.mdx",
+      "title": "Google ADK",
+      "description": "Connect to Google ADK (Agent Development Kit) agents with streaming, tool calls, and multi-agent support.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/google-adk",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/helicone.mdx",
+      "title": "Helicone",
+      "description": "Configure Helicone proxy for OpenAI API logging and monitoring.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/helicone",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/langgraph/index.mdx",
+      "title": "Getting Started",
+      "description": "Connect to LangGraph Cloud API for agent workflows with streaming.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/langgraph",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/langgraph/tutorial/index.mdx",
+      "title": "Introduction",
+      "description": "Build a stockbroker assistant with LangGraph and assistant-ui.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/langgraph/tutorial",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/langgraph/tutorial/introduction.mdx",
+      "title": "Introduction",
+      "description": "Build a stockbroker assistant with LangGraph and assistant-ui.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/langgraph/tutorial/introduction",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/langgraph/tutorial/part-1.mdx",
+      "title": "Part 1: Setup frontend",
+      "description": "Create a Next.js project with the LangGraph assistant-ui template.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/langgraph/tutorial/part-1",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/langgraph/tutorial/part-2.mdx",
+      "title": "Part 2: Generative UI",
+      "description": "Display stock ticker information with generative UI components.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/langgraph/tutorial/part-2",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/langgraph/tutorial/part-3.mdx",
+      "title": "Part 3: Approval UI",
+      "description": "Add human-in-the-loop approval for tool calls.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/langgraph/tutorial/part-3",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/langserve.mdx",
+      "title": "LangChain LangServe",
+      "description": "Connect to LangServe endpoints via Vercel AI SDK integration.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/langserve",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/mastra/full-stack-integration.mdx",
+      "title": "Full-Stack Integration",
+      "description": "Integrate Mastra directly into Next.js API routes.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/mastra/full-stack-integration",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/mastra/overview.mdx",
+      "title": "Overview",
+      "description": "TypeScript agent framework for AI applications with tools and workflows.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/mastra/overview",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/mastra/separate-server-integration.mdx",
+      "title": "Separate Server Integration",
+      "description": "Run Mastra as a standalone server connected to your frontend.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/mastra/separate-server-integration",
+      "section": "runtimes"
+    },
+    {
+      "path": "runtimes/pick-a-runtime.mdx",
+      "title": "Picking a Runtime",
+      "description": "Which runtime fits your backend? Decision guide for common setups.",
+      "source_url": "https://www.assistant-ui.com/docs/runtimes/pick-a-runtime",
+      "section": "runtimes"
+    },
+    {
+      "path": "ui/accordion.mdx",
+      "title": "Accordion",
+      "description": "A vertically stacked set of interactive headings that reveal or hide content sections.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/accordion",
+      "section": "ui"
+    },
+    {
+      "path": "ui/assistant-modal.mdx",
+      "title": "AssistantModal",
+      "description": "Floating chat bubble for support widgets and help desks.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/assistant-modal",
+      "section": "ui"
+    },
+    {
+      "path": "ui/assistant-sidebar.mdx",
+      "title": "AssistantSidebar",
+      "description": "Side panel chat for co-pilot experiences and inline assistance.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/assistant-sidebar",
+      "section": "ui"
+    },
+    {
+      "path": "ui/attachment.mdx",
+      "title": "Attachment",
+      "description": "UI components for attaching and viewing files in messages.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/attachment",
+      "section": "ui"
+    },
+    {
+      "path": "ui/badge.mdx",
+      "title": "Badge",
+      "description": "A small label component for displaying status, categories, or metadata.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/badge",
+      "section": "ui"
+    },
+    {
+      "path": "ui/context-display.mdx",
+      "title": "Context Display",
+      "description": "Visualize token usage relative to a model's context window — ring, bar, or text — with a detailed hover popover.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/context-display",
+      "section": "ui"
+    },
+    {
+      "path": "ui/diff-viewer.mdx",
+      "title": "Diff Viewer",
+      "description": "Render code diffs with syntax highlighting for additions and deletions.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/diff-viewer",
+      "section": "ui"
+    },
+    {
+      "path": "ui/file.mdx",
+      "title": "File",
+      "description": "Display file message parts with icon, name, size, and download button.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/file",
+      "section": "ui"
+    },
+    {
+      "path": "ui/image.mdx",
+      "title": "Image",
+      "description": "Display image message parts with preview, loading states, and fullscreen dialog.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/image",
+      "section": "ui"
+    },
+    {
+      "path": "ui/markdown.mdx",
+      "title": "Markdown",
+      "description": "Display rich text with headings, lists, links, and code blocks.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/markdown",
+      "section": "ui"
+    },
+    {
+      "path": "ui/mention.mdx",
+      "title": "Mention",
+      "description": "Let users @-mention tools in the composer with a keyboard-navigable popover picker and inline chips.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/mention",
+      "section": "ui"
+    },
+    {
+      "path": "ui/mermaid.mdx",
+      "title": "Mermaid Diagrams",
+      "description": "Render Mermaid diagrams in chat messages with streaming support.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/mermaid",
+      "section": "ui"
+    },
+    {
+      "path": "ui/message-timing.mdx",
+      "title": "Message Timing",
+      "description": "Display streaming performance stats — TTFT, total time, tok/s, and chunk count — as a badge with hover popover.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/message-timing",
+      "section": "ui"
+    },
+    {
+      "path": "ui/model-selector.mdx",
+      "title": "ModelSelector",
+      "description": "Model picker with unified overlay positioning and runtime integration.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/model-selector",
+      "section": "ui"
+    },
+    {
+      "path": "ui/part-grouping.mdx",
+      "title": "Message Part Grouping",
+      "description": "Organize message parts into custom groups with flexible grouping functions.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/part-grouping",
+      "section": "ui"
+    },
+    {
+      "path": "ui/quote.mdx",
+      "title": "Quote",
+      "description": "Let users select and quote text from messages with a floating toolbar, composer preview, and inline quote display.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/quote",
+      "section": "ui"
+    },
+    {
+      "path": "ui/reasoning.mdx",
+      "title": "Reasoning",
+      "description": "Collapsible UI for displaying AI reasoning and thinking messages.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/reasoning",
+      "section": "ui"
+    },
+    {
+      "path": "ui/scrollbar.mdx",
+      "title": "Custom Scrollbar",
+      "description": "Replace the default scrollbar with a custom Radix UI scroll area.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/scrollbar",
+      "section": "ui"
+    },
+    {
+      "path": "ui/select.mdx",
+      "title": "Select",
+      "description": "A dropdown select component with composable sub-components.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/select",
+      "section": "ui"
+    },
+    {
+      "path": "ui/sources.mdx",
+      "title": "Sources",
+      "description": "Display URL sources with favicon, title, and external link.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/sources",
+      "section": "ui"
+    },
+    {
+      "path": "ui/streamdown.mdx",
+      "title": "Streamdown",
+      "description": "Alternative markdown renderer with built-in syntax highlighting, math, and diagram support.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/streamdown",
+      "section": "ui"
+    },
+    {
+      "path": "ui/syntax-highlighting.mdx",
+      "title": "Syntax Highlighting",
+      "description": "Code block syntax highlighting with react-shiki or react-syntax-highlighter.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/syntax-highlighting",
+      "section": "ui"
+    },
+    {
+      "path": "ui/tabs.mdx",
+      "title": "Tabs",
+      "description": "A multi-variant tabs component for organizing content into switchable panels.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/tabs",
+      "section": "ui"
+    },
+    {
+      "path": "ui/thread-list.mdx",
+      "title": "ThreadList",
+      "description": "Switch between conversations. Supports sidebar or dropdown layouts.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/thread-list",
+      "section": "ui"
+    },
+    {
+      "path": "ui/thread.mdx",
+      "title": "Thread",
+      "description": "The main chat container with messages, composer, and auto-scroll.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/thread",
+      "section": "ui"
+    },
+    {
+      "path": "ui/tool-fallback.mdx",
+      "title": "ToolFallback",
+      "description": "Default UI component for tools without dedicated custom renderers.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/tool-fallback",
+      "section": "ui"
+    },
+    {
+      "path": "ui/tool-group.mdx",
+      "title": "ToolGroup",
+      "description": "Wrapper for consecutive tool calls with collapsible and styled options.",
+      "source_url": "https://www.assistant-ui.com/docs/ui/tool-group",
+      "section": "ui"
+    },
+    {
+      "path": "utilities/heat-graph.mdx",
+      "title": "heat-graph",
+      "description": "Headless, composable activity heatmap components for React.",
+      "source_url": "https://www.assistant-ui.com/docs/utilities/heat-graph",
+      "section": "utilities"
+    },
+    {
+      "path": "utilities/tw-shimmer.mdx",
+      "title": "tw-shimmer",
+      "description": "Tailwind CSS v4 plugin for shimmer effects.",
+      "source_url": "https://www.assistant-ui.com/docs/utilities/tw-shimmer",
+      "section": "utilities"
+    }
+  ]
+}

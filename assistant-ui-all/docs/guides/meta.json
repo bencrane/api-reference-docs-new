@@ -1,0 +1,20 @@
+{
+  "title": "Guides",
+  "pages": [
+    "attachments",
+    "branching",
+    "chain-of-thought",
+    "context-api",
+    "dictation",
+    "editing",
+    "interactables",
+    "latex",
+    "message-timing",
+    "multi-agent",
+    "quoting",
+    "speech",
+    "suggestions",
+    "tool-ui",
+    "tools"
+  ]
+}
