@@ -1,0 +1,5 @@
+# Get deployment
+Source: https://trigger.dev/docs/management/deployments/retrieve
+
+v3-openapi GET /api/v1/deployments/{deploymentId}
+Retrieve information about a specific deployment by its ID.

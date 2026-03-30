@@ -1,0 +1,6 @@
+# Discord Community
+
+
+
+
+Please [join our community on Discord](https://trigger.dev/discord) to ask questions, share your projects, and get help from other developers.
