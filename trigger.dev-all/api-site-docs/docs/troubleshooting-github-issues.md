@@ -1,6 +1,0 @@
-# GitHub Issues
-
-
-
-
-Please [join our community on Discord](https://github.com/triggerdotdev/trigger.dev/issues) to ask questions, share your projects, and get help from other developers.
