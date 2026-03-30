@@ -1,0 +1,5 @@
+# Promote deployment
+
+
+v3-openapi POST /api/v1/deployments/{version}/promote
+Promote a previously deployed version to be the current version for the environment. This makes the specified version active for new task runs.
