@@ -1,0 +1,10 @@
+# Remove Email from Blocklist
+
+**URL:** https://docs.emailbison.com/low-code-tools/clay/enrichments/remove-email-from-blocklist
+
+Remove specific email addresses from your EmailBison blocklist.
+
+1. Add the Enrichment - In your Clay table, click + Add column, Select Enrichments, Search for and select "Remove email from blocklist"
+2. Select Your Workspace - Choose your desired EmailBison account (workspace) from the dropdown. If you don't see your workspace, click + Add account and connect your workspace.
+3. Map the Required Column - Under Column mapping, map the required column: Email address (or Blocklisted Email ID)
+4. Save and Run - Save the enrichment and run the column to remove the emails in the email column from the blocklist. Set this column to auto-run if data updates elsewhere and you need your leads to be added or updated whenever new data flows in.
