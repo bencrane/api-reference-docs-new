@@ -326,6 +326,32 @@ POST /v2/routing-forms/{formId}/calculate-slots?start=2024-08-13&end=2024-08-20
 
 ## 2. Gaps & Limitations
 
+### 2.0 Booking & Webhook Payloads Have No Org/Team Context (Critical)
+
+The booking object -- and therefore all webhook payloads -- contains **no org or team identifiers**. Validated against the live API: a booking includes `eventTypeId`, `eventType: { id, slug }`, `hosts[].id/email/username`, and `attendees[]`. But there is no `organizationId`, `teamId`, or org membership info anywhere on the booking or its nested objects.
+
+**What's always present on a booking:**
+- `eventTypeId` + `eventType.slug` -- identifies which event type
+- `hosts[].id`, `hosts[].email`, `hosts[].username` -- identifies the host user
+- `attendees[].email`, `attendees[].name` -- identifies the attendee
+
+**What's never present:**
+- `organizationId` / `orgId` -- not on the booking, not on the host, not on the event type stub
+- `teamId` -- not on the booking, not derivable from any nested field
+- Whether this was a personal, team, or org-level event type
+
+**Why this matters:** If you're receiving webhooks for multiple orgs/teams (or building a multi-tenant system), there's no way to route the event to the right context from the payload alone.
+
+**Workarounds (in order of reliability):**
+
+1. **Build a local `eventTypeId → teamId → orgId` lookup table.** On startup, pull all event types via org endpoints, cache the mapping, and refresh periodically. This is the most reliable approach.
+2. **Fetch the event type on each webhook.** `GET /v2/event-types/{id}` returns `ownerId` for personal event types, and team event types include `teamId` and `team: { id, slug, ... }`. Adds latency per webhook.
+3. **Use org-level webhook registration.** If you register via `POST /v2/organizations/{orgId}/webhooks`, you know the webhook came from that org. But the payload still doesn't tell you which team within the org.
+4. **Inject context via `metadata`.** When creating bookings programmatically, stuff `orgId`/`teamId` into the `metadata` field. Only works for bookings you create -- not ones from the Cal.com UI or public booking page.
+5. **Reverse-lookup the host.** Use `hosts[].email` or `hosts[].id` against your own user database to infer org/team. Fragile if users belong to multiple teams.
+
+**This is the single biggest gap for building webhook-driven automation.** A service-engine-x wrapper should maintain the eventTypeId mapping table and enrich incoming webhook payloads with org/team context before forwarding to downstream handlers.
+
 ### 2.1 Cannot Act as a Different Organizer
 
 An API key is tied to one user. You CANNOT create a booking where someone else is the organizer using your API key. To manage bookings for other users:
@@ -514,11 +540,12 @@ Some endpoints document all three auth methods (API key, managed user token, OAu
 
 Based on the gaps above, a service-engine-x wrapper would be useful for:
 
-1. **Bulk availability check** -- query slots for multiple event types/users in one call
-2. **Booking on behalf of a specific organizer** -- abstract away org-level API complexity
-3. **Routing form CRUD** -- expose create/update/delete since the API only supports read
-4. **Managed event type slot aggregation** -- find all children and aggregate their slots
-5. **Persistent transcript storage** -- download and store transcripts before links expire
-6. **Unified webhook payload normalization** -- flatten the `MEETING_STARTED`/`MEETING_ENDED` inconsistency
-7. **Calendar-synced location updates** -- update both Cal.com and the external calendar event
-8. **Credit management with balance tracking** -- wrap the sparse credit endpoints with proper balance responses
+1. **Webhook payload enrichment with org/team context** (CRITICAL) -- maintain a synced `eventTypeId → teamId → orgId` lookup table; enrich every incoming webhook payload with org/team identifiers before forwarding to downstream handlers. Without this, webhook-driven automation cannot route events to the right tenant/context. See [Gap 2.0](#20-booking--webhook-payloads-have-no-orgteam-context-critical).
+2. **Bulk availability check** -- query slots for multiple event types/users in one call
+3. **Booking on behalf of a specific organizer** -- abstract away org-level API complexity
+4. **Routing form CRUD** -- expose create/update/delete since the API only supports read
+5. **Managed event type slot aggregation** -- find all children and aggregate their slots
+6. **Persistent transcript storage** -- download and store transcripts before links expire
+7. **Unified webhook payload normalization** -- flatten the `MEETING_STARTED`/`MEETING_ENDED` inconsistency
+8. **Calendar-synced location updates** -- update both Cal.com and the external calendar event
+9. **Credit management with balance tracking** -- wrap the sparse credit endpoints with proper balance responses
