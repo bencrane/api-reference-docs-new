@@ -1,0 +1,48 @@
+name: setup-cached-python-client
+description:
+  Create a Python environment with cached dependencies for the client.
+
+inputs:
+  version:
+    description: Which Python version to install
+    required: true
+    default: "3.10"
+  working-directory:
+    description: The working directory
+    required: true
+  no-build-isolation:
+    description:
+      Use --no-build-isolation (needed for macOS ARM grpcio-tools builds)
+    required: false
+    default: "false"
+
+runs:
+  using: composite
+  steps:
+    - name: Install Python
+      uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5
+      with:
+        python-version: ${{ inputs.version }}
+
+    - name: Setup uv with caching
+      uses: astral-sh/setup-uv@5a095e7a2014a4212f075830d4f7277575a9d098 # v7.3.1
+      with:
+        enable-cache: true
+        version: "0.9.26"
+        activate-environment: "true"
+        python-version: ${{ inputs.version }}
+        cache-dependency-glob: |
+          ${{ inputs.working-directory }}/requirements.protos.txt
+          ${{ inputs.working-directory }}/pyproject.toml
+
+    - name: Install Python packages
+      shell: bash
+      run: |
+        if [ "${{ inputs.no-build-isolation }}" == "true" ]; then
+          # Install setuptools and build requirements first so that --no-build-isolation works
+          uv pip install -e . --group dev
+          uv pip install -r requirements.protos.txt --no-build-isolation
+        else
+          uv pip install -e . --group dev --overrides requirements.protos.txt
+        fi
+      working-directory: ${{ inputs.working-directory }}
