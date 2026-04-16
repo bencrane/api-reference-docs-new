@@ -2,23 +2,36 @@
 
 ## Overview
 
-Documentation for the `RegistrationAddressEdge` GraphQL object type in the Enigma API.
+A Relay edge containing a `RegistrationAddress` and its cursor for pagination purposes.
 
-## Type Information
+## Fields
 
-- **Category**: Edge
-- **URL Slug**: `registration-address-edge`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `node` | `Address` | — | The item at the end of the edge |
+| `cursor` | `String!` | — | A cursor for use in pagination |
+| `registrationRecordedAddressId` | `UUID` | — | Unique identifier for the registration recorded address |
+| `addressType` | `String` | — | Type classification of the address |
+| `rank` | `Int` | — | Ranking value for the address |
+| `id` | `ID` | — | Unique identifier |
+| `datasetIds` | `JSON` | — | Dataset identifiers associated with the record |
+| `firstObservedDate` | `String` | — | Date when the address was first observed |
+| `lastObservedDate` | `String` | — | Date when the address was most recently observed |
+| `internalId` | `String` | — | Internal system identifier |
+| `internalRegistrationRecordedAddressId` | `String` | — | Internal identifier for registration recorded address |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[RegistrationAddressEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/registration-address-edge)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** `RegistrationAddressConnection`
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/registration-address-edge

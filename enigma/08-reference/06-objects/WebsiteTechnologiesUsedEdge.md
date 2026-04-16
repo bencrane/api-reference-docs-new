@@ -1,24 +1,24 @@
 # WebsiteTechnologiesUsedEdge
 
 ## Overview
+A Relay edge containing a `WebsiteTechnologiesUsed` and its cursor for pagination support.
 
-Documentation for the `WebsiteTechnologiesUsedEdge` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `node` | [`WebsiteTechnologiesUsed`](/reference/graphql_api/objects/website-technologies-used) | — | The item at the end of the edge |
+| `cursor` | [`String!`](/reference/graphql_api/scalars/string) | — | A cursor for use in pagination |
 
-- **Category**: Edge
-- **URL Slug**: `website-technologies-used-edge`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** [`WebsiteTechnologiesUsedConnection`](/reference/graphql_api/objects/website-technologies-used-connection)
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** [`WebsiteTechnologiesUsedConnection`](/reference/graphql_api/objects/website-technologies-used-connection)
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[WebsiteTechnologiesUsedEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/website-technologies-used-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/website-technologies-used-edge

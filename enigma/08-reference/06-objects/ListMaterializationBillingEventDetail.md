@@ -1,24 +1,26 @@
 # ListMaterializationBillingEventDetail
 
 ## Overview
+No description
 
-Documentation for the `ListMaterializationBillingEventDetail` GraphQL object type in the Enigma API.
+## Fields
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `id` | `ID!` | — | — |
+| `listMaterializationId` | `ID!` | — | — |
+| `pricingTier` | `String!` | — | — |
+| `quantity` | `Int!` | — | — |
+| `entityType` | `String!` | — | — |
 
-## Type Information
+## Interfaces Implemented
+None
 
-- **Category**: Query/Search
-- **URL Slug**: `list-materialization-billing-event-detail`
+## Type Membership
+- **Member of Edge(s):** ListMaterializationBillingEventDetailEdge
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** ListMaterializationBillingEventDetailEdge
 
-## Documentation
-
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[ListMaterializationBillingEventDetail Documentation](https://documentation.enigma.com/reference/graphql_api/objects/list-materialization-billing-event-detail)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/list-materialization-billing-event-detail

@@ -1,24 +1,31 @@
 # LegalEntityAddressEdge
 
 ## Overview
+A Relay edge containing a `LegalEntityAddress` and its cursor.
 
-Documentation for the `LegalEntityAddressEdge` GraphQL object type in the Enigma API.
+## Fields
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | [`Address`](/reference/graphql_api/objects/address) | — | The item at the end of the edge |
+| cursor | [`String!`](/reference/graphql_api/scalars/string) | — | A cursor for use in pagination |
+| id | [`ID`](/reference/graphql_api/scalars/id) | — | — |
+| legalEntityReceivesMailAtAddressId | [`UUID`](/reference/graphql_api/scalars/uuid) | — | — |
+| datasetIds | [`JSON`](/reference/graphql_api/scalars/json) | — | — |
+| firstObservedDate | [`String`](/reference/graphql_api/scalars/string) | — | — |
+| lastObservedDate | [`String`](/reference/graphql_api/scalars/string) | — | — |
+| rank | [`Int`](/reference/graphql_api/scalars/int) | — | — |
+| internalId | [`String`](/reference/graphql_api/scalars/string) | — | — |
+| internalLegalEntityReceivesMailAtAddressId | [`String`](/reference/graphql_api/scalars/string) | — | — |
 
-## Type Information
+## Interfaces Implemented
+None
 
-- **Category**: Edge
-- **URL Slug**: `legal-entity-address-edge`
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** [`LegalEntityAddressConnection`](/reference/graphql_api/objects/legal-entity-address-connection)
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-## Documentation
-
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[LegalEntityAddressEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-address-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-address-edge

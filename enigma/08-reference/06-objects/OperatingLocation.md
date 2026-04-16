@@ -1,24 +1,54 @@
 # OperatingLocation
 
 ## Overview
+No description provided.
 
-Documentation for the `OperatingLocation` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `internalId` | `String` | None | — |
+| `enigmaId` | `String` | None | — |
+| `id` | `ID!` | None | — |
+| `tieBreakerMetadata` | `OperatingLocationTieBreakerMetadata` | None | — |
+| `searchMetadata` | `Searchmetadata` | None | — |
+| `names` | `OperatingLocationNameConnection` | `first: Int = 3`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `addresses` | `OperatingLocationAddressConnection` | `first: Int = 100`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `phoneNumbers` | `OperatingLocationPhoneNumberConnection` | `first: Int = 100`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `brands` | `OperatingLocationBrandConnection` | `first: Int = 100`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `roles` | `OperatingLocationRoleConnection` | `first: Int = 100`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `legalEntities` | `OperatingLocationLegalEntityConnection` | `first: Int = 100`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `operatingStatuses` | `OperatingLocationOperatingStatusConnection` | `first: Int = 3`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `technologiesUseds` | `OperatingLocationTechnologiesUsedConnection` | `first: Int = 3`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `websites` | `OperatingLocationWebsiteConnection` | `first: Int = 100`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `reviewSummaries` | `OperatingLocationReviewSummaryConnection` | `first: Int = 100`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `cardTransactions` | `OperatingLocationCardTransactionConnection` | `first: Int = 3`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `ranks` | `OperatingLocationRankConnection` | `first: Int = 3`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `revenueQualities` | `OperatingLocationRevenueQualityConnection` | `first: Int = 3`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `locationTypes` | `OperatingLocationLocationTypeConnection` | `first: Int = 3`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `isMarketables` | `OperatingLocationIsMarketableConnection` | `first: Int = 3`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | — |
+| `count` | `Int` | `field: String!`, `conditions: Conditions` | — |
+| `countDistinct` | `Int` | `field: String!`, `conditions: Conditions` | — |
+| `has` | `Boolean` | `field: String!`, `conditions: Conditions` | — |
+| `sum` | `Int` | `field: String!`, `conditions: Conditions` | — |
+| `min` | `Int` | `field: String!`, `conditions: Conditions` | — |
+| `max` | `Int` | `field: String!`, `conditions: Conditions` | — |
+| `avg` | `Float` | `field: String!`, `conditions: Conditions` | — |
+| `collect` | `String` | `field: String!`, `separator: String`, `conditions: Conditions` | — |
+| `minDateTime` | `DateTime` | `field: String!`, `conditions: Conditions` | — |
+| `maxDateTime` | `DateTime` | `field: String!`, `conditions: Conditions` | — |
+| `_fn` | `JSON` | None | — |
 
-- **Category**: Core Entity
-- **URL Slug**: `operating-location`
+## Interfaces Implemented
+- `NodeFunctions`
+- `Entity`
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** AddressOperatingLocationEdge, BrandOperatingLocationEdge, LegalEntityOperatingLocationEdge, PhoneNumberOperatingLocationEdge, ReviewSummaryOperatingLocationEdge, RoleOperatingLocationEdge, WebsiteOperatingLocationEdge
+- **Member of Connection(s):** None
+- **Member of Union(s):** SearchUnion
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** Multiple connection types
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[OperatingLocation Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location

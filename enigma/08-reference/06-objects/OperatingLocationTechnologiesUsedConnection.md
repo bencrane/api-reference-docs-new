@@ -1,24 +1,23 @@
 # OperatingLocationTechnologiesUsedConnection
 
 ## Overview
+No description
 
-Documentation for the `OperatingLocationTechnologiesUsedConnection` GraphQL object type in the Enigma API.
+## Fields
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| pageInfo | [`PageInfo!`](/reference/graphql_api/objects/page-info) | — | Pagination data for this connection. |
+| edges | [`[OperatingLocationTechnologiesUsedEdge]!`](/reference/graphql_api/objects/operating-location-technologies-used-edge) | — | Contains the nodes in this connection. |
 
-## Type Information
+## Interfaces Implemented
+None
 
-- **Category**: Connection
-- **URL Slug**: `operating-location-technologies-used-connection`
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** [`OperatingLocation`](/reference/graphql_api/objects/operating-location)
 
-## Documentation
-
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[OperatingLocationTechnologiesUsedConnection Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-technologies-used-connection)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-technologies-used-connection

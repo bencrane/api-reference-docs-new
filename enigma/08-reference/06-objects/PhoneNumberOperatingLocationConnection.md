@@ -1,24 +1,24 @@
 # PhoneNumberOperatingLocationConnection
 
 ## Overview
+No description
 
-Documentation for the `PhoneNumberOperatingLocationConnection` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `pageInfo` | `PageInfo!` | None | Pagination data for this connection. |
+| `edges` | `[PhoneNumberOperatingLocationEdge]!` | None | Contains the nodes in this connection. |
 
-- **Category**: Connection
-- **URL Slug**: `phone-number-operating-location-connection`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** `PhoneNumber`
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[PhoneNumberOperatingLocationConnection Documentation](https://documentation.enigma.com/reference/graphql_api/objects/phone-number-operating-location-connection)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/phone-number-operating-location-connection

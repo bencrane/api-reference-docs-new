@@ -1,24 +1,32 @@
 # OperatingLocationRoleEdge
 
 ## Overview
+A Relay edge containing an `OperatingLocationRole` and its cursor for use in paginated queries.
 
-Documentation for the `OperatingLocationRoleEdge` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | Role | — | The item at the end of the edge |
+| cursor | String! | — | A cursor for use in pagination |
+| id | ID | — | — |
+| roleIsPerformedAtOperatingLocationId | UUID | — | — |
+| datasetIds | JSON | — | — |
+| firstObservedDate | String | — | — |
+| lastObservedDate | String | — | — |
+| rank | Int | — | — |
+| internalId | String | — | — |
+| internalRoleIsPerformedAtOperatingLocationId | String | — | — |
 
-- **Category**: Edge
-- **URL Slug**: `operating-location-role-edge`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** OperatingLocationRoleConnection
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[OperatingLocationRoleEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-role-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-role-edge

@@ -2,23 +2,27 @@
 
 ## Overview
 
-Documentation for the `OperatingLocationCardTransactionEdge` GraphQL object type in the Enigma API.
+A Relay edge containing an `OperatingLocationCardTransaction` and its cursor, implementing the Relay pagination pattern for card transaction data associated with operating locations.
 
-## Type Information
+## Fields
 
-- **Category**: Edge
-- **URL Slug**: `operating-location-card-transaction-edge`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `node` | `OperatingLocationCardTransaction` | — | The item at the end of the edge |
+| `cursor` | `String!` | — | A cursor for use in pagination |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[OperatingLocationCardTransactionEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-card-transaction-edge)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** None
+- **Member of Connection(s):** `OperatingLocationCardTransactionConnection`
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** `OperatingLocationCardTransactionConnection`
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-card-transaction-edge

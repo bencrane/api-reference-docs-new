@@ -1,24 +1,24 @@
 # LegalEntityNameEdge
 
 ## Overview
+A Relay edge containing a `LegalEntityName` and its cursor for pagination purposes.
 
-Documentation for the `LegalEntityNameEdge` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `node` | `LegalEntityName` | None | The item at the end of the edge |
+| `cursor` | `String!` | None | A cursor for use in pagination |
 
-- **Category**: Edge
-- **URL Slug**: `legal-entity-name-edge`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** `LegalEntityNameConnection`
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** `LegalEntityNameConnection`
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[LegalEntityNameEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-name-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-name-edge

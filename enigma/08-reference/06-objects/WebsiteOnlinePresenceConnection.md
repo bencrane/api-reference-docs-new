@@ -1,24 +1,24 @@
 # WebsiteOnlinePresenceConnection
 
 ## Overview
+No description provided.
 
-Documentation for the `WebsiteOnlinePresenceConnection` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `pageInfo` | [`PageInfo!`](/reference/graphql_api/objects/page-info) | — | Pagination data for this connection. |
+| `edges` | [`[WebsiteOnlinePresenceEdge]!`](/reference/graphql_api/objects/website-online-presence-edge) | — | Contains the nodes in this connection. |
 
-- **Category**: Connection
-- **URL Slug**: `website-online-presence-connection`
+## Interfaces Implemented
+None.
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** [`Website`](/reference/graphql_api/objects/website)
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[WebsiteOnlinePresenceConnection Documentation](https://documentation.enigma.com/reference/graphql_api/objects/website-online-presence-connection)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/website-online-presence-connection

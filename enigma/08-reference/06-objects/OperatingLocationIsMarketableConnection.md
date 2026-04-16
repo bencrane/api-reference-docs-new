@@ -2,23 +2,27 @@
 
 ## Overview
 
-Documentation for the `OperatingLocationIsMarketableConnection` GraphQL object type in the Enigma API.
+A GraphQL connection type that provides paginated access to `OperatingLocationIsMarketable` entities, enabling developers to retrieve marketing qualification data for operating locations through the Enigma GraphQL API.
 
-## Type Information
+## Fields
 
-- **Category**: Connection
-- **URL Slug**: `operating-location-is-marketable-connection`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `pageInfo` | `PageInfo!` | — | "Pagination data for this connection." |
+| `edges` | `[OperatingLocationIsMarketableEdge]!` | — | "Contains the nodes in this connection." |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[OperatingLocationIsMarketableConnection Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-is-marketable-connection)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** `OperatingLocation`
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-is-marketable-connection

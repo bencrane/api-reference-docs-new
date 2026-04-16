@@ -2,23 +2,45 @@
 
 ## Overview
 
-Documentation for the `OperatingLocationTechnologiesUsed` GraphQL object type in the Enigma API.
+This type indicates third-party technologies being used at a particular operating location. Technologies are determined by parsing merchant identifiers from credit card transaction data. The data is sourced from private vendors and independently verified for accuracy, currently covering payments-related technologies like Clover, PayPal, Shopify, Square, Stripe, and Toast.
 
-## Type Information
+The type maintains historical information through a rank property: Rank 0 reflects the most recent validated observation, while higher ranks represent older recorded usage periods, enabling visibility into technology changes over time.
 
-- **Category**: Attribute
-- **URL Slug**: `operating-location-technologies-used`
+## Fields
 
-## Documentation
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| id | UUID! | — | Unique identifier |
+| firstObservedDate | String | — | Date of first observation |
+| lastObservedDate | String | — | Date of most recent observation |
+| technology | String | — | "The specific third-party technology being used by the location" |
+| category | String | — | "The category of the third-party technology being used by the location. An example would be payments" |
+| internalId | String | — | Internal identifier |
+| internalOperatingLocationId | String | — | Internal operating location identifier |
+| count | Int | field: String!, conditions: Conditions | Aggregation function |
+| countDistinct | Int | field: String!, conditions: Conditions | Aggregation function |
+| has | Boolean | field: String!, conditions: Conditions | Check existence |
+| sum | Int | field: String!, conditions: Conditions | Aggregation function |
+| min | Int | field: String!, conditions: Conditions | Aggregation function |
+| max | Int | field: String!, conditions: Conditions | Aggregation function |
+| avg | Float | field: String!, conditions: Conditions | Aggregation function |
+| collect | String | field: String!, separator: String, conditions: Conditions | Aggregation function |
+| minDateTime | DateTime | field: String!, conditions: Conditions | Aggregation function |
+| maxDateTime | DateTime | field: String!, conditions: Conditions | Aggregation function |
+| _fn | JSON | — | Function metadata |
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+## Interfaces Implemented
 
-[OperatingLocationTechnologiesUsed Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-technologies-used)
+- NodeFunctions
 
-## Notes
+## Type Membership
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+- **Member of Edge(s):** OperatingLocationTechnologiesUsedEdge
+- **Member of Connection(s):** None explicitly listed
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** OperatingLocationTechnologiesUsedConnection
 
----
+## Source
 
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-technologies-used

@@ -2,23 +2,27 @@
 
 ## Overview
 
-Documentation for the `OperatingLocationBrandConnection` GraphQL object type in the Enigma API.
+A connection type that represents a paginated collection of brands associated with operating locations in the Enigma GraphQL API.
 
-## Type Information
+## Fields
 
-- **Category**: Connection
-- **URL Slug**: `operating-location-brand-connection`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `pageInfo` | `PageInfo!` | — | "Pagination data for this connection." |
+| `edges` | `[OperatingLocationBrandEdge]!` | — | "Contains the nodes in this connection." |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[OperatingLocationBrandConnection Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-brand-connection)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** `OperatingLocation`
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-brand-connection

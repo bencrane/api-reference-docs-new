@@ -1,24 +1,24 @@
 # OperatingLocationTechnologiesUsedEdge
 
 ## Overview
+A Relay edge containing an `OperatingLocationTechnologiesUsed` object and its cursor for pagination purposes.
 
-Documentation for the `OperatingLocationTechnologiesUsedEdge` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `node` | [`OperatingLocationTechnologiesUsed`](/reference/graphql_api/objects/operating-location-technologies-used) | — | The item at the end of the edge |
+| `cursor` | [`String!`](/reference/graphql_api/scalars/string) | — | A cursor for use in pagination |
 
-- **Category**: Edge
-- **URL Slug**: `operating-location-technologies-used-edge`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** [`OperatingLocationTechnologiesUsedConnection`](/reference/graphql_api/objects/operating-location-technologies-used-connection)
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[OperatingLocationTechnologiesUsedEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-technologies-used-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-technologies-used-edge

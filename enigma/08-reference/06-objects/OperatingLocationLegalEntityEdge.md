@@ -2,23 +2,35 @@
 
 ## Overview
 
-Documentation for the `OperatingLocationLegalEntityEdge` GraphQL object type in the Enigma API.
+A Relay edge implementation that encapsulates a `LegalEntity` node along with pagination cursor information, used within the GraphQL API's operating location to legal entity relationship queries.
 
-## Type Information
+## Fields
 
-- **Category**: Edge
-- **URL Slug**: `operating-location-legal-entity-edge`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | LegalEntity | — | The item at the end of the edge |
+| cursor | String! | — | A cursor for use in pagination |
+| id | ID | — | Identifier for the edge |
+| legalEntityOwnsLocationOperatingLocationId | UUID | — | UUID identifying the legal entity's ownership relationship to an operating location |
+| datasetIds | JSON | — | JSON representation of associated dataset identifiers |
+| firstObservedDate | String | — | Date when this relationship was first observed |
+| lastObservedDate | String | — | Date of the most recent observation of this relationship |
+| rank | Int | — | Numeric ranking value for the relationship |
+| internalId | String | — | Internal identifier for the edge |
+| internalLegalEntityOwnsLocationOperatingLocationId | String | — | Internal string identifier for the ownership relationship |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[OperatingLocationLegalEntityEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-legal-entity-edge)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** None
+- **Member of Connection(s):** `OperatingLocationLegalEntityConnection`
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** `OperatingLocationLegalEntityConnection`
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-legal-entity-edge

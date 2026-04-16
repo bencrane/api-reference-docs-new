@@ -2,23 +2,35 @@
 
 ## Overview
 
-Documentation for the `RegistrationRoleEdge` GraphQL object type in the Enigma API.
+A Relay edge containing a `RegistrationRole` and its cursor.
 
-## Type Information
+## Fields
 
-- **Category**: Edge
-- **URL Slug**: `registration-role-edge`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | `Role` | — | The item at the end of the edge |
+| cursor | `String!` | — | A cursor for use in pagination |
+| id | `ID` | — | No description |
+| registrationRecordedRoleId | `UUID` | — | No description |
+| datasetIds | `JSON` | — | No description |
+| firstObservedDate | `String` | — | No description |
+| lastObservedDate | `String` | — | No description |
+| rank | `Int` | — | No description |
+| internalId | `String` | — | No description |
+| internalRegistrationRecordedRoleId | `String` | — | No description |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[RegistrationRoleEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/registration-role-edge)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** None
+- **Member of Connection(s):** `RegistrationRoleConnection`
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/registration-role-edge

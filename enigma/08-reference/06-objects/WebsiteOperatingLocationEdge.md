@@ -1,24 +1,32 @@
 # WebsiteOperatingLocationEdge
 
 ## Overview
+A Relay edge containing a `WebsiteOperatingLocation` and its cursor for pagination purposes.
 
-Documentation for the `WebsiteOperatingLocationEdge` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `node` | `OperatingLocation` | — | The item at the end of the edge |
+| `cursor` | `String!` | — | A cursor for use in pagination |
+| `id` | `ID` | — | Identifier field |
+| `operatingLocationOperatesWebsiteWebsiteId` | `UUID` | — | Website identifier for the operating location relationship |
+| `datasetIds` | `JSON` | — | Dataset identifiers in JSON format |
+| `firstObservedDate` | `String` | — | Date when relationship was first observed |
+| `lastObservedDate` | `String` | — | Date when relationship was last observed |
+| `rank` | `Int` | — | Ranking value |
+| `internalId` | `String` | — | Internal identifier |
+| `internalOperatingLocationOperatesWebsiteWebsiteId` | `String` | — | Internal website identifier for the operating location relationship |
 
-- **Category**: Edge
-- **URL Slug**: `website-operating-location-edge`
+## Interfaces Implemented
+None.
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** `WebsiteOperatingLocationConnection`
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** `WebsiteOperatingLocationConnection`
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[WebsiteOperatingLocationEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/website-operating-location-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/website-operating-location-edge

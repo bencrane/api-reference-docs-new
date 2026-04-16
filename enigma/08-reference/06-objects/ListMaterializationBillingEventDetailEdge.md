@@ -1,24 +1,23 @@
 # ListMaterializationBillingEventDetailEdge
 
 ## Overview
+A Relay edge containing a `ListMaterializationBillingEventDetail` and its cursor.
 
-Documentation for the `ListMaterializationBillingEventDetailEdge` GraphQL object type in the Enigma API.
+## Fields
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | [`ListMaterializationBillingEventDetail`](/reference/graphql_api/objects/list-materialization-billing-event-detail) | — | The item at the end of the edge |
+| cursor | [`String!`](/reference/graphql_api/scalars/string) | — | A cursor for use in pagination |
 
-## Type Information
+## Interfaces Implemented
+None
 
-- **Category**: Edge
-- **URL Slug**: `list-materialization-billing-event-detail-edge`
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** [`ListMaterializationBillingEventDetailConnection`](/reference/graphql_api/objects/list-materialization-billing-event-detail-connection)
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-## Documentation
-
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[ListMaterializationBillingEventDetailEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/list-materialization-billing-event-detail-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/list-materialization-billing-event-detail-edge

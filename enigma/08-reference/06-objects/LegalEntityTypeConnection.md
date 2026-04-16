@@ -1,24 +1,23 @@
 # LegalEntityTypeConnection
 
 ## Overview
+No description provided in documentation.
 
-Documentation for the `LegalEntityTypeConnection` GraphQL object type in the Enigma API.
+## Fields
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| pageInfo | [`PageInfo!`](/reference/graphql_api/objects/page-info) | — | "Pagination data for this connection." |
+| edges | [`[LegalEntityTypeEdge]!`](/reference/graphql_api/objects/legal-entity-type-edge) | — | "Contains the nodes in this connection." |
 
-## Type Information
+## Interfaces Implemented
+None
 
-- **Category**: Connection
-- **URL Slug**: `legal-entity-type-connection`
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** [`LegalEntity`](/reference/graphql_api/objects/legal-entity)
 
-## Documentation
-
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[LegalEntityTypeConnection Documentation](https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-type-connection)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-type-connection

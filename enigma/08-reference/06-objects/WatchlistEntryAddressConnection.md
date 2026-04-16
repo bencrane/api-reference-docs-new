@@ -1,24 +1,23 @@
 # WatchlistEntryAddressConnection
 
 ## Overview
+No description provided in documentation.
 
-Documentation for the `WatchlistEntryAddressConnection` GraphQL object type in the Enigma API.
+## Fields
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| pageInfo | [`PageInfo!`](/reference/graphql_api/objects/page-info) | — | Pagination data for this connection. |
+| edges | [`[WatchlistEntryAddressEdge]!`](/reference/graphql_api/objects/watchlist-entry-address-edge) | — | Contains the nodes in this connection. |
 
-## Type Information
+## Interfaces Implemented
+None
 
-- **Category**: Connection
-- **URL Slug**: `watchlist-entry-address-connection`
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** [`WatchlistEntry`](/reference/graphql_api/objects/watchlist-entry)
 
-## Documentation
-
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[WatchlistEntryAddressConnection Documentation](https://documentation.enigma.com/reference/graphql_api/objects/watchlist-entry-address-connection)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/watchlist-entry-address-connection

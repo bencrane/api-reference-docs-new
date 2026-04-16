@@ -2,23 +2,27 @@
 
 ## Overview
 
-Documentation for the `OperatingLocationLocationTypeConnection` GraphQL object type in the Enigma API.
+A connection object representing a paginated collection of operating location location type relationships within the Enigma GraphQL API. This type implements standard cursor-based pagination patterns for traversing location type data associated with operating locations.
 
-## Type Information
+## Fields
 
-- **Category**: Connection
-- **URL Slug**: `operating-location-location-type-connection`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| pageInfo | PageInfo! | None | Pagination metadata enabling cursor-based navigation through the connection results. |
+| edges | [OperatingLocationLocationTypeEdge]! | None | Array of edge objects, each containing a node and cursor for accessing individual location type entries. |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[OperatingLocationLocationTypeConnection Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-location-type-connection)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** OperatingLocation
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-location-type-connection

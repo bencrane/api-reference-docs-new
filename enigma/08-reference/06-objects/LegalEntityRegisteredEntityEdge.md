@@ -1,24 +1,31 @@
 # LegalEntityRegisteredEntityEdge
 
 ## Overview
+A Relay edge containing a `LegalEntityRegisteredEntity` and its cursor for pagination purposes in the GraphQL API.
 
-Documentation for the `LegalEntityRegisteredEntityEdge` GraphQL object type in the Enigma API.
+## Fields
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `node` | `RegisteredEntity` | — | The item at the end of the edge |
+| `cursor` | `String!` | — | A cursor for use in pagination |
+| `id` | `ID` | — | Identifier for the edge |
+| `registeredEntityIsInstanceOfLegalEntityId` | `UUID` | — | UUID linking registered entity to legal entity instance |
+| `datasetIds` | `JSON` | — | JSON data containing dataset identifiers |
+| `firstObservedDate` | `String` | — | Date when the relationship was first observed |
+| `lastObservedDate` | `String` | — | Date when the relationship was last observed |
+| `rank` | `Int` | — | Ranking value for the relationship |
+| `internalId` | `String` | — | Internal identifier |
+| `internalRegisteredEntityIsInstanceOfLegalEntityId` | `String` | — | Internal identifier linking entities |
 
-## Type Information
+## Interfaces Implemented
+None
 
-- **Category**: Edge
-- **URL Slug**: `legal-entity-registered-entity-edge`
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** `LegalEntityRegisteredEntityConnection`
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-## Documentation
-
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[LegalEntityRegisteredEntityEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-registered-entity-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-registered-entity-edge

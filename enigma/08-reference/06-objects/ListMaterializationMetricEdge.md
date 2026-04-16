@@ -2,23 +2,27 @@
 
 ## Overview
 
-Documentation for the `ListMaterializationMetricEdge` GraphQL object type in the Enigma API.
+A Relay edge containing a `ListMaterializationMetric` and its cursor for use in pagination operations.
 
-## Type Information
+## Fields
 
-- **Category**: Edge
-- **URL Slug**: `list-materialization-metric-edge`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | [`ListMaterializationMetric`](/reference/graphql_api/objects/list-materialization-metric) | — | The item at the end of the edge |
+| cursor | [`String!`](/reference/graphql_api/scalars/string) | — | A cursor for use in pagination |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[ListMaterializationMetricEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/list-materialization-metric-edge)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** None
+- **Member of Connection(s):** [`ListMaterializationMetricConnection`](/reference/graphql_api/objects/list-materialization-metric-connection)
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** [`ListMaterializationMetricConnection`](/reference/graphql_api/objects/list-materialization-metric-connection)
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/list-materialization-metric-edge

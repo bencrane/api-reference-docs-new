@@ -1,24 +1,32 @@
 # RoleLegalEntityEdge
 
 ## Overview
+A Relay edge containing a `RoleLegalEntity` and its cursor, used for pagination in GraphQL queries.
 
-Documentation for the `RoleLegalEntityEdge` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | LegalEntity | — | The item at the end of the edge |
+| cursor | String! | — | A cursor for use in pagination |
+| id | ID | — | Identifier field |
+| legalEntityPerformsRoleId | UUID | — | Unique identifier for the legal entity performing role relationship |
+| datasetIds | JSON | — | Collection of dataset identifiers |
+| firstObservedDate | String | — | Date when the relationship was first observed |
+| lastObservedDate | String | — | Date when the relationship was last observed |
+| rank | Int | — | Ranking value |
+| internalId | String | — | Internal identifier |
+| internalLegalEntityPerformsRoleId | String | — | Internal identifier for the legal entity performing role |
 
-- **Category**: Edge
-- **URL Slug**: `role-legal-entity-edge`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** RoleLegalEntityConnection
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** RoleLegalEntityConnection
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[RoleLegalEntityEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/role-legal-entity-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/role-legal-entity-edge

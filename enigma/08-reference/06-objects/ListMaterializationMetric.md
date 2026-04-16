@@ -1,24 +1,25 @@
 # ListMaterializationMetric
 
 ## Overview
+No description provided in documentation.
 
-Documentation for the `ListMaterializationMetric` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `metricName` | `String!` | None | Not provided |
+| `columnName` | `String` | None | Not provided |
+| `metricValue` | `JSON` | None | Not provided |
 
-- **Category**: Query/Search
-- **URL Slug**: `list-materialization-metric`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** `ListMaterializationMetricEdge`
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[ListMaterializationMetric Documentation](https://documentation.enigma.com/reference/graphql_api/objects/list-materialization-metric)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/list-materialization-metric

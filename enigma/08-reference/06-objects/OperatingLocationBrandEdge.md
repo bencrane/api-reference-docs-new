@@ -2,23 +2,35 @@
 
 ## Overview
 
-Documentation for the `OperatingLocationBrandEdge` GraphQL object type in the Enigma API.
+A Relay edge containing an `OperatingLocationBrand` and its cursor for pagination purposes within the Enigma GraphQL API.
 
-## Type Information
+## Fields
 
-- **Category**: Edge
-- **URL Slug**: `operating-location-brand-edge`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | Brand | | The item at the end of the edge |
+| cursor | String! | | A cursor for use in pagination |
+| id | ID | | Identifier for the edge |
+| brandOperatesAtOperatingLocationId | UUID | | Unique identifier for the brand-operating location relationship |
+| datasetIds | JSON | | Dataset identifiers associated with the relationship |
+| firstObservedDate | String | | Date when the relationship was first observed |
+| lastObservedDate | String | | Date when the relationship was most recently observed |
+| rank | Int | | Ranking value for the relationship |
+| internalId | String | | Internal identifier for the edge |
+| internalBrandOperatesAtOperatingLocationId | String | | Internal identifier for the brand-operating location relationship |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[OperatingLocationBrandEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-brand-edge)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** None
+- **Member of Connection(s):** `OperatingLocationBrandConnection`
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** `OperatingLocationBrandConnection`
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-brand-edge

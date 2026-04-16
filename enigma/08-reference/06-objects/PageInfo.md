@@ -2,23 +2,29 @@
 
 ## Overview
 
-Documentation for the `PageInfo` GraphQL object type in the Enigma API.
+The Relay compliant `PageInfo` type, containing data necessary to paginate through connection results.
 
-## Type Information
+## Fields
 
-- **Category**: Query/Search
-- **URL Slug**: `page-info`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `hasNextPage` | `Boolean!` | — | When paginating forwards, are there more items? |
+| `hasPreviousPage` | `Boolean!` | — | When paginating backwards, are there more items? |
+| `startCursor` | `String` | — | When paginating backwards, the cursor to continue. |
+| `endCursor` | `String` | — | When paginating forwards, the cursor to continue. |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[PageInfo Documentation](https://documentation.enigma.com/reference/graphql_api/objects/page-info)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** None
+- **Member of Connection(s):** AddressDeliverabilityConnection, AddressLegalEntityConnection, AddressOperatingLocationConnection, AddressRegistrationConnection, AddressWatchlistEntryConnection, BrandActivityConnection, BrandBrandConnection, BrandCardTransactionConnection, BrandConnection, BrandIndustryConnection, BrandIsMarketableConnection, BrandLegalEntityConnection, BrandLocationDescriptionConnection, BrandNameConnection, BrandOperatingLocationConnection, BrandRevenueQualityConnection, BrandRoleConnection, BrandWebsiteConnection, EmailAddressRoleConnection, IndustryBrandConnection, IndustryIndustryConnection, LegalEntityAddressConnection, LegalEntityAppearsOnWatchlistEntryConnection, LegalEntityBankruptcyConnection, LegalEntityBrandConnection, LegalEntityIsFlaggedByWatchlistEntryConnection, LegalEntityLegalEntityConnection, LegalEntityNameConnection, LegalEntityOperatingLocationConnection, LegalEntityPersonConnection, LegalEntityRegisteredEntityConnection, LegalEntityRoleConnection, LegalEntityTinConnection, LegalEntityTypeConnection, ListConnection, ListMaterializationBillingEventDetailConnection, ListMaterializationConnection, ListMaterializationMetricConnection, OperatingLocationAddressConnection, OperatingLocationBrandConnection, OperatingLocationCardTransactionConnection, OperatingLocationIsMarketableConnection, OperatingLocationLegalEntityConnection, OperatingLocationLocationTypeConnection, OperatingLocationNameConnection, OperatingLocationOperatingStatusConnection, OperatingLocationPhoneNumberConnection, OperatingLocationRankConnection, OperatingLocationRevenueQualityConnection, OperatingLocationReviewSummaryConnection, OperatingLocationRoleConnection, OperatingLocationTechnologiesUsedConnection, OperatingLocationWebsiteConnection, PersonLegalEntityConnection, PersonNameConnection, PhoneNumberOperatingLocationConnection, PhoneNumberRoleConnection, RegisteredEntityLegalEntityConnection, RegisteredEntityRegistrationConnection, RegistrationAddressConnection, RegistrationRegisteredEntityConnection, RegistrationRoleConnection, ReviewSummaryOperatingLocationConnection, RoleBrandConnection, RoleEmailAddressConnection, RoleLegalEntityConnection, RoleOperatingLocationConnection, RolePhoneNumberConnection, RoleRegistrationConnection, TinLegalEntityConnection, WatchlistEntryAddressConnection, WatchlistEntryAppearsOnLegalEntityConnection, WatchlistEntryIsFlaggedByLegalEntityConnection, WebsiteBrandConnection, WebsiteContentWebsiteConnection, WebsiteOnlinePresenceConnection, WebsiteOperatingLocationConnection, WebsiteTechnologiesUsedConnection, WebsiteWebsiteContentConnection
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** All Connection objects listed above
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/page-info

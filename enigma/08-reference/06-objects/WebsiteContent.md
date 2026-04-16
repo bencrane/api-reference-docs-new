@@ -2,23 +2,46 @@
 
 ## Overview
 
-Documentation for the `WebsiteContent` GraphQL object type in the Enigma API.
+The state of a website at a particular time. Enigma makes requests to each website in its database at least every ninety days, with each WebsiteContent object representing findings from one such request. The object uses a rank property to track historical changes, where rank 0 contains the most recent data and higher ranks represent earlier observations.
 
-## Type Information
+## Fields
 
-- **Category**: Attribute
-- **URL Slug**: `website-content`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `id` | `UUID!` | — | Unique identifier |
+| `firstObservedDate` | `String` | — | Initial observation timestamp |
+| `lastObservedDate` | `String` | — | Most recent observation timestamp |
+| `httpStatusCode` | `String` | — | HTTP response code (e.g., 200, 404) |
+| `faviconUrl` | `String` | — | URL serving the website's favicon |
+| `faviconImage` | `String` | — | Binary representation of favicon from HTTP response |
+| `websiteAvailability` | `String` | — | Availability status |
+| `internalId` | `String` | — | Internal identifier |
+| `internalWebsiteContentId` | `String` | — | Internal content identifier |
+| `websites` | `WebsiteContentWebsiteConnection` | `first: Int = 100`, `last: Int`, `after: String`, `before: String`, `conditions: ConnectionConditions` | Connected websites |
+| `count` | `Int` | `field: String!`, `conditions: Conditions` | Field value count |
+| `countDistinct` | `Int` | `field: String!`, `conditions: Conditions` | Distinct value count |
+| `has` | `Boolean` | `field: String!`, `conditions: Conditions` | Field existence check |
+| `sum` | `Int` | `field: String!`, `conditions: Conditions` | Field sum |
+| `min` | `Int` | `field: String!`, `conditions: Conditions` | Minimum value |
+| `max` | `Int` | `field: String!`, `conditions: Conditions` | Maximum value |
+| `avg` | `Float` | `field: String!`, `conditions: Conditions` | Average value |
+| `collect` | `String` | `field: String!`, `separator: String`, `conditions: Conditions` | Aggregated values |
+| `minDateTime` | `DateTime` | `field: String!`, `conditions: Conditions` | Earliest datetime |
+| `maxDateTime` | `DateTime` | `field: String!`, `conditions: Conditions` | Latest datetime |
+| `_fn` | `JSON` | — | Function metadata |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+- `NodeFunctions`
 
-[WebsiteContent Documentation](https://documentation.enigma.com/reference/graphql_api/objects/website-content)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** `WebsiteWebsiteContentEdge`
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** `WebsiteWebsiteContentConnection`, `Website`
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/website-content

@@ -1,24 +1,31 @@
 # RegistrationRegisteredEntityEdge
 
 ## Overview
+A Relay edge containing a `RegistrationRegisteredEntity` and its cursor.
 
-Documentation for the `RegistrationRegisteredEntityEdge` GraphQL object type in the Enigma API.
+## Fields
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | RegisteredEntity | | The item at the end of the edge |
+| cursor | String! | | A cursor for use in pagination |
+| id | ID | | |
+| registrationRegisteredRegisteredEntityId | UUID | | |
+| datasetIds | JSON | | |
+| firstObservedDate | String | | |
+| lastObservedDate | String | | |
+| rank | Int | | |
+| internalId | String | | |
+| internalRegistrationRegisteredRegisteredEntityId | String | | |
 
-## Type Information
+## Interfaces Implemented
+None
 
-- **Category**: Edge
-- **URL Slug**: `registration-registered-entity-edge`
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** RegistrationRegisteredEntityConnection
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** RegistrationRegisteredEntityConnection
 
-## Documentation
-
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[RegistrationRegisteredEntityEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/registration-registered-entity-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/registration-registered-entity-edge

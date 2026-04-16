@@ -2,23 +2,35 @@
 
 ## Overview
 
-Documentation for the `WatchlistEntryAddressEdge` GraphQL object type in the Enigma API.
+A Relay edge containing a `WatchlistEntryAddress` and its cursor for pagination purposes.
 
-## Type Information
+## Fields
 
-- **Category**: Edge
-- **URL Slug**: `watchlist-entry-address-edge`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | [`Address`](/reference/graphql_api/objects/address) | None | The item at the end of the edge |
+| cursor | [`String!`](/reference/graphql_api/scalars/string) | None | A cursor for use in pagination |
+| id | [`ID`](/reference/graphql_api/scalars/id) | None | No description |
+| addressAppearsOnWatchlistEntryId | [`UUID`](/reference/graphql_api/scalars/uuid) | None | No description |
+| datasetIds | [`JSON`](/reference/graphql_api/scalars/json) | None | No description |
+| firstObservedDate | [`String`](/reference/graphql_api/scalars/string) | None | No description |
+| lastObservedDate | [`String`](/reference/graphql_api/scalars/string) | None | No description |
+| rank | [`Int`](/reference/graphql_api/scalars/int) | None | No description |
+| internalId | [`String`](/reference/graphql_api/scalars/string) | None | No description |
+| internalAddressAppearsOnWatchlistEntryId | [`String`](/reference/graphql_api/scalars/string) | None | No description |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[WatchlistEntryAddressEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/watchlist-entry-address-edge)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** None
+- **Member of Connection(s):** [`WatchlistEntryAddressConnection`](/reference/graphql_api/objects/watchlist-entry-address-connection)
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/watchlist-entry-address-edge

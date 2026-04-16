@@ -2,23 +2,27 @@
 
 ## Overview
 
-Documentation for the `OperatingLocationRoleConnection` GraphQL object type in the Enigma API.
+No description
 
-## Type Information
+## Fields
 
-- **Category**: Connection
-- **URL Slug**: `operating-location-role-connection`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `pageInfo` | [`PageInfo!`](/reference/graphql_api/objects/page-info) | — | Pagination data for this connection. |
+| `edges` | [`[OperatingLocationRoleEdge]!`](/reference/graphql_api/objects/operating-location-role-edge) | — | Contains the nodes in this connection. |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[OperatingLocationRoleConnection Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-role-connection)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** [`OperatingLocation`](/reference/graphql_api/objects/operating-location)
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-role-connection

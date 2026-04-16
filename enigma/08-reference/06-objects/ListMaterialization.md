@@ -1,24 +1,39 @@
 # ListMaterialization
 
 ## Overview
+No description provided.
 
-Documentation for the `ListMaterialization` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| id | `ID!` | — | — |
+| listId | `ID!` | — | — |
+| createdTimestamp | `DateTime!` | — | — |
+| status | `String!` | — | — |
+| updatedTimestamp | `DateTime!` | — | — |
+| searchInput | `ListSearchInput` | — | — |
+| metrics | `ListMaterializationMetricConnection` | `before: String`, `after: String`, `first: Int`, `last: Int` | — |
+| billingEventDetails | `ListMaterializationBillingEventDetailConnection` | `before: String`, `after: String`, `first: Int`, `last: Int` | — |
+| fieldAliases | `[FieldAlias]` | — | — |
+| columnOrdering | `[String]` | — | — |
+| columnCounts | `[ColumnCount]` | — | — |
+| columnMapping | `[ColumnMapping]` | — | — |
+| inputFileUri | `String` | — | — |
+| listType | `ListType` | — | — |
+| resourceUri | `String` | — | — |
+| progressPercentComplete | `Int` | — | — |
+| progressMessage | `String` | — | — |
 
-- **Category**: Query/Search
-- **URL Slug**: `list-materialization`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** ListMaterializationEdge
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** CancelListMaterialization, CreateListMaterialization, UpdateListMaterialization
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[ListMaterialization Documentation](https://documentation.enigma.com/reference/graphql_api/objects/list-materialization)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/list-materialization

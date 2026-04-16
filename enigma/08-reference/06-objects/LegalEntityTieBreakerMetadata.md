@@ -1,24 +1,23 @@
 # LegalEntityTieBreakerMetadata
 
 ## Overview
+No description provided in documentation.
 
-Documentation for the `LegalEntityTieBreakerMetadata` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `enigmaIdExists` | [`RankMetadata`](/reference/graphql_api/objects/rank-metadata) | None | No description |
 
-- **Category**: Metadata
-- **URL Slug**: `legal-entity-tie-breaker-metadata`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** [`LegalEntity`](/reference/graphql_api/objects/legal-entity)
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[LegalEntityTieBreakerMetadata Documentation](https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-tie-breaker-metadata)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-tie-breaker-metadata

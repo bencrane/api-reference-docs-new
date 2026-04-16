@@ -1,24 +1,44 @@
 # ExternalMutation
 
+> Source URL: https://documentation.enigma.com/reference/graphql_api/objects/external-mutation
+> (The dedicated type page returned the generic docs overview on 2026-04-16. The fields below are synthesized from the individual mutation pages under `/reference/graphql_api/mutations/` and from references to `ExternalMutation` surfaced via the docs search.)
+
 ## Overview
 
-Documentation for the `ExternalMutation` GraphQL object type in the Enigma API.
+`ExternalMutation` groups the list-management and suggestion mutations exposed externally by the Enigma GraphQL API. Each field wraps a single mutation operation, takes a dedicated `Input!` object, and returns a corresponding result payload type.
 
-## Type Information
+## Fields
 
-- **Category**: Mutation Response
-- **URL Slug**: `external-mutation`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `createList` | `CreateList` | `input: CreateListInput!` | Create a new list. |
+| `updateList` | `UpdateList` | `input: UpdateListInput!` | Update an existing list. |
+| `deleteList` | `DeleteList` | `input: DeleteListInput!` | Delete a list. |
+| `createListMaterialization` | `CreateListMaterialization` | `input: CreateListMaterializationInput!` | Begin materializing a list. |
+| `cancelListMaterialization` | `CancelListMaterialization` | `input: CancelListMaterializationInput!` | Cancel an in-progress list materialization. |
+| `createSuggestion` | `CreateSuggestion` | `suggestion: SuggestionInput!` | Submit a data-quality suggestion. |
 
-## Documentation
+No field descriptions are provided in the upstream documentation.
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+## Interfaces Implemented
 
-[ExternalMutation Documentation](https://documentation.enigma.com/reference/graphql_api/objects/external-mutation)
+None documented.
 
-## Notes
+## Type Membership
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** `Mutation` (root) — exposed as the `externalMutation` entry point on the `Mutation` root type.
 
----
+## Source
 
-*Auto-generated on 2026-03-18*
+- https://documentation.enigma.com/reference/graphql_api/objects/external-mutation (returned overview page — no type reference content)
+- Field sources:
+  - https://documentation.enigma.com/reference/graphql_api/mutations/create-list
+  - https://documentation.enigma.com/reference/graphql_api/mutations/update-list
+  - https://documentation.enigma.com/reference/graphql_api/mutations/delete-list
+  - https://documentation.enigma.com/reference/graphql_api/mutations/create-list-materialization
+  - https://documentation.enigma.com/reference/graphql_api/mutations/cancel-list-materialization
+  - https://documentation.enigma.com/reference/graphql_api/mutations/create-suggestion

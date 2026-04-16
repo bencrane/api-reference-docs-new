@@ -1,24 +1,23 @@
 # OperatingLocationRankEdge
 
 ## Overview
+A Relay edge containing an `OperatingLocationRank` and its cursor for pagination purposes.
 
-Documentation for the `OperatingLocationRankEdge` GraphQL object type in the Enigma API.
+## Fields
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `node` | [`OperatingLocationRank`](/reference/graphql_api/objects/operating-location-rank) | — | The item at the end of the edge |
+| `cursor` | [`String!`](/reference/graphql_api/scalars/string) | — | A cursor for use in pagination |
 
-## Type Information
+## Interfaces Implemented
+None
 
-- **Category**: Edge
-- **URL Slug**: `operating-location-rank-edge`
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** [`OperatingLocationRankConnection`](/reference/graphql_api/objects/operating-location-rank-connection)
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-## Documentation
-
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[OperatingLocationRankEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-rank-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-rank-edge

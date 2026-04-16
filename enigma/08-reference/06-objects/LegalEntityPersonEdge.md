@@ -1,24 +1,31 @@
 # LegalEntityPersonEdge
 
 ## Overview
+A Relay edge containing a `LegalEntityPerson` and its cursor for use in pagination.
 
-Documentation for the `LegalEntityPersonEdge` GraphQL object type in the Enigma API.
+## Fields
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | `Person` | — | The item at the end of the edge |
+| cursor | `String!` | — | A cursor for use in pagination |
+| id | `ID` | — | Identifier for the edge |
+| personIsInstanceOfLegalEntityId | `UUID` | — | UUID identifier linking person to legal entity |
+| datasetIds | `JSON` | — | Dataset identifiers in JSON format |
+| firstObservedDate | `String` | — | Date when the relationship was first observed |
+| lastObservedDate | `String` | — | Date when the relationship was last observed |
+| rank | `Int` | — | Ranking value for the relationship |
+| internalId | `String` | — | Internal identifier for the edge |
+| internalPersonIsInstanceOfLegalEntityId | `String` | — | Internal string identifier for person-entity link |
 
-## Type Information
+## Interfaces Implemented
+None
 
-- **Category**: Edge
-- **URL Slug**: `legal-entity-person-edge`
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** `LegalEntityPersonConnection`
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-## Documentation
-
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[LegalEntityPersonEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-person-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-person-edge

@@ -1,24 +1,24 @@
 # OperatingLocationRevenueQualityEdge
 
 ## Overview
+A Relay edge containing an `OperatingLocationRevenueQuality` and its cursor.
 
-Documentation for the `OperatingLocationRevenueQualityEdge` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | [`OperatingLocationRevenueQuality`](/reference/graphql_api/objects/operating-location-revenue-quality) | None | The item at the end of the edge |
+| cursor | [`String!`](/reference/graphql_api/scalars/string) | None | A cursor for use in pagination |
 
-- **Category**: Edge
-- **URL Slug**: `operating-location-revenue-quality-edge`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** [`OperatingLocationRevenueQualityConnection`](/reference/graphql_api/objects/operating-location-revenue-quality-connection)
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[OperatingLocationRevenueQualityEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-revenue-quality-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-revenue-quality-edge

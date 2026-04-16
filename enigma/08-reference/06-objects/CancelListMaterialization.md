@@ -1,24 +1,23 @@
 # CancelListMaterialization
 
 ## Overview
+No description
 
-Documentation for the `CancelListMaterialization` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `listMaterialization` | [`ListMaterialization`](/reference/graphql_api/objects/list-materialization) | None | None |
 
-- **Category**: Mutation Response
-- **URL Slug**: `cancel-list-materialization`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** Returned by [`cancelListMaterialization`](/reference/graphql_api/mutations/cancel-list-materialization) mutation
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[CancelListMaterialization Documentation](https://documentation.enigma.com/reference/graphql_api/objects/cancel-list-materialization)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/cancel-list-materialization

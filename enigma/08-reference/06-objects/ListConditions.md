@@ -1,24 +1,24 @@
 # ListConditions
 
 ## Overview
+No description provided.
 
-Documentation for the `ListConditions` GraphQL object type in the Enigma API.
+## Fields
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `filter` | `JSON` | — | No description |
+| `orderBy` | `[String]` | — | No description |
+| `limit` | `Int` | — | No description |
 
-## Type Information
+## Interfaces Implemented
+None
 
-- **Category**: Query/Search
-- **URL Slug**: `list-conditions`
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** `ListSearchInput`
+- **Referenced by Object(s):** None
 
-## Documentation
-
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[ListConditions Documentation](https://documentation.enigma.com/reference/graphql_api/objects/list-conditions)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/list-conditions

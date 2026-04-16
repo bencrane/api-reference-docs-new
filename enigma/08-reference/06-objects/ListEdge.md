@@ -2,23 +2,27 @@
 
 ## Overview
 
-Documentation for the `ListEdge` GraphQL object type in the Enigma API.
+A Relay edge containing a `List` and its cursor.
 
-## Type Information
+## Fields
 
-- **Category**: Edge
-- **URL Slug**: `list-edge`
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `node` | [`List`](/reference/graphql_api/objects/list) | None | The item at the end of the edge |
+| `cursor` | [`String!`](/reference/graphql_api/scalars/string) | None | A cursor for use in pagination |
 
-## Documentation
+## Interfaces Implemented
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
+None
 
-[ListEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/list-edge)
+## Type Membership
 
-## Notes
+- **Member of Edge(s):** None
+- **Member of Connection(s):** [`ListConnection`](/reference/graphql_api/objects/list-connection)
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
+## Source
 
----
-
-*Auto-generated on 2026-03-18*
+https://documentation.enigma.com/reference/graphql_api/objects/list-edge

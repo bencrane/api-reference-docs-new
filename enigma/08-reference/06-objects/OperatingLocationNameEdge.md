@@ -1,24 +1,23 @@
 # OperatingLocationNameEdge
 
 ## Overview
+A Relay edge containing an `OperatingLocationName` and its cursor for pagination purposes.
 
-Documentation for the `OperatingLocationNameEdge` GraphQL object type in the Enigma API.
+## Fields
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| node | [`OperatingLocationName`](/reference/graphql_api/objects/operating-location-name) | None | The item at the end of the edge |
+| cursor | [`String!`](/reference/graphql_api/scalars/string) | None | A cursor for use in pagination |
 
-## Type Information
+## Interfaces Implemented
+None
 
-- **Category**: Edge
-- **URL Slug**: `operating-location-name-edge`
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** [`OperatingLocationNameConnection`](/reference/graphql_api/objects/operating-location-name-connection)
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-## Documentation
-
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[OperatingLocationNameEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-name-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-name-edge

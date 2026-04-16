@@ -1,24 +1,24 @@
 # LegalEntityBankruptcyEdge
 
 ## Overview
+A Relay edge containing a `LegalEntityBankruptcy` and its cursor.
 
-Documentation for the `LegalEntityBankruptcyEdge` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `node` | `LegalEntityBankruptcy` | — | The item at the end of the edge |
+| `cursor` | `String!` | — | A cursor for use in pagination |
 
-- **Category**: Edge
-- **URL Slug**: `legal-entity-bankruptcy-edge`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** `LegalEntityBankruptcyConnection`
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** None
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[LegalEntityBankruptcyEdge Documentation](https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-bankruptcy-edge)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/legal-entity-bankruptcy-edge

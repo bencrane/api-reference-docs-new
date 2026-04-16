@@ -1,24 +1,24 @@
 # OperatingLocationWebsiteConnection
 
 ## Overview
+No description
 
-Documentation for the `OperatingLocationWebsiteConnection` GraphQL object type in the Enigma API.
+## Fields
 
-## Type Information
+| Field Name | Type | Arguments | Description |
+|---|---|---|---|
+| `pageInfo` | [`PageInfo!`](/reference/graphql_api/objects/page-info) | — | Pagination data for this connection. |
+| `edges` | [`[OperatingLocationWebsiteEdge]!`](/reference/graphql_api/objects/operating-location-website-edge) | — | Contains the nodes in this connection. |
 
-- **Category**: Connection
-- **URL Slug**: `operating-location-website-connection`
+## Interfaces Implemented
+None
 
-## Documentation
+## Type Membership
+- **Member of Edge(s):** None
+- **Member of Connection(s):** None
+- **Member of Union(s):** None
+- **Referenced by Input(s):** None
+- **Referenced by Object(s):** [`OperatingLocation`](/reference/graphql_api/objects/operating-location)
 
-For complete documentation including all fields, types, descriptions, and relationships, please visit the official Enigma documentation:
-
-[OperatingLocationWebsiteConnection Documentation](https://documentation.enigma.com/reference/graphql_api/objects/operating-location-website-connection)
-
-## Notes
-
-This is an auto-generated placeholder. Full documentation should be fetched from the source URL above.
-
----
-
-*Auto-generated on 2026-03-18*
+## Source
+https://documentation.enigma.com/reference/graphql_api/objects/operating-location-website-connection
