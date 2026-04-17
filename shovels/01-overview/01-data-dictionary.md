@@ -1,5 +1,25 @@
 # Overview - Shovels - Data Dictionary
 
+> **[UPDATED 2026-04-16 — Release v2.1.7]** The 2026-04-02 v2.1.7 release materially changed several facts below. Note the following global corrections before relying on any row:
+>
+> - **Contractor `ID` persistence:** Contractor IDs were **fully regenerated on 2026-04-02**. Only 81.8% of pre-04-02 IDs map to new IDs via the changelog. The description "unique persistent Shovels ID" is misleading — IDs have been regenerated at least once and can change when branch-level details are discovered. See `17-knowledge-base/05-contractor-id-changes.md` and `13-release-notes/01-release-notes.md` v2.1.7.
+> - **`FIRST_SEEN_DATE` semantics:** All values were **reset** in v2.1.7 and now fall in the range 2025-05-19 through 2026-03-28. The field no longer reflects the original date a contractor first appeared in Shovels data — it reflects the date they first appeared in the Shovels-owned pipeline post-pipeline-transition.
+> - **Dataset scale:** Overall permit count decreased from **216M → 130M** (third-party data removed). Contractors dropped from **3.9M → 2.5M**. VT, RI, MA, CT, DE, WI, NM all lost >80% of permits; DC was dropped entirely. Geocoding coverage 72%→67%. Inspection data 15%→3%. Employee records 38.1M→12.8M. Resident records 45.9M→27.6M.
+> - **New permit field `description_derived`** was added 2026-04-02 with 62.4% coverage (81M permits). See permit field list below.
+>
+> Source: https://docs.shovels.ai/release-notes/release-notes
+
+## Permit fields (partial — see authoritative source for full list)
+
+Several permit-level fields frequently referenced by the API. This dictionary section was historically contractor-only; permit fields are listed here for quick reference.
+
+| FIELD | DESCRIPTION | TYPE | SOURCE |
+|-------|-------------|------|--------|
+| description_derived | `[Added 2026-04-02]` Shovels-derived permit description. Available on 81M permits (62.4% coverage). Produced by the Shovels-owned pipeline post-v2.1.7. | String | Created by Shovels |
+| first_seen_date | Date the permit first appeared in Shovels. `[UPDATED 2026-04-16]` Values reset post-v2.1.7 — all values now in 2025-05-19 through 2026-03-28. | Date | Created by Shovels |
+
+## Contractor fields
+
 | FIELD | DESCRIPTION | TYPE | In API and/or Enterprise? | SOURCE |
 |-------|-------------|------|---------------------------|--------|
 | ADDRESS_ID | The Shovels geo_ID of the contractor address | String | BOTH | Created by Shovels |
@@ -16,9 +36,9 @@
 | DBA | "Doing Business As" (DBA) name associated with a contractor or business as recorded on a permit | String | BOTH | Enhanced by Shovels |
 | EMAIL | Email addresses associated with a contractor. Emails are separated by commas and ordered by frequency. | String | BOTH | Provided by jurisdiction |
 | EMPLOYEE_COUNT | The employee range of the contractor as provided by public social media records: 1 to 10, 11 to 25, 26 to 50, 51 to 100, 101 to 250, 251 to 500, 501 to 1000, 1001 to 5000, 5001 to 10000, 10000+ | String | BOTH | Enhanced by Shovels |
-| FIRST_SEEN_DATE | Date contractor first appeared in Shovels data | Date | BOTH | Created by Shovels |
+| FIRST_SEEN_DATE | Date contractor first appeared in Shovels data. **[UPDATED 2026-04-16 — Release v2.1.7]** All values reset on 2026-04-02; all values now fall in 2025-05-19 through 2026-03-28. | Date | BOTH | Created by Shovels |
 | GROUP_ID | Identifies that a contractor likely shares a common parent company | String | EDL | Enhanced by Shovels |
-| ID | The unique persistent Shovels ID that joins to Permits on contractor_id | String | BOTH | Created by Shovels |
+| ID | The unique persistent Shovels ID that joins to Permits on contractor_id. **[UPDATED 2026-04-16 — Release v2.1.7]** Contractor IDs were fully regenerated on 2026-04-02. Only 81.8% of pre-04-02 IDs map to new IDs via the contractor-ID changelog. IDs are branch-level and may change when Shovels discovers new business-address details. Treat IDs as semi-stable, not persistent. See `17-knowledge-base/05-contractor-id-changes.md`. | String | BOTH | Created by Shovels |
 | IS_REPRESENTATIVE | Represents the contractor group (GROUP_ID) | String | EDL | Created by Shovels |
 | JURISDICTION | The jurisdiction of the contractor's address | String | BOTH | Created by Shovels |
 | LATLNG | The latitude and longitude of the contractor's address | String | BOTH | Enhanced by Shovels |

@@ -125,3 +125,13 @@ Schema for paginated contractors details response.
 - The `permit_q` parameter uses full-text search with English stemming (e.g., 'installing' matches 'install'). Multi-word queries use AND semantics (e.g., 'solar panel' finds permits mentioning both words).
 - Contractors are ordered by the start date of the most recent permit on which they worked.
 - Set `include_tallies=false` for faster response times when tallies are not needed.
+
+> **[UPDATED 2026-04-16]** The `permit_q` semantics described here (full-text + English stemming + multi-word AND) are the canonical KB description (added v2.1.4, 2026-01-01). Note: the permit-side search endpoint (`02-permits/01-search-permits.md`) describes `permit_q` as "substring, case-insensitive, max 50." The inconsistency is unresolved in the authoritative docs; treat both variants as possible and test against your use case.
+
+> **[UPDATED 2026-04-16 — Release v2.1.7]** Returned contractor `id` values were fully regenerated on 2026-04-02. Only 81.8% of pre-04-02 IDs map via the changelog. A `ContractorsRead.id` obtained today will not match one cached from before 2026-04-02. See `../17-knowledge-base/05-contractor-id-changes.md`.
+
+> **[UPDATED 2026-04-16 — Release v2.1.7]** Contractor dataset shrank from 3.9M → 2.5M. Search results in jurisdictions hit by the v2.1.7 pipeline transition (VT, RI, MA, CT, DE, WI, NM, DC) will return materially less than before.
+
+> **[UPDATED 2026-04-16]** Cursor-only pagination since 2025-08-01. See `../14-api-basics/06-pagination.md`.
+
+> **[UPDATED 2026-04-16]** Unresolved `geo_id` returns 422. See `../15-errors/02-error-422.md`.

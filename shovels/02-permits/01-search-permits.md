@@ -30,6 +30,9 @@ curl --request GET \
 | cursor | string \| null | No | — | Cursor for pagination |
 | size | integer | No | 50 | Required range: 1 <= x <= 100 |
 | permit_q | string \| null | No | — | Substring to search for in permit description (case-insensitive). Matches anywhere in the text, including partial words. Max length: 50 |
+| size | — | — | — | See note below: max `size=100`, default `50`. See `14-api-basics/05-permits-per-call.md`. |
+
+> **[UPDATED 2026-04-16]** `permit_q` semantics may differ from the contractor-side `permit_q`. The contractor-side description (per the KB) describes full-text matching with **English stemming** (added v2.1.4, 2026-01-01) and **multi-word AND**. This permit-side row describes "substring, case-insensitive, max 50." The contradiction is unresolved in the authoritative docs; use with care and test both shapes empirically if search recall matters.
 | permit_status | string[] | No | — | Filter by one or more statuses: final, in_review, inactive, active. Max array length: 4 |
 | permit_min_approval_duration | integer \| null | No | — | Filter by the minimum permit approval duration in days. |
 | permit_min_construction_duration | integer \| null | No | — | Filter by the minimum project construction duration in days. |
@@ -61,6 +64,14 @@ Schema for paginated permits details response.
 | next_cursor | string \| null | Yes | The cursor for retrieving the next page of results. |
 
 ### PermitsRead Object
+
+> **[UPDATED 2026-04-16 — Release v2.1.7]** The `PermitsRead` object gained a new field `description_derived` on 2026-04-02 (62.4% coverage, 81M permits). It is a Shovels-derived permit description produced by the Shovels-owned pipeline post-v2.1.7 and is not shown in the example below. See `../01-overview/01-data-dictionary.md` and `../13-release-notes/01-release-notes.md` v2.1.7.
+>
+> Also note: as of v2.1.7 overall permit scope shrank from 216M → 130M; VT, RI, MA, CT, DE, WI, NM lost >80% of permits; DC was dropped. Historic results from pre-04-02 queries may not reproduce.
+
+**Added fields (not in the example JSON):**
+
+- `description_derived` — string, nullable. `[Added 2026-04-02]` Shovels-derived permit description, 62.4% coverage.
 
 ```json
 {
@@ -117,3 +128,7 @@ Schema for paginated permits details response.
 - Multiple parameters are treated as AND queries.
 - Use `contractor_classification_derived` to filter by contractor's derived classifications (ALL specified values required).
 - Pagination is cursor-based via the `next_cursor` field in the response.
+
+> **[UPDATED 2026-04-16]** Offset (`page` parameter) pagination was **removed 2025-08-01**. Cursor-based pagination via `next_cursor` is the only supported model. See `../14-api-basics/06-pagination.md`.
+
+> **[UPDATED 2026-04-16]** A missing/unresolved `geo_id` returns **HTTP 422**. See `../15-errors/02-error-422.md` for the canonical resolve-via-address-search pattern.
